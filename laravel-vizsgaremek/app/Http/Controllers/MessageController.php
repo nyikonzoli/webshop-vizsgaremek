@@ -72,6 +72,7 @@ class MessageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $message = Message::findOrFail($id);
+        Message::destroy($Message->getKey());
     }
 }
