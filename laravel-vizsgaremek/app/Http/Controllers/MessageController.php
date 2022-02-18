@@ -30,9 +30,11 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MessageStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $message = Message::create($validated);
+        return new MessageResource($message);
     }
 
     /**
