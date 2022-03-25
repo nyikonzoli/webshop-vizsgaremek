@@ -9,4 +9,8 @@ class Category extends Model
 {
     protected $table = 'categories';
     public $timestamps = false;
+
+    public function productConnection() {
+        return $this->hasMany(Product::class, 'categoryId');
+    }
 }
