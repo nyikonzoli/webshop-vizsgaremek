@@ -13,5 +13,15 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'categoryId');
     }
 
-    //TODO: maradék
+    public function imageConnection() {
+        return $this->hasMany(Image::class, 'productId');
+    }
+
+    public function conversationConnection() {
+        return $this->hasMany(Conversation::class, 'productId');
+    }
+
+    public function userConnection() {
+        return $this->belongsTo(User::class, 'userId');
+    }
 }
