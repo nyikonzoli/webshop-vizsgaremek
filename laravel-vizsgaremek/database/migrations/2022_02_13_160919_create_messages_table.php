@@ -17,7 +17,7 @@ class CreateMessagesTable extends Migration
             $table->id();
             $table->foreignId('conversationId');
             $table->string('content');
-            $table->date('date');
+            $table->dateTime('date');
             $table->foreignId('userId');
         });
     }
