@@ -43,4 +43,34 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    public function reviewsSellerConnection(){
+        return $this->hasMany(Review::class, 'selledId');
+    }
+
+    public function reviewsBuyerConnection(){
+        return $this->hasMany(Review::class, 'buyerId');
+    }
+
+    public function conversationsUser1Connection(){
+        return $this->hasMany(Conversation::class, 'user1Id');
+    }
+
+    public function conversationsUser2Connection(){
+        return $this->hasMany(Conversation::class, 'user2Id');
+    }
+
+    public function transactionsConnection(){
+        return $this->hasMany(Transaction::class, 'userId');
+    }
+
+    public function favouritesConnection(){
+        return $this->hasMany(Favourite::class, 'userId');
+    }
+
+    public function productsConnection(){
+        return $this->hasMany(Product::class, 'userId');
+    }
+
+    //TODO: Átnézni
 }
