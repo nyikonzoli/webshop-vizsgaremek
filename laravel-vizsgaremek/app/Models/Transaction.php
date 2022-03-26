@@ -9,7 +9,11 @@ class Transaction extends Model
 {
     public $timestamps = false;
 
-    public function usersConnection(){
-        return $this->belongsTo(User::class);
+    public function userConnection(){
+        return $this->belongsTo(User::class, 'userId');
+    }
+
+    public function productConnection(){
+        return $this->belongsTo(Product::class, 'productId');
     }
 }

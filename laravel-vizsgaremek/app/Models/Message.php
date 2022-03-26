@@ -16,4 +16,12 @@ class Message extends Model
         "date",
         "userId"
     ];
+
+    public function conversatoinConnection(){
+        return $this->belongsTo(Conversation::class, 'conversationId');
+    }
+
+    public function userConnection(){
+        return $this->belongsTo(User::class, 'userId');
+    }
 }
