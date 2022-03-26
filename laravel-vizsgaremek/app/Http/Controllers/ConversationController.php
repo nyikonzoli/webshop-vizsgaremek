@@ -30,9 +30,11 @@ class ConversationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ConversationStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $conversation = Conversation::create($validated);
+        return new ConversatoinResource($conversation);
     }
 
     /**
@@ -43,7 +45,8 @@ class ConversationController extends Controller
      */
     public function show($id)
     {
-        //
+        $conversation = Conversation::findOrFail($id);
+        return new ConversationResource($conversation);
     }
 
     /**
@@ -55,7 +58,10 @@ class ConversationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validated();
+        $conversation = Conversation::findOrFail($id);
+        $conversation->update($validated)
+        return new ConversationResource($conversation);
     }
 
     /**
