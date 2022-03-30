@@ -34,7 +34,7 @@
                     {{ Form::file('profile_picture', ['class' => 'form-control']) }}
                 </div>   
                 <div class="mb-3">
-                    {{ Form::submit('Next', ['class' => 'btn btn-primary']) }}
+                    {{ Form::submit('Register', ['class' => 'btn btn-primary']) }}
                 </div>
             {{ Form::close() }}
         </div>

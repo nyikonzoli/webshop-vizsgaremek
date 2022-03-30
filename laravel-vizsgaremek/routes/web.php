@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\RegisterController;
 //Register
 Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+//Login
+Route::post('/login', [AuthController::class, 'authentication'])->name('auth.authentication');
 
 //Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
