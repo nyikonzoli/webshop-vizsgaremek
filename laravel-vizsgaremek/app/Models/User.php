@@ -74,5 +74,12 @@ class User extends Authenticatable
         return $this->hasMany(Product::class, 'userId');
     }
 
-    //TODO: Átnézni
+    public function getProfilePictureURI(){
+        if (is_null($this->profilePictureURI)){
+            return asset('profile_pictures/placeholder.jpg');
+        }
+        else{
+            return $this->profilePictureURI;
+        }
+    }
 }

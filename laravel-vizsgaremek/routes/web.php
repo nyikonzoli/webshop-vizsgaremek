@@ -21,7 +21,7 @@ Route::get('/register', [RegisterController::class, 'show'])->name('register.sho
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 //Login
-Route::post('/login', [AuthController::class, 'authentication'])->name('auth.authentication');
+Route::post('/login', [AuthController::class, 'authentication'])->name('auth');
 
 //Profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');

@@ -14,6 +14,6 @@ class Review extends Model
     }
 
     public function buyerConnection(){
-        return $this->belongsTo(User:class, 'buyerId');
+        return $this->belongsTo(User::class, 'buyerId');
     }
 }
