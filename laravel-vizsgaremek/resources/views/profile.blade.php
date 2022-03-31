@@ -17,6 +17,7 @@
                         <div class="col-md-3 y-2" style="background: gray">
                             {{--<span style="background-image: url('{{asset("img/f.png")}}'); background-size: contain; display: block; width: 20px; height: 20px"></span>--}}
                             <img src="{{asset("img/f.png")}}" alt="" class="img-fluid" style="object-fit: cover; height: 400px; width: 400px;">
+                            {{--Intervention io--}}
                         </div>
                         <div class="col-md-9">
                             <div class="card-body">
