@@ -5,9 +5,6 @@
 @section('content')
     <div>
         <div>
-
-        </div>
-        <div>
             {{ Form::open(['route' => 'register.store', 'files' => true]) }}
                 <div class="mb-3">
                     {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
@@ -39,7 +36,13 @@
             {{ Form::close() }}
         </div>
         <div>
-
+            @if($errors->any)
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger my-1">
+                        {{$error}}
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 @endsection

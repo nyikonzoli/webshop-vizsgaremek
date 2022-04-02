@@ -17,10 +17,7 @@ class RegisterController extends Controller
     public function store(RegisterStoreRequest $request){
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
-        if(!isset($data['profile_picture']) || is_null($data['profile_picture'])){
-            $data['profilePictureURI'] = url('/profile_pictures/placeholder.jpg');
-        }
-        else{
+        if(!is_null($data['profile_picture'])){
             $data['profilePictureURI'] = $data['profile_picture']->store('profile_pictures');
         }
         User::create($data);

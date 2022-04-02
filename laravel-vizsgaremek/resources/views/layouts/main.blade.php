@@ -19,8 +19,15 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <div class="d-flex">
-            <button class="btn btn-outline-primary" type="submit">Register</button>
-            <button class="btn btn-outline-primary" type="submit" onclick="openModal()">Login</button>
+            @auth
+                <span class="navbar-text">
+                    {{ \Illuminate\Support\Facades\Auth::user()->name }}
+                </span>
+                <img src=" {{ \Illuminate\Support\Facades\Auth::user()->getProfilePictureURI() }}" alt="" width="45px" height="45px">
+            @else
+                <button class="btn btn-outline-primary" type="submit">Register</button>
+                <button class="btn btn-outline-primary" type="submit" onclick="openModal()">Login</button>
+            @endauth
         </div>
     </div>
     </nav>
@@ -33,7 +40,8 @@
                     <h5 class="modal-title">Login</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                {{ Form::open(['route' => 'register.store']) }}
+                {{ Form::open(['route' => 'auth']) }}
+                    
                     <div class="modal-body">
                         <div class="mb-3">
                             {{ Form::label('email', 'Email', ['class' => 'form-label']) }}

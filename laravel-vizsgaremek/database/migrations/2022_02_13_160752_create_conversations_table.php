@@ -17,7 +17,7 @@ class CreateConversationsTable extends Migration
             $table->id();
             $table->foreignId('user1Id');
             $table->foreignId('user2Id');
-            $table->foreginId('productId');
+            $table->foreignId('productId');
         });
     }
 
