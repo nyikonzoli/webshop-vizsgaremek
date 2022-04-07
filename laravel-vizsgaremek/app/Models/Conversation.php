@@ -9,15 +9,15 @@ class Conversation extends Model
 {
     public $timestamps = false;
     
-    public function user1Connection(){
-        return $this->belongsTo(User::class, 'user1Id');
+    public function buyer(){
+        return $this->belongsTo(User::class, 'buyerId');
     }
 
-    public function user2Connection(){
-        return $this->belongsTo(User::class, 'user2Id');
+    public function seller(){
+        return $this->belongsTo(User::class, 'sellerId');
     }
 
-    public function productConnection(){
+    public function product(){
         return $this->belongsTo(Product::class, 'productId');
     }
 }

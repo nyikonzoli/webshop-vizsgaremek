@@ -4,11 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ConversationStoreRequest;
-use App\Http\Resources\ConversationResource;
+use App\Http\Resources\ConversationBuysResource;
+use App\Http\Resources\ConversationSalesResource;
 use App\Models\Conversation;
 
 class ConversationController extends Controller
 {
+    public function messages(){
+        return view('messages');
+    }
+
+    public function sales(){
+        $user = auth()->user();
+        $conversations = $user->salesConversations;
+        $conversationsReturn = [];
+        foreach ($conversations as $conversation) {
+            $conversationsReturn[] = new ConversationSalesResource($conversation);
+        }
+        return $conversationsReturn;
+    }
+
+    public function buys(){
+        $user = auth()->user();
+        $conversations = $user->buysConversations;
+        $conversationsReturn = [];
+        foreach ($conversations as $conversation) {
+            $conversationsReturn[] = new ConversationBuysResource($conversation);
+        }
+        return $conversationsReturn;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -60,7 +85,7 @@ class ConversationController extends Controller
     {
         $validated = $request->validated();
         $conversation = Conversation::findOrFail($id);
-        $conversation->update($validated)
+        $conversation->update($validated);
         return new ConversationResource($conversation);
     }
 

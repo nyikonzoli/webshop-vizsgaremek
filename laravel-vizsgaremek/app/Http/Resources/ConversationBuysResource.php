@@ -3,8 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\User;
 
-class ConversationResource extends JsonResource
+class ConversationBuysResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +16,8 @@ class ConversationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "user1Id" => $this->user1Id,
-            "user2Id" => $this->user2Id,
+            "partnerName" => User::find($this->sellerId)->name,
+            "partnerProfilepictureURI" => User::find($this->sellerId)->getProfilePictureURI(),
         ];
     }
 }

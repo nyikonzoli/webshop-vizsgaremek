@@ -54,12 +54,12 @@ class User extends Authenticatable
         return $this->hasMany(Review::class, 'buyerId');
     }
 
-    public function conversationsUser1Connection(){
-        return $this->hasMany(Conversation::class, 'user1Id');
+    public function buysConversations(){
+        return $this->hasMany(Conversation::class, 'buyerId');
     }
 
-    public function conversationsUser2Connection(){
-        return $this->hasMany(Conversation::class, 'user2Id');
+    public function salesConversations(){
+        return $this->hasMany(Conversation::class, 'sellerId');
     }
 
     public function transactionsConnection(){

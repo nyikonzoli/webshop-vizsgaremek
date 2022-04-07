@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ConversationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,11 @@ use App\Http\Controllers\UserController;
 |
 */
 
+//Middlewares
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
 //Message routes
 Route::get('messages', [MessageController::class, 'index'])->name('messages.name');
 Route::post('messages', [MessageController::class, 'store'])->name('messages.store');
@@ -24,9 +30,10 @@ Route::get('messages/{id}', [MessageController::class, 'show'])->name('messages.
 Route::put('messages/{id}', [MessageController::class, 'update'])->name('messages.update');
 Route::delete('messages/{id}', [MessageController::class, 'destroy'])->name('messages.destroy');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Conversation routes
+Route::get('conversation/buys', [ConversationController::class, 'buys'])->middleware('auth:sanctum')->name('conversation.buys');
+Route::get('conversation/sales', [ConversationController::class, 'sales'])->middleware('auth:sanctum')->name('conversation.sales');
+
 
 Route::get('name', function(){
     dd(auth()->user()->name);

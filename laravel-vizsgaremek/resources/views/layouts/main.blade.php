@@ -7,15 +7,6 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script>
-        function f(){
-            fetch('http://localhost:8881/api/name', {method: 'get'}).then(data => data.json()).then(data => p(data));
-        }
-
-        function p (data){
-            document.getElementById('asd').innerHTML = data;
-        }
-    </script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>@yield('title')</title>
 </head>
@@ -37,14 +28,13 @@
                     <img src=" {{ \Illuminate\Support\Facades\Auth::user()->getProfilePictureURI() }}" alt="" width="45px" height="45px">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="profileOptions">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Messages</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ route('messages') }}">Messages</a></li>
                         <li><a class="dropdown-item" href="#">Items</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#">Logout</a></li>
                     </ul>
                 </div>
-
             @else
                 <button class="btn btn-outline-primary" type="submit">Register</button>
                 <button class="btn btn-outline-primary" type="submit" onclick="openModal()">Login</button>
@@ -53,10 +43,6 @@
     </div>
     </nav>
     @yield('content')
-    <p id="asd"></p>
-    <button onclick="f()">a</button>
-    
-
     <div class="modal" tabindex="-1" id="loginModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -78,8 +64,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-primary">Login</button>
-                        {{-- Form::submit('Login', ['class' => 'btn btn-primary']) --}}
+                        <button class="btn btn-primary" onclick="sendForm()">Login</button>
                     </div>
                 {{ Form::close() }}
             </div>
@@ -93,6 +78,7 @@
         }
 
         function sendForm(){
+            axios.defaults.withCredentials = true;
             form = document.getElementById('loginForm');
             axios.get('/sanctum/csrf-cookie').then(response => {
                 form.submit();

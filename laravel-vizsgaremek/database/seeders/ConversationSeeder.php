@@ -16,23 +16,27 @@ class ConversationSeeder extends Seeder
     {
         DB::table('conversations')->insert([
             'id' => 1,
-            'user1Id' => 1,
-            'user2Id' => 2,
+            'buyerId' => 1,
+            'sellerId' => 2,
+            'productId' => 0
         ]);
         DB::table('conversations')->insert([
             'id' => 2,
-            'user1Id' => 1,
-            'user2Id' => 3,
+            'buyerId' => 1,
+            'sellerId' => 3,
+            'productId' => 0
         ]);
         DB::table('conversations')->insert([
             'id' => 3,
-            'user1Id' => 3,
-            'user2Id' => 5,
+            'buyerId' => 3,
+            'sellerId' => 5,
+            'productId' => 0
         ]);
         DB::table('conversations')->insert([
             'id' => 4,
-            'user1Id' => 4,
-            'user2Id' => 2,
+            'buyerId' => 4,
+            'sellerId' => 2,
+            'productId' => 0
         ]);
     }
 }
