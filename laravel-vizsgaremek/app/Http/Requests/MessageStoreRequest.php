@@ -26,7 +26,6 @@ class MessageStoreRequest extends FormRequest
         return [
             "conversationId" => "required",
             "content" => "required",
-            "date" => "required|date",
             "userId" => "required"
         ];
     }

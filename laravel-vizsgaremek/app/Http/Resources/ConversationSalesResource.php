@@ -16,8 +16,9 @@ class ConversationSalesResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "partnerName" => User::find($this->buyerId)->name,
-            "partnerProfilepictureURI" => User::find($this->buyerId)->getProfilePictureURI(),
+            "id" => $this->id,
+            "partnerName" => $this->buyer->name,
+            "partnerProfilepictureURI" => $this->buyer->getProfilePictureURI(),
         ];
     }
 }

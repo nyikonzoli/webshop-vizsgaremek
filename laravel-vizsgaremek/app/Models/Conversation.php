@@ -20,4 +20,8 @@ class Conversation extends Model
     public function product(){
         return $this->belongsTo(Product::class, 'productId');
     }
+
+    public function messages(){
+        return $this->hasMany(Message::class, 'conversationId');
+    }
 }

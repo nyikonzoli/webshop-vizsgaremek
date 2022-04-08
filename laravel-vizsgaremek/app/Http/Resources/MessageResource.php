@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\User;
 
 class MessageResource extends JsonResource
 {
@@ -15,10 +16,9 @@ class MessageResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "conversationId" => $this->conversationId,
             "content" => $this->content,
             "date" => $this->date,
+            "profilePictureURI" => $this->user->getProfilePictureURI(),
             "userId" => $this->userId,
         ];
     }

@@ -17,11 +17,11 @@ class Message extends Model
         "userId"
     ];
 
-    public function conversatoinConnection(){
+    public function conversation(){
         return $this->belongsTo(Conversation::class, 'conversationId');
     }
 
-    public function userConnection(){
+    public function user(){
         return $this->belongsTo(User::class, 'userId');
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\User;
+use App\Http\Resources\MessageResource;
 
-class ConversationBuysResource extends JsonResource
+class ConversationMessagesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,13 @@ class ConversationBuysResource extends JsonResource
      */
     public function toArray($request)
     {
+        $messages = $this->messages;
+        $resources = [];
+        foreach ($messages as $message) {
+            $resources[] = new MessageResource($message);
+        }
         return [
-            "id" => $this->id,
-            "partnerName" => $this->seller->name,
-            "partnerProfilepictureURI" => $this->seller->getProfilePictureURI(),
+            "messages" => $resources,
         ];
     }
 }

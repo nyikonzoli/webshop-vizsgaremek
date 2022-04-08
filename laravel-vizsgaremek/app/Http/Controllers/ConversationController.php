@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ConversationStoreRequest;
 use App\Http\Resources\ConversationBuysResource;
 use App\Http\Resources\ConversationSalesResource;
+use App\Http\Resources\ConversationMessagesResource;
 use App\Models\Conversation;
 
 class ConversationController extends Controller
@@ -70,8 +71,11 @@ class ConversationController extends Controller
      */
     public function show($id)
     {
-        $conversation = Conversation::findOrFail($id);
-        return new ConversationResource($conversation);
+        $user = auth()->user();
+        $conversation = Conversation::where(function ($query) use ($user){
+            $query->where('sellerId', '=', $user->id)->orWhere('buyerId', '=', $user->id);
+        })->where('id', '=', $id)->firstOrFail();
+        return new ConversationMessagesResource($conversation);
     }
 
     /**

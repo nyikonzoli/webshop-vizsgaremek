@@ -1,0 +1,45 @@
+.conversations{
+    width: 300px;
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.conversations:hover{
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.conversations>img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 16px;
+}
+
+.message{
+    width: fit-content;
+    max-width: 300px;
+    height: fit-content;
+    border-radius: 10px;
+    margin: 8px;
+}
+
+.own{
+    background-color: royalblue;
+    color: white;
+}
+
+.partner{
+    background-color: lightgray;
+    color:black;
+}
+
+.message-content{
+    margin: auto;
+    padding-left: 8px;
+    padding-right: 8px;
+}
