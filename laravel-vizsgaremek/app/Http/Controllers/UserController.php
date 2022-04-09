@@ -8,14 +8,13 @@ use App\Http\Resources\UserResourceAdmin;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function index($id) {
+        $data = User::findOrFail($id);
+        return view('profile', [
+            'title' => "$data->name's profile",
+            'username' => $data->name,
+            'user' => $data
+        ]);
     }
 
     /**

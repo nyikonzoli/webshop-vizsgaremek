@@ -1,20 +1,17 @@
-<?php
-    $user = \Illuminate\Support\Facades\Auth::user();
-?>
 @extends('layouts.main')
 
-@section('title', 'Profile')
+@section('title', $title)
 
 @section('content')
     <div class="container py-5">
         <div class="row" id="header">
             <div class="col-sm-12 col-md-3">
-                {{-- <img src="{{ $user->getProfilePictureURI() }}" alt="" class="mx-auto my-3 d-block img-fluid" style="border-radius: 50%"> --}}
+{{--                <img src="{{ $user->getProfilePictureURI() }}" alt="" class="mx-auto my-3 d-block img-fluid" id="pfp">--}}
                 <img src="{{ asset("img/f.png") }}" alt="" class="mx-auto my-3 d-block img-fluid" id="pfp">
-                <h3 class="text-center">User</h3>
+                <h3 class="text-center">{{ $username }}</h3>
             </div>
             <div class="col-sm-12 col-md-9 py-3">
-                <h3>About User</h3>
+                <h3 class="sm-text-center">About {{ $username }}</h3>
 {{--                <form>--}}
 {{--                    <textarea name="" id="" style="height: 100%;" class="form-control" disabled readonly>asdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasda--}}
 {{--                    </textarea>--}}
