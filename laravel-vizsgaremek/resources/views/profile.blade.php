@@ -1,16 +1,27 @@
+<?php
+    $user = \Illuminate\Support\Facades\Auth::user();
+?>
 @extends('layouts.main')
 
 @section('title', 'Profile')
 
 @section('content')
     <div class="container py-5">
-        <div class="row" style="background: #718096">
-            <div class="col-sm-12 col-md-3" style="background: red">
-                <img src="{{asset("img/f.png")}}" alt="" class="mx-auto my-3 d-block img-fluid" style="border-radius: 50%">
-                <p class="text-center fs-3">User</p>
+        <div class="row" id="header">
+            <div class="col-sm-12 col-md-3">
+                {{-- <img src="{{ $user->getProfilePictureURI() }}" alt="" class="mx-auto my-3 d-block img-fluid" style="border-radius: 50%"> --}}
+                <img src="{{ asset("img/f.png") }}" alt="" class="mx-auto my-3 d-block img-fluid" id="pfp">
+                <h3 class="text-center">User</h3>
             </div>
             <div class="col-sm-12 col-md-9 py-3">
-                <p class="text-break">asdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasda</p>
+                <h3>About User</h3>
+{{--                <form>--}}
+{{--                    <textarea name="" id="" style="height: 100%;" class="form-control" disabled readonly>asdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasda--}}
+{{--                    </textarea>--}}
+{{--                </form>--}}
+                <p class="text-break">
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec suscipit erat, nec fermentum nisl. Etiam leo lorem, condimentum vitae pretium vitae, vestibulum sit amet sem. Nulla auctor convallis congue. Praesent sollicitudin felis nisi, non consectetur eros iaculis ut. Duis et nisl sed augue lacinia porttitor. Duis quis maximus diam. In massa purus, fringilla vehicula quam vel, tempor faucibus enim. Sed quis pharetra sapien. Nunc et nibh cursus, viverra justo vitae, iaculis lorem. Sed nunc. </p>
                 <div class="row my-3">
                     <div class="col-12 col-md-3"><p>27 products listed</p></div>
                     <div class="col-12 col-md-3"><p>12 products sold</p></div>
