@@ -51,6 +51,10 @@ class RegisterStoreRequest extends FormRequest
             'profile_picture' => [
                 'nullable',
                 'image'
+            ],
+            'categories' => [
+                'nullable',
+                'array'
             ]
         ];
     }

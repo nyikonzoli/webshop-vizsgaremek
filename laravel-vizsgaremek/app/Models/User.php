@@ -74,6 +74,10 @@ class User extends Authenticatable
         return $this->hasMany(Product::class, 'userId');
     }
 
+    public function categories(){
+        return $this->belongsToMany(Category::class);
+    }
+
     public function getProfilePictureURI(){
         if (is_null($this->profilePictureURI)){
             return asset('profile_pictures/placeholder.jpg');

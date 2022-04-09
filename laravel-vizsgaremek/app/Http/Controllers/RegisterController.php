@@ -7,11 +7,13 @@ use App\Http\Requests\RegisterStoreRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Models\Category;
 
 class RegisterController extends Controller
 {
     public function show(){
-        return view('register');
+        $categories = Category::all();
+        return view('register')->with('categories', $categories);
     }
 
     public function store(RegisterStoreRequest $request){
@@ -20,7 +22,10 @@ class RegisterController extends Controller
         if(!is_null($data['profile_picture'])){
             $data['profilePictureURI'] = $data['profile_picture']->store('profile_pictures');
         }
-        User::create($data);
+        $user = User::create($data);
+        foreach ($request->categories as $category) {
+            $user->categories()->attach($category);
+        }
         return back();
     }
 }

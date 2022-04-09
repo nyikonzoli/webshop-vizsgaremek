@@ -25,11 +25,17 @@
                 <div class="mb-3">
                     {{ Form::label('birthdate', 'Birthdate', ['class' => 'form-label']) }}
                     {{ Form::date('birthdate', '',['class' => 'form-control']) }}
-                </div>        
+                </div>
                 <div class="mb-3">
                     {{ Form::label('profile_picture', 'Profile picture', ['class' => 'form-label']) }}
                     {{ Form::file('profile_picture', ['class' => 'form-control']) }}
-                </div>   
+                </div>
+                @foreach($categories as $category)
+                    <div class="mb-3">
+                        {{ Form::label('categories[' . $category->id . ']', $category->name, ['class' => 'form-label']) }}
+                        {{ Form::checkbox('categories[' . $category->id . ']', $category->id) }}
+                    </div>   
+                @endforeach
                 <div class="mb-3">
                     {{ Form::submit('Register', ['class' => 'btn btn-primary']) }}
                 </div>

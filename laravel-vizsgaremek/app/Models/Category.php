@@ -13,4 +13,8 @@ class Category extends Model
     public function productConnection() {
         return $this->hasMany(Product::class, 'categoryId');
     }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 }

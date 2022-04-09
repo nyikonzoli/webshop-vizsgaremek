@@ -31,11 +31,5 @@ Route::get('conversation/buys', [ConversationController::class, 'buys'])->middle
 Route::get('conversation/sales', [ConversationController::class, 'sales'])->middleware('auth:sanctum')->name('conversation.sales');
 Route::get('conversation/{id}', [ConversationController::class, 'show'])->middleware('auth:sanctum')->name('conversation.show');
 
-
-Route::get('name', function(){
-    dd(auth()->user()->name);
-    return auth()->user()->name;
-})->middleware('auth:sanctum');
-
-//User routes
-Route::get('users/{id}', [UserController::class, 'show'])->name('user.show');
+//Admin routes
+Route::get('users/{name}', [UserController::class, 'show'])->name('user.show');
