@@ -19,35 +19,35 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'id' => 1,
-            'name' => 'Lewin Gedaliah',
-            'email' => 'lg@example.com',
+            'name' => 'Dorina Farkas',
+            'email' => 'df@gmail.com',
             'password' => Hash::make('password'),
-            'address' => Str::random(30),
-            'birthdate' => Carbon::parse('2000-01-01'),
+            'address' => '8767 Pötréte, Kálmán Imre u. 80.',
+            'birthdate' => Carbon::parse('2003-08-03'),
         ]);
         DB::table('users')->insert([
             'id' => 2,
-            'name' => 'Eemeli Nikolina',
-            'email' => 'en@example.com',
+            'name' => 'Mónika Uglár',
+            'email' => 'mu@gmail.com',
             'password' => Hash::make('password'),
-            'address' => Str::random(30),
-            'birthdate' => Carbon::parse('2000-01-01'),
+            'address' => '4969 Tisztaberek, Apor Péter u. 90.',
+            'birthdate' => Carbon::parse('1975-05-23'),
         ]);
         DB::table('users')->insert([
             'id' => 3,
-            'name' => 'Adonijah Hormazd',
-            'email' => 'ah@example.com',
+            'name' => 'Ilona Uglár',
+            'email' => 'iu@example.com',
             'password' => Hash::make('password'),
-            'address' => Str::random(30),
-            'birthdate' => Carbon::parse('2000-01-01'),
+            'address' => '7097 Nagyszokoly, Tas vezér u. 74.',
+            'birthdate' => Carbon::parse('1949-09-24'),
         ]);
         DB::table('users')->insert([
             'id' => 4,
-            'name' => 'Basia Tamar',
-            'email' => 'bt@example.com',
+            'name' => 'Zoltán Nyikon',
+            'email' => 'nyikon.zoli@gmail.com',
             'password' => Hash::make('password'),
-            'address' => Str::random(30),
-            'birthdate' => Carbon::parse('2000-01-01'),
+            'address' => '1042 Budapest, Rózsa utca 6.',
+            'birthdate' => Carbon::parse('2002-09-02'),
         ]);
         DB::table('users')->insert([
             'id' => 5,

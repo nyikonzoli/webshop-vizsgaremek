@@ -43,5 +43,9 @@ class CategorySeeder extends Seeder
             'id' => 7,
             'name' => "Decorations"
         ]);
+        DB::table('categories')->insert([
+            'id' => 7,
+            'name' => "Jewelry"
+        ]);
     }
 }
