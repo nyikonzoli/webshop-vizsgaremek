@@ -1,5 +1,5 @@
 ﻿AdminWPF
-1.0.0.0
+
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\App.xaml
 11407045341
 
-7907180175
+53533335
 194200543240
 MainWindow.xaml;
 
-True
+False
 

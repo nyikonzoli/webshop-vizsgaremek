@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "kgpO3yTkB8TfqGjc8RBOdfnzw0RroPNweh4s2y7hMwASooU+xaJYDup8aKT42CsWHR4tC8MHePZNSihgDB8wdw==",
+  "dgSpecHash": "vG6KAgVQDHd8DMW6nKhxTNgDhAfd3GD+knUVPI4XGwiVQAQOTwlv++INFbZj/xzQ8/SMJSj0hTstDf4B84Yu1Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\webshop-vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nyiko\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

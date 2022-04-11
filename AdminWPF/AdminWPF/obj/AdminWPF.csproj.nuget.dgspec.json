@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj": {}
+    "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\webshop-vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj": {
+    "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\webshop-vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj",
+        "projectUniqueName": "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\webshop-vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj",
         "projectName": "AdminWPF",
-        "projectPath": "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj",
+        "projectPath": "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\webshop-vizsgaremek\\AdminWPF\\AdminWPF\\AdminWPF.csproj",
         "packagesPath": "C:\\Users\\nyiko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\AdminWPF\\AdminWPF\\obj\\",
+        "outputPath": "C:\\Users\\nyiko\\Desktop\\Zoli\\Technikum\\Vizsgaremek\\webshop-vizsgaremek\\AdminWPF\\AdminWPF\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -45,6 +45,12 @@
       "frameworks": {
         "net5.0-windows7.0": {
           "targetAlias": "net5.0-windows",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

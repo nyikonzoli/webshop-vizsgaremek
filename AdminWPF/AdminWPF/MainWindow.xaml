@@ -6,7 +6,25 @@
         xmlns:local="clr-namespace:AdminWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <StackPanel>
+        <TabControl>
+            <TabItem Header="User">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <GroupBox Header="Seach by">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton x:Name="userIdRadio">Id</RadioButton>
+                                <RadioButton Name="userNameRadio">Name</RadioButton>
+                            </StackPanel>
+                        </GroupBox>
+                        <TextBox Width="350" Height="26" Name="userSearch"></TextBox>
+                        <Button Height="26" Name="searchUser" Click="searchUser_Click">Seach</Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Product">abc</TabItem>
+        </TabControl>
 
-    </Grid>
+    </StackPanel>
+    
 </Window>

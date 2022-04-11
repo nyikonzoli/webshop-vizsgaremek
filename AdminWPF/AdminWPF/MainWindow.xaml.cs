@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AdminWPF.Models;
 
 namespace AdminWPF
 {
@@ -23,6 +24,16 @@ namespace AdminWPF
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private async void searchUser_Click(object sender, RoutedEventArgs e)
+        {
+            string searchText = userSearch.Text;
+            if (searchText.Length > 0 && userIdRadio.IsChecked == true)
+            {
+                var userTask = User.getUserById(searchText);
+                User user = await userTask;
+            }
         }
     }
 }
