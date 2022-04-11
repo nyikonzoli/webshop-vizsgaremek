@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ShowUserByNameRequest;
 use App\Models\User;
 use App\Http\Resources\UserResourceAdmin;
 
@@ -38,6 +39,16 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         return new UserResourceAdmin($user);
+    }
+
+    public function showByName(ShowUserByNameRequest $request){
+        $data = $request->validated();
+        $users = User::where('name', 'like', '%' . $data['name'] . '%')->get();
+        $resources = [];
+        foreach ($users as $user) {
+            $resources[] = new UserResourceAdmin($user);
+        }
+        return $resources;
     }
 
     /**

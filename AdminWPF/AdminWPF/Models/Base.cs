@@ -29,7 +29,9 @@ namespace AdminWPF.Models
                 {
                     using (HttpContent content = res.Content)
                     {
-                        string data = await content.ReadAsStringAsync();
+                        string data = "";
+                        if (url.Contains("?name=")) data = "{\"data\":" + (await content.ReadAsStringAsync()) + "}";
+                        else data = await content.ReadAsStringAsync();
                         if (data != null) return JObject.Parse(data);
                         else return null;
                     }

@@ -42,6 +42,17 @@ namespace AdminWPF
                 userBirthdate.SelectedDate = user.Birthdate;
                 userPanel.Visibility = Visibility.Visible;
             }
+            else if(searchText.Length > 0 && userNameRadio.IsChecked == true)
+            {
+                var userTask = User.getUserByName(searchText);
+                List<User> users = await userTask;
+                foreach (var user in users)
+                {
+                    userList.Items.Add(user);
+                }
+                userListStack.Visibility = Visibility.Visible;
+                userListStack.Height = 150;
+            }
         }
     }
 }

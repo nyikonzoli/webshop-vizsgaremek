@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 1,
             'name' => 'Handmade bucket hat - black',
-            'description' => '',
+            'description' => 'farmer',
             'price' => 28.99,
             'size' => 'S',
             'iced' => false,
@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 2,
             'name' => 'Reversible bucket hat - green and brown',
-            'description' => '',
+            'description' => 'kord vagy cord anyag',
             'price' => 32.99,
             'size' => 'S',
             'iced' => false,
@@ -61,7 +61,7 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'id' => 5,
-            'name' => 'Unisex Belt bag',
+            'name' => 'Unisex Bum bag',
             'description' => '',
             'price' => 23.78,
             'size' => 'Adjustable',
@@ -130,7 +130,7 @@ class ProductSeeder extends Seeder
 
         //Mama
         DB::table('products')->insert([
-            'id' => 2,
+            'id' => 20,
             'name' => 'Reversible bucket hat - green and brown',
             'description' => '',
             'price' => 32.99,
@@ -143,7 +143,7 @@ class ProductSeeder extends Seeder
 
         //Maradék
         DB::table('products')->insert([
-            'id' => 2,
+            'id' => 11,
             'name' => 'Earrings',
             'description' => '',
             'price' => 15.99,
@@ -154,9 +154,9 @@ class ProductSeeder extends Seeder
             'categoryId' => 8,
         ]);
         DB::table('products')->insert([
-            'id' => 2,
+            'id' => 12,
             'name' => 'Necklace',
-            'description' => '',
+            'description' => 'színezett gyanta',
             'price' => 32.99,
             'size' => 'S',
             'iced' => false,
