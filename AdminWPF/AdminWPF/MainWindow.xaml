@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
         <TabControl>
-            <TabItem Header="User">
+            <TabItem Header="Users">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <GroupBox Header="Seach by">
@@ -20,9 +20,49 @@
                         <TextBox Width="350" Height="26" Name="userSearch"></TextBox>
                         <Button Height="26" Name="searchUser" Click="searchUser_Click">Seach</Button>
                     </StackPanel>
+                    <StackPanel Visibility="Hidden" Height="0">
+                        <Label Name="userbythenameofLabel">User by the name of</Label>
+                        <ListView Grid.ColumnSpan="2" Grid.Row="1" Name="userList"  AlternationCount="0" SelectionMode="Single">
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+                                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" />
+                                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" />
+                                        <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Path=Email}" />
+                                        <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Path=Address}" />
+                                        <GridViewColumn Header="Birthdate" DisplayMemberBinding="{Binding Path=Birthdate}" />
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                    <StackPanel x:Name="userPanel" Visibility="Hidden">
+                        <Image x:Name="userImage" Width="100" Height="100"></Image>
+                        <Label Name="userId"></Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Name:</Label>
+                            <TextBox x:Name="userName" Width="200"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Email:</Label>
+                            <TextBox x:Name="userEmail" Width="200"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Address:</Label>
+                            <TextBox x:Name="userAddress" Width="200"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Birthdate:</Label>
+                            <DatePicker Name="userBirthdate"></DatePicker>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Description:</Label>
+                            <TextBox x:Name="userDescription" Width="200"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Product">abc</TabItem>
+            <TabItem Header="Products">abc</TabItem>
         </TabControl>
 
     </StackPanel>

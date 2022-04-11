@@ -33,6 +33,14 @@ namespace AdminWPF
             {
                 var userTask = User.getUserById(searchText);
                 User user = await userTask;
+                userImage.Source = new BitmapImage(new Uri(user.ProfilePictureURI));
+                userId.Content = "#" + user.Id;
+                userName.Text = user.Name;
+                userEmail.Text = user.Email;
+                userAddress.Text = user.Address;
+                userDescription.Text = user.Description;
+                userBirthdate.SelectedDate = user.Birthdate;
+                userPanel.Visibility = Visibility.Visible;
             }
         }
     }
