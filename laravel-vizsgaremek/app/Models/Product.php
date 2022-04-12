@@ -24,4 +24,12 @@ class Product extends Model
     public function userConnection() {
         return $this->belongsTo(User::class, 'userId');
     }
+
+    public function getDescription() {
+        if (empty($this->description)) {
+            return 'This item has no description attached to it.';
+        } else {
+            return $this->description;
+        }
+    }
 }
