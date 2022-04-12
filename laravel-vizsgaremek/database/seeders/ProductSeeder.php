@@ -129,6 +129,7 @@ class ProductSeeder extends Seeder
         ]);
 
         //Mama
+        //TODO: mar szerepel egy ehhez hasonlo 29. sorban
         DB::table('products')->insert([
             'id' => 20,
             'name' => 'Reversible bucket hat - green and brown',
@@ -137,7 +138,7 @@ class ProductSeeder extends Seeder
             'size' => 'S',
             'iced' => false,
             'sold' => false,
-            'userId' => 1,
+            'userId' => 3,
             'categoryId' => 3,
         ]);
 
