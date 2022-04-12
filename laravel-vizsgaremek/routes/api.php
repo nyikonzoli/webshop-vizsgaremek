@@ -34,6 +34,7 @@ Route::get('conversation/{id}', [ConversationController::class, 'show'])->middle
 
 //Admin routes
 Route::get('users/{id}', [UserController::class, 'show'])->name('user.show');
+Route::put('users/{id}', [UserController::class, 'update'])->name('user.update');
 Route::get('users', [UserController::class, 'showByName'])->name('user.show-by-name');
 Route::get('users/{id}/products', [ProductController::class, 'showByUserId'])->name('product.show-by-user-id');
 Route::get('users/{id}/transactions/buys', [UserController::class, 'show'])->name('user.show');
