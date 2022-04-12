@@ -33,7 +33,7 @@
                     <img src=" {{ \Illuminate\Support\Facades\Auth::user()->getProfilePictureURI() }}" alt="" width="45px" height="45px">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="profileOptions">
-                        <li><a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profile.index', ['id' => \Illuminate\Support\Facades\Auth::user()->id]) }}">Profile</a></li>
                         <li><a class="dropdown-item" href="{{ route('messages') }}">Messages</a></li>
                         <li><a class="dropdown-item" href="#">Items</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>

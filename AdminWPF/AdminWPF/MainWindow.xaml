@@ -22,7 +22,7 @@
                     </StackPanel>
                     <StackPanel Visibility="Hidden" Height="0" Name="userListStack">
                         <Label Name="userbythenameofLabel">User by the name of</Label>
-                        <ListView Grid.ColumnSpan="2" Grid.Row="1" Name="userList"  AlternationCount="0" SelectionMode="Single">
+                        <ListView Grid.ColumnSpan="2" Grid.Row="1" Name="userList"  AlternationCount="0" SelectionMode="Single" MouseLeftButtonUp="userList_MouseLeftButtonUp">
                             <ListView.View>
                                 <GridView>
                                     <GridView.Columns>
@@ -59,6 +59,7 @@
                             <Label>Description:</Label>
                             <TextBox x:Name="userDescription" Width="200"></TextBox>
                         </StackPanel>
+                        <Button x:Name="updateUser" Click="updateUser_Click">Update</Button>
                     </StackPanel>
                 </StackPanel>
             </TabItem>

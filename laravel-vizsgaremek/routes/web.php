@@ -26,7 +26,7 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register.s
 Route::post('/login', [AuthController::class, 'authentication'])->name('auth.login');
 
 //Profile
-Route::get('/profile/{id}', [UserController::class, 'index'])->name('profile.index2');
+Route::get('/profile/{id}', [UserController::class, 'index'])->name('profile.index');
 
 //Messages
 Route::get('/messages', [ConversationController::class, 'messages'])->middleware('auth')->name('messages');

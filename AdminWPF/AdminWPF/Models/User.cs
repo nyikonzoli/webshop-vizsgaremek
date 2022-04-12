@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Net.Http;
 
 namespace AdminWPF.Models
 {
@@ -13,52 +16,27 @@ namespace AdminWPF.Models
         public string ProfilePictureURI { get; set; }
         public string Description { get; set; }
 
-        public User(int id, string name, string email, DateTime birthdate, string address, string profilePictureURI, string description) : base(id, name)
+        public async void update()
         {
-            Email = email;
-            Birthdate = birthdate;
-            Address = address;
-            ProfilePictureURI = profilePictureURI;
-            Description = description;
+            string json = JsonSerializer.Serialize(this);
         }
 
         public async static Task<User> getUserById(string id)
         {
-            string url = BaseURL + "api/users/" + id;
-            var getTask = GetRequest(url);
-            JObject response = (JObject)(await getTask)["data"];
+            string url = Requests.client.BaseAddress + "api/users/" + id;
+            Task<HttpResponseMessage> getTask = Requests.Get(url);
+            HttpResponseMessage response = await getTask;
             if (response == null) throw new Exception("User not found! 404");
-            return new User(
-                id: int.Parse(response["id"].ToString()),
-                name: response["name"].ToString(),
-                email: response["email"].ToString(),
-                birthdate: DateTime.Parse(response["birthdate"].ToString()),
-                address: response["address"].ToString(),
-                profilePictureURI: response["profilePictureURI"].ToString(),
-                description: response["description"].ToString()
-            );
+            return (await response.Content.ReadAsAsync<DataWrapper<User>>()).data;
         }
 
         public async static Task<List<User>> getUserByName(string name)
         {
-            string url = BaseURL + "api/users?name=" + name;
-            var getTask = GetRequest(url);
-            var response = await getTask;
+            string url = Requests.client.BaseAddress + "api/users?name=" + name;
+            Task<HttpResponseMessage> getTask = Requests.Get(url);
+            HttpResponseMessage response = await getTask;
             if (response == null) throw new Exception("User not found! 404");
-            List<User> users = new List<User>();
-            foreach (var user in response["data"])
-            {
-                users.Add(new User(
-                    id: int.Parse(user["id"].ToString()),
-                    name: user["name"].ToString(),
-                    email: user["email"].ToString(),
-                    birthdate: DateTime.Parse(user["birthdate"].ToString()),
-                    address: user["address"].ToString(),
-                    profilePictureURI: user["profilePictureURI"].ToString(),
-                    description: user["description"].ToString()
-                ));
-            }
-            return users;
+            return await response.Content.ReadAsAsync<List<User>>();
         }
     }
 }

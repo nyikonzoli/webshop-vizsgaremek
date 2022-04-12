@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Http\Resources\UserResourceAdmin;
 
 class AppServiceProvider extends ServiceProvider
 {

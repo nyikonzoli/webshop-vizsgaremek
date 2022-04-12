@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace AdminWPF.Models
 {
-    class Base
+    class DataWrapper<T>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public T data { get; set; }
     }
 }

@@ -22,3 +22,5 @@ C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\A
 C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\AdminWPF.genruntimeconfig.cache
 C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\bin\Debug\net5.0-windows\Newtonsoft.Json.dll
 C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\AdminWPF.csproj.CopyComplete
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\bin\Debug\net5.0-windows\System.Net.Http.Formatting.dll
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\bin\Debug\net5.0-windows\Newtonsoft.Json.Bson.dll
