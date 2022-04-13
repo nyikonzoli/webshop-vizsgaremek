@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowUserByNameRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Http\Resources\UserResourceAdmin;
 
@@ -59,9 +60,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        $user = User::findOrFail($id);
+        $user->update($data);
+        return new UserResourceAdmin($user);
     }
 
     /**

@@ -40,7 +40,7 @@ namespace AdminWPF
             string searchText = userSearch.Text;
             if (searchText.Length > 0 && userIdRadio.IsChecked == true)
             {
-                var userTask = User.getUserById(searchText);
+                Task<User> userTask = User.getUserById(searchText);
                 userListStack.Visibility = Visibility.Hidden;
                 userListStack.Height = 0;
                 User user = await userTask;
@@ -48,7 +48,7 @@ namespace AdminWPF
             }
             else if(searchText.Length > 0 && userNameRadio.IsChecked == true)
             {
-                var userTask = User.getUserByName(searchText);
+                Task<List<User>> userTask = User.getUserByName(searchText);
                 userPanel.Visibility = Visibility.Hidden;
                 users = await userTask;
                 foreach (var user in users)
@@ -61,7 +61,7 @@ namespace AdminWPF
         }
         private void userList_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var user = (sender as ListView).SelectedItem as User;
+            User user = (sender as ListView).SelectedItem as User;
             setUserProfile(user);
         }
 
@@ -78,9 +78,20 @@ namespace AdminWPF
             userPanel.Visibility = Visibility.Visible;
         }
 
-        private void updateUser_Click(object sender, RoutedEventArgs e)
+        private async void updateUser_Click(object sender, RoutedEventArgs e)
         {
-            currentUser.update();
+            UserUpdateResource helper = new UserUpdateResource(
+                name: userName.Text,
+                email: userEmail.Text,
+                birthdate: (DateTime)userBirthdate.SelectedDate,
+                address: userAddress.Text,
+                profilePictureURI: currentUser.ProfilePictureURI,
+                description: userDescription.Text
+            );
+            Task<User> userTask = User.update(helper, currentUser.Id);
+            User user = await userTask;
+            setUserProfile(user);
+            MessageBox.Show(user.Name + "'s profile has been updated successfully!");
         }
     }
 }

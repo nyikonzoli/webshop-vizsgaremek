@@ -17,5 +17,13 @@ namespace AdminWPF
             if (response.IsSuccessStatusCode) return response;
             else return null;
         }
+
+        public async static Task<HttpResponseMessage> Put(string url, Dictionary<string, string> parameters)
+        {
+            FormUrlEncodedContent encodedContent = new FormUrlEncodedContent(parameters);
+            HttpResponseMessage response = await client.PutAsync(url, encodedContent);
+            response.EnsureSuccessStatusCode();
+            return response;
+        }
     }
 }

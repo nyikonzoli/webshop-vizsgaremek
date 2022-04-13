@@ -16,27 +16,32 @@ namespace AdminWPF.Models
         public string ProfilePictureURI { get; set; }
         public string Description { get; set; }
 
-        public async void update()
+        public async static Task<User> update(UserUpdateResource user, int id)
         {
-            string json = JsonSerializer.Serialize(this);
+            string url = Requests.client.BaseAddress + "api/users/" + id;
+            Task<HttpResponseMessage> putTask = Requests.Put(url, user.getParams());
+            HttpResponseMessage response = await putTask;
+            return (await response.Content.ReadAsAsync<DataWrapper<User>>()).data;
         }
 
         public async static Task<User> getUserById(string id)
         {
             string url = Requests.client.BaseAddress + "api/users/" + id;
-            Task<HttpResponseMessage> getTask = Requests.Get(url);
-            HttpResponseMessage response = await getTask;
-            if (response == null) throw new Exception("User not found! 404");
+            HttpResponseMessage response = await getResponse(url);
             return (await response.Content.ReadAsAsync<DataWrapper<User>>()).data;
         }
 
         public async static Task<List<User>> getUserByName(string name)
         {
             string url = Requests.client.BaseAddress + "api/users?name=" + name;
-            Task<HttpResponseMessage> getTask = Requests.Get(url);
-            HttpResponseMessage response = await getTask;
-            if (response == null) throw new Exception("User not found! 404");
+            HttpResponseMessage response = await getResponse(url);
             return await response.Content.ReadAsAsync<List<User>>();
+        }
+
+        private async static Task<HttpResponseMessage> getResponse(string url)
+        {
+            Task<HttpResponseMessage> getTask = Requests.Get(url);
+            return await getTask;
         }
     }
 }
