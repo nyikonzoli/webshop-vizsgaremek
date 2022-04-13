@@ -173,6 +173,7 @@ class ProductSeeder extends Seeder
         ]);
 
         //Mama
+        //TODO: mar szerepel egy ehhez hasonlo 29. sorban
         DB::table('products')->insert([
             'id' => 15,
             'name' => '"Waterfall" - painting"',

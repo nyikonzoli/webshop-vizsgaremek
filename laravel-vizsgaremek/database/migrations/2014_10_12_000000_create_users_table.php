@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->date('birthdate');
             $table->string('address')->nullable();
             $table->string('profilePictureURI')->nullable();
-            $table->string('description')->nullable();
+            $table->string('description', 300)->nullable();
         });
     }
 
