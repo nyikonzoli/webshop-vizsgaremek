@@ -32,4 +32,12 @@ class Product extends Model
             return $this->description;
         }
     }
+
+    public function getSize() {
+        if (empty($this->size)) {
+            return '-';
+        } else {
+            return $this->size;
+        }
+    }
 }
