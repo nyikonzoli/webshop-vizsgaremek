@@ -62,9 +62,20 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 5,
             'name' => 'Unisex Bum bag',
-            'description' => '',
+            'description' => 'farmer',
             'price' => 23.78,
             'size' => 'Adjustable',
+            'iced' => false,
+            'sold' => false,
+            'userId' => 1,
+            'categoryId' => 3,
+        ]);
+        DB::table('products')->insert([
+            'id' => 6,
+            'name' => 'Shopping bag',
+            'description' => 'farmer',
+            'price' => 41.00,
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 1,
@@ -73,7 +84,7 @@ class ProductSeeder extends Seeder
 
         //Anya
         DB::table('products')->insert([
-            'id' => 6,
+            'id' => 7,
             'name' => '"Purple Dream" - Painting',
             'description' => '',
             'price' => 68.82,
@@ -84,7 +95,7 @@ class ProductSeeder extends Seeder
             'categoryId' => 5,
         ]);
         DB::table('products')->insert([
-            'id' => 7,
+            'id' => 8,
             'name' => '"Antarctic Angel" - Painting',
             'description' => '',
             'price' => 79.99,
@@ -95,7 +106,7 @@ class ProductSeeder extends Seeder
             'categoryId' => 5,
         ]);
         DB::table('products')->insert([
-            'id' => 8,
+            'id' => 9,
             'name' => '"Pink Spiral" - Painting',
             'description' => '',
             'price' => 95.00,
@@ -106,7 +117,7 @@ class ProductSeeder extends Seeder
             'categoryId' => 5,
         ]);
         DB::table('products')->insert([
-            'id' => 9,
+            'id' => 10,
             'name' => '"Ornate donut" - Painting',
             'description' => '',
             'price' => 128.00,
@@ -117,7 +128,7 @@ class ProductSeeder extends Seeder
             'categoryId' => 5,
         ]);
         DB::table('products')->insert([
-            'id' => 10,
+            'id' => 11,
             'name' => '"Autumn Leaves" - Painting',
             'description' => '',
             'price' => 189.99,
@@ -127,23 +138,111 @@ class ProductSeeder extends Seeder
             'userId' => 2,
             'categoryId' => 5,
         ]);
+        DB::table('products')->insert([
+            'id' => 12,
+            'name' => 'Red box for decoration',
+            'description' => '',
+            'price' => 14.99,
+            'size' => '',
+            'iced' => false,
+            'sold' => false,
+            'userId' => 2,
+            'categoryId' => 7,
+        ]);
+        DB::table('products')->insert([
+            'id' => 13,
+            'name' => 'Purple jewelry box',
+            'description' => '',
+            'price' => 18.99,
+            'size' => '',
+            'iced' => false,
+            'sold' => false,
+            'userId' => 2,
+            'categoryId' => 7,
+        ]);
+        DB::table('products')->insert([
+            'id' => 14,
+            'name' => 'Blue box,
+            'description' => '',
+            'price' => 14.99 for decoration',
+            'size' => '',
+            'iced' => false,
+            'sold' => false,
+            'userId' => 2,
+            'categoryId' => 7,
+        ]);
 
         //Mama
         DB::table('products')->insert([
-            'id' => 20,
-            'name' => 'Reversible bucket hat - green and brown',
+            'id' => 15,
+            'name' => '"Waterfall" - painting"',
             'description' => '',
-            'price' => 32.99,
-            'size' => 'S',
+            'price' => 78.99,
+            'size' => '',
             'iced' => false,
             'sold' => false,
-            'userId' => 1,
-            'categoryId' => 3,
+            'userId' => 3,
+            'categoryId' => 5,
+        ]);
+        DB::table('products')->insert([
+            'id' => 16,
+            'name' => '"Cold winter" - painting"',
+            'description' => '',
+            'price' => 95.99,
+            'size' => '',
+            'iced' => false,
+            'sold' => false,
+            'userId' => 3,
+            'categoryId' => 5,
+        ]);
+        DB::table('products')->insert([
+            'id' => 17,
+            'name' => '"Castle" - painting"',
+            'description' => '',
+            'price' => 63.99,
+            'size' => '',
+            'iced' => false,
+            'sold' => false,
+            'userId' => 3,
+            'categoryId' => 5,
+        ]);
+        DB::table('products')->insert([
+            'id' => 18,
+            'name' => '"Boat during sunrise" - painting"',
+            'description' => '',
+            'price' => 149.99,
+            'size' => '',
+            'iced' => false,
+            'sold' => false,
+            'userId' => 3,
+            'categoryId' => 5,
+        ]);
+        DB::table('products')->insert([
+            'id' => 19,
+            'name' => '"Northern light" - painting"',
+            'description' => '',
+            'price' => 110.00,
+            'size' => '',
+            'iced' => false,
+            'sold' => false,
+            'userId' => 3,
+            'categoryId' => 5,
+        ]);
+        DB::table('products')->insert([
+            'id' => 20,
+            'name' => '"Sunset on the beach" - painting"',
+            'description' => '',
+            'price' => 78.99,
+            'size' => '',
+            'iced' => false,
+            'sold' => false,
+            'userId' => 3,
+            'categoryId' => 5,
         ]);
 
         //Maradék
         DB::table('products')->insert([
-            'id' => 11,
+            'id' => 21,
             'name' => 'Earrings',
             'description' => '',
             'price' => 15.99,
@@ -154,7 +253,7 @@ class ProductSeeder extends Seeder
             'categoryId' => 8,
         ]);
         DB::table('products')->insert([
-            'id' => 12,
+            'id' => 22,
             'name' => 'Necklace',
             'description' => 'színezett gyanta',
             'price' => 32.99,

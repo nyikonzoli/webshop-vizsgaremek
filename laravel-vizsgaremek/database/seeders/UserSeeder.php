@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'address' => '8767 Pötréte, Kálmán Imre u. 80.',
             'birthdate' => Carbon::parse('2003-08-03'),
+            'profilePictureURI' => asset('profile_pictures/fd.jpg')
         ]);
         DB::table('users')->insert([
             'id' => 2,
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'address' => '4969 Tisztaberek, Apor Péter u. 90.',
             'birthdate' => Carbon::parse('1975-05-23'),
+            'profilePictureURI' => asset('profile_pictures/um.jpg')
         ]);
         DB::table('users')->insert([
             'id' => 3,
@@ -40,6 +42,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'address' => '7097 Nagyszokoly, Tas vezér u. 74.',
             'birthdate' => Carbon::parse('1949-09-24'),
+            'profilePictureURI' => asset('profile_pictures/iu.jpg')
         ]);
         DB::table('users')->insert([
             'id' => 4,
@@ -48,6 +51,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'address' => '1042 Budapest, Rózsa utca 6.',
             'birthdate' => Carbon::parse('2002-09-02'),
+            'profilePictureURI' => asset('profile_pictures/nyz.jpg')
         ]);
         DB::table('users')->insert([
             'id' => 5,
