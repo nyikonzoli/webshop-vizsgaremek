@@ -162,9 +162,9 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'id' => 14,
-            'name' => 'Blue box,
+            'name' => 'Blue box for decoration',
             'description' => '',
-            'price' => 14.99 for decoration',
+            'price' => 14.99,
             'size' => '',
             'iced' => false,
             'sold' => false,
@@ -173,7 +173,6 @@ class ProductSeeder extends Seeder
         ]);
 
         //Mama
-        //TODO: mar szerepel egy ehhez hasonlo 29. sorban
         DB::table('products')->insert([
             'id' => 15,
             'name' => '"Waterfall" - painting"',
