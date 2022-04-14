@@ -58,9 +58,15 @@ class ConversationController extends Controller
      */
     public function store(ConversationStoreRequest $request)
     {
-        $validated = $request->validated();
-        $conversation = Conversation::create($validated);
-        return new ConversatoinResource($conversation);
+        $data = $request->validated();
+        $user = auth()->user();
+        $data["buyerId"] = $user->id;
+        if(Conversation::where('sellerId', '=', $data['sellerId'])
+                       ->where('buyerId', '=', $data['buyerId'])
+                       ->where('productId', '=', $data['productId'])
+                       ->first() != null) abort(400);
+        $conversation = Conversation::create($data);
+        return $conversation;
     }
 
     /**
@@ -76,21 +82,6 @@ class ConversationController extends Controller
             $query->where('sellerId', '=', $user->id)->orWhere('buyerId', '=', $user->id);
         })->where('id', '=', $id)->firstOrFail();
         return new ConversationMessagesResource($conversation);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $validated = $request->validated();
-        $conversation = Conversation::findOrFail($id);
-        $conversation->update($validated);
-        return new ConversationResource($conversation);
     }
 
     /**

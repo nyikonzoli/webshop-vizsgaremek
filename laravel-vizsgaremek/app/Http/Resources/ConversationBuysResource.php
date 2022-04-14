@@ -19,6 +19,8 @@ class ConversationBuysResource extends JsonResource
             "id" => $this->id,
             "partnerName" => $this->seller->name,
             "partnerProfilepictureURI" => $this->seller->getProfilePictureURI(),
+            "productPictureURI" => $this->product->images->first()->imageURI,
+            "productName" => $this->product->name,
         ];
     }
 }

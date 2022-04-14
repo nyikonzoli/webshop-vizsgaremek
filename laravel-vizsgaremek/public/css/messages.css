@@ -1,23 +1,105 @@
-.conversations{
-    width: 300px;
-    height: 75px;
+body {
+    height: 100vh;
+    width: 100vw;
+  }
+
+#stuff{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
-    border-radius: 5px;
+    height: 100%;
+    height: 100vh;
 }
 
-.conversations:hover{
+.conversation-container{
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 400px;
+    margin-right: 16px;
+}
+
+.conversation-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 8px;
+}
+
+.conv-button{
+    background-color: inherit;
+    border: none;
+    color: rgb(190, 190, 190);
+    border-bottom: 4px solid rgb(190, 190, 190);
+    width: 190px;
+    padding: 4px;
+    letter-spacing: 4px;
+    margin: 0px;
+}
+
+.conv-button-active{
+    color: seagreen;
+    border-bottom: 4px solid seagreen;
+}
+
+.conversations{
+    overflow-y: scroll;
+}
+
+.conversation{
+    width: 380px;
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    margin: 8px;
+    border: 1px solid black;
+}
+
+.conversation:hover{
     background-color: lightgray;
     cursor: pointer;
 }
 
-.conversations>img{
-    width: 50px;
-    height: 50px;
+.conversation>div{
+    padding: 8px;
+}
+
+#user-image{
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    margin-right: 16px;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+
+#product-image{
+    height: 73px;
+    width: 73px;
+    border-radius: 10px;
+    margin-left: 8px;
+}
+
+.messages-container{
+    width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+}
+
+#messages{
+    overflow-y: scroll;
+
+}
+
+.message-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
 }
 
 .message{
@@ -25,15 +107,19 @@
     max-width: 300px;
     height: fit-content;
     border-radius: 10px;
-    margin: 8px;
+    margin: 4px;
 }
 
 .own{
+    justify-content: end;
+}
+
+.own>div{
     background-color: royalblue;
     color: white;
 }
 
-.partner{
+.partner>div{
     background-color: lightgray;
     color:black;
 }
@@ -42,4 +128,15 @@
     margin: auto;
     padding-left: 8px;
     padding-right: 8px;
+}
+
+.send{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 16px;
+}
+
+.send-button{
+    margin-left: 16px;
 }

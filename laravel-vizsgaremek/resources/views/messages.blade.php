@@ -7,30 +7,48 @@
 @endsection
 
 @section('content')
-    <h1>Messages</h1>
-    <button class="btn btn-primary" onclick="showConversations('sales')">Sales</button>
-    <button class="btn btn-primary" onclick="showConversations('buys')">Buys</button>
-    <div id="conversations"></div>
-    <div id="messages"></div>
-    <div>
-        <div class="mb-3">
-            <input type="text" id="messageInput" class="form-control" placeholder="Type your message...">
+
+    <div id="stuff" class="col-lg-6 mx-auto">
+        <div class="conversation-container">
+            <h1>Messages</h1>
+            <div class="conversation-buttons">
+                <button class="conv-button" onclick="showConversations('sales')" id="sales-button"><b>Sales</b></button>
+                <button class="conv-button conv-button-active" onclick="showConversations('buys')" id="buys-button"><b>Purchases</b></button>
+            </div>
+            <div id="conversations"></div>
         </div>
-        <button class="btn btn-primary" id="sendMessage" onclick="sendMessage()">Send</button>
+        <div class="messages-container">
+            <div id="messages"></div>
+            <div>
+                <div class="mb-3 send">
+                    <input type="text" id="messageInput" class="form-control" placeholder="Type your message...">
+                    <button class="btn btn-primary send-button" id="sendMessage" onclick="sendMessage()">Send</button>
+                </div>
+               
+            </div>
+        </div>
     </div>
+
+
 @endsection
 
 @section('templates')
     <template id="conversationTemplate">
-        <div class="conversations">
-            <img>
-            <h5></h5>
+        <div class="conversation">
+            <img id="user-image">
+            <div>
+                <h5></h5>
+                <p></p>
+            </div>
+            <img id="product-image">
         </div>
     </template>
 
     <template id="messageTemplate">
-        <div class="message">
-            <p class="message-content"></p>
+        <div class="message-wrapper">
+            <div class="message">
+                <p class="message-content"></p>
+            </div>
         </div>
     </template>
 @endsection
@@ -40,8 +58,16 @@
         currentConversationId = 0;
 
         async function getConversations(route){
-            if(route == "sales") return await fetch('{{ route("conversation.sales") }}').then(response => response.json());
-            else if(route == "buys") return await fetch('{{ route("conversation.buys") }}').then(response => response.json());
+            if(route == "sales") {
+                document.getElementById('buys-button').classList.remove('conv-button-active');
+                document.getElementById('sales-button').classList.add('conv-button-active');
+                return await fetch('{{ route("conversation.sales") }}').then(response => response.json());
+            }
+            else if(route == "buys") {
+                document.getElementById('buys-button').classList.add('conv-button-active');
+                document.getElementById('sales-button').classList.remove('conv-button-active');
+                return await fetch('{{ route("conversation.buys") }}').then(response => response.json());
+            }
         }
 
         async function showConversations(route){
@@ -51,8 +77,11 @@
             conversations = await getConversations(route);
             conversations.forEach(conversation => {
                 clone = template.content.cloneNode(true);
-                clone.querySelector("div>img").src = conversation["partnerProfilepictureURI"];
-                clone.querySelector("div>h5").innerHTML = conversation["partnerName"];
+                clone.querySelector("div>img#user-image").src = conversation["partnerProfilepictureURI"];
+                clone.querySelector("div>div>h5").innerHTML = conversation["partnerName"];
+                clone.querySelector("div>div>p").innerHTML = conversation["productName"];
+                clone.querySelector("div>img#product-image").src = conversation["productPictureURI"];
+                clone.querySelector("div").id = conversation["id"];
                 clone.querySelector('div').onclick = function() { openChat(conversation["id"]) };
                 div.appendChild(clone);
             });
@@ -86,10 +115,21 @@
             div = document.getElementById('messages');
             template = document.getElementById('messageTemplate')
             clone = template.content.cloneNode(true);
-            clone.querySelector('div>p').innerHTML = data["content"];
+            clone.querySelector('div>div>p').innerHTML = data["content"];
             if(data["userId"] == {{ \Illuminate\Support\Facades\Auth::user()->id }}) clone.querySelector('div').classList.add("own");
             else clone.querySelector('div').classList.add("partner");
             div.appendChild(clone);
+        }
+
+        async function loadChatOnLoad(){
+            alert("asd");
+            await showConversations("buys");
+            id = document.getElementById("conversations").querySelectorAll("div")[0].id;
+            openChat(id);
+        }
+
+        window.onload = function() {
+            loadChatOnLoad();
         }
     </script>
 @endsection

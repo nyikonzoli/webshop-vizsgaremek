@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'address' => '7097 Nagyszokoly, Tas vezér u. 74.',
             'birthdate' => Carbon::parse('1949-09-24'),
-            'profilePictureURI' => asset('profile_pictures/iu.jpg')
+            'profilePictureURI' => asset('profile_pictures/ui.jpg')
         ]);
         DB::table('users')->insert([
             'id' => 4,

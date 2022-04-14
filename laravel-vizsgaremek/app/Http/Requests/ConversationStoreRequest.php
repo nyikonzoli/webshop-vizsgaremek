@@ -13,7 +13,7 @@ class ConversationStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,8 +24,8 @@ class ConversationStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "user1Id" => "required",
-            "user2Id" => "requierd",
+            "sellerId" => "required",
+            "productId" => "required"
         ];
     }
 }

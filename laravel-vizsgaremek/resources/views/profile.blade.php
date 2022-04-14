@@ -41,7 +41,7 @@
                     <div class="card">
                         <div class="row g-0">
                             <div class="col-lg-3">
-                                <img src="{{ asset($p->imageConnection->first()->imageURI) }}" alt="" class="img-fluid" style="object-fit: cover; width: 100%; height: 280px;">
+                                <img src="{{ asset($p->images->first()->imageURI) }}" alt="" class="img-fluid" style="object-fit: cover; width: 100%; height: 280px;">
 
 
 {{--                                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">--}}
@@ -76,7 +76,7 @@
                                             <h4 class="card-title">{{ $p->name }}</h4>
                                             <p class="card-text">{{ $p->getDescription() }}</p>
                                             <p class="card-text">Size: {{ $p->getSize() }}</p>
-                                            <button type="button" class="btn btn-primary mt-auto">Contact seller</button>
+                                            <button type="button" class="btn btn-primary mt-auto" onclick="contactSeller({{ $userId }}, {{ $p->id }})">Contact seller</button>
                                         </div>
                                         <div class="col-2 d-flex align-items-end flex-column justify-content-between" style="max-height: 100%">
                                             <div class="fs-5">7 Likes</div>
@@ -92,4 +92,18 @@
         @endforeach
 
     </div>
+@endsection
+
+@section('script')
+    <script>
+        function contactSeller(userId, productId){
+            data = {
+                sellerId: userId,
+                productId: productId,
+            }
+            axios.post("{{ route('conversation.store') }}", data).then(function (response){
+                console.log(response);
+            });
+        }
+    </script>
 @endsection

@@ -9,19 +9,19 @@ class Product extends Model
 {
     public $timestamps = false;
 
-    public function categoryConnection() {
+    public function category() {
         return $this->belongsTo(Category::class, 'categoryId');
     }
 
-    public function imageConnection() {
+    public function images() {
         return $this->hasMany(Image::class, 'productId');
     }
 
-    public function conversationConnection() {
+    public function conversation() {
         return $this->hasMany(Conversation::class, 'productId');
     }
 
-    public function userConnection() {
+    public function user() {
         return $this->belongsTo(User::class, 'userId');
     }
 

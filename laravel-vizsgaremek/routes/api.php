@@ -31,6 +31,7 @@ Route::post('message', [MessageController::class, 'store'])->middleware('auth:sa
 Route::get('conversation/buys', [ConversationController::class, 'buys'])->middleware('auth:sanctum')->name('conversation.buys');
 Route::get('conversation/sales', [ConversationController::class, 'sales'])->middleware('auth:sanctum')->name('conversation.sales');
 Route::get('conversation/{id}', [ConversationController::class, 'show'])->middleware('auth:sanctum')->name('conversation.show');
+Route::post('conversation', [ConversationController::class, 'store'])->middleware('auth:sanctum')->name('conversation.store');
 
 //Admin routes
 Route::get('users/{id}', [UserController::class, 'show'])->name('user.show');

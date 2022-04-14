@@ -15,6 +15,7 @@ class UserController extends Controller
         return view('profile', [
             'title' => "$data->name's profile",
             'username' => $data->name,
+            'userId' => $data->id,
             'pfp' => $data->getProfilePictureURI(),
             'products' => $data->productsConnection,
         ]);
