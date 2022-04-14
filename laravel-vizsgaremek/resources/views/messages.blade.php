@@ -122,7 +122,6 @@
         }
 
         async function loadChatOnLoad(){
-            alert("asd");
             await showConversations("buys");
             id = document.getElementById("conversations").querySelectorAll("div")[0].id;
             openChat(id);
