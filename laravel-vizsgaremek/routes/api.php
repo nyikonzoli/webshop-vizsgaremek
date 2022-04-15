@@ -33,6 +33,9 @@ Route::get('conversation/sales', [ConversationController::class, 'sales'])->midd
 Route::get('conversation/{id}', [ConversationController::class, 'show'])->middleware('auth:sanctum')->name('conversation.show');
 Route::post('conversation', [ConversationController::class, 'store'])->middleware('auth:sanctum')->name('conversation.store');
 
+//User routes
+Route::put('user/profile-picture', [UserController::class, 'profilePictureUpdate'])->middleware('auth:sanctum')->name('user.profile-picture.update');
+
 //Admin routes
 Route::get('users/{id}', [UserController::class, 'show'])->name('user.show');
 Route::put('users/{id}', [UserController::class, 'update'])->name('user.update');

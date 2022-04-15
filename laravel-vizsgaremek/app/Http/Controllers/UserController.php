@@ -69,6 +69,10 @@ class UserController extends Controller
         return new UserResourceAdmin($user);
     }
 
+    public function profilePictureUpdate(Request $request){
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *

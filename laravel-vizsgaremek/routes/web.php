@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,6 @@ Route::get('/profile/{id}', [UserController::class, 'index'])->name('profile.ind
 
 //Messages
 Route::get('/messages', [ConversationController::class, 'messages'])->middleware('auth')->name('messages');
+
+//Settings
+Route::get('/settings', [SettingsController::class, 'index'])->middleware('auth')->name('settings.index');
