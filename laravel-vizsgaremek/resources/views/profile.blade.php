@@ -13,8 +13,7 @@
             <div class="col-9 mx-auto" id="header">
                 <div class="row">
                     <div class="col-sm-12 col-lg-4">
-{{--                        <img src="{{ asset($pfp) }}" alt="" class="mx-auto my-3 d-block img-fluid" id="pfp">--}}
-                        <img src="{{ asset("img/f.png") }}" alt="" class="mx-auto my-3 d-block img-fluid" id="pfp">
+                        <img src="{{ $pfp }}" alt="" class="mx-auto my-3 d-block img-fluid" id="pfp">
                         <h3 class="text-center">{{ $username }}</h3>
                     </div>
                     <div class="col-sm-12 col-lg-8 py-3">
