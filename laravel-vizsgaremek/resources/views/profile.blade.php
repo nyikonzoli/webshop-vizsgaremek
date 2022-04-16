@@ -1,13 +1,9 @@
-<?php
-    $img = \Intervention\Image\Facades\Image::make("img/f.png")->fit(280);
-    $img->save('img/cardf.png')
-?>
 @extends('layouts.main')
 
 @section('title', $title)
 
 @section('content')
-    <div class="container-fluid py-3">
+    <div class="container-fluid py-3 col-lg-10 mx-auto">
         {{-- Profil header --}}
         <div class="row">
             <div class="col-9 mx-auto" id="header">
@@ -22,8 +18,7 @@
                         {{--                    <textarea name="" id="" style="height: 100%;" class="form-control" disabled readonly>asdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasda--}}
                         {{--                    </textarea>--}}
                         {{--                </form>--}}
-                        <p class="text-break">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque maximus lacus lacus, dignissim pretium risus laoreet a. Curabitur tincidunt urna a dui pulvinar, ut pellentesque tortor facilisis. Vestibulum ac sodales nunc. Phasellus dignissim venenatis lacinia. Nam scelerisque ornare nibh et fusce.                         </p>
+                        <p class="text-break">{{ $user->getDescription() }}</p>
                         <div class="row my-3">
                             <div class="col-12 col-lg-3"><p>27 products listed</p></div>
                             <div class="col-12 col-lg-3"><p>12 products sold</p></div>
@@ -41,32 +36,6 @@
                         <div class="row g-0">
                             <div class="col-lg-3">
                                 <img src="{{ asset($p->images->first()->imageURI) }}" alt="" class="img-fluid" style="object-fit: cover; width: 100%; height: 280px;">
-
-
-{{--                                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">--}}
-{{--                                    <div class="carousel-indicators">--}}
-{{--                                        @for($i = 0; $i < $p->count(); $i++)--}}
-{{--                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $i }}" aria-label="Slide {{ ++$i }}"></button>--}}
-{{--                                        @endfor--}}
-{{--                                    </div>--}}
-{{--                                    <div class="carousel-inner">--}}
-{{--                                        @foreach($p->imageConnection as $i)--}}
-{{--                                        <div class="carousel-item">--}}
-{{--                                            <img src="{{ $i->imageUri }}" class="d-block w-100" alt="...">--}}
-{{--                                        </div>--}}
-{{--                                        @endforeach--}}
-{{--                                    </div>--}}
-{{--                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">--}}
-{{--                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--                                        <span class="visually-hidden">Previous</span>--}}
-{{--                                    </button>--}}
-{{--                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">--}}
-{{--                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--                                        <span class="visually-hidden">Next</span>--}}
-{{--                                    </button>--}}
-{{--                                </div>--}}
-
-
                             </div>
                             <div class="col-lg-9">
                                 <div class="card-body" style="height: 100%;">
@@ -75,7 +44,15 @@
                                             <h4 class="card-title">{{ $p->name }}</h4>
                                             <p class="card-text">{{ $p->getDescription() }}</p>
                                             <p class="card-text">Size: {{ $p->getSize() }}</p>
-                                            <button type="button" class="btn btn-primary mt-auto" onclick="contactSeller({{ $userId }}, {{ $p->id }})">Contact seller</button>
+                                            @auth
+                                                @can('edit-product', $p)
+                                                    <button type="button" class="btn btn-success mt-auto" data-bs-toggle="modal" data-bs-target="#editModal_{{ $p->id }}">Edit product</button>
+                                                @else
+                                                    <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $userId }}, {{ $p->id }})">Contact seller</button>
+                                                @endcan
+                                            @else
+                                                <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $userId }}, {{ $p->id }})" disabled>Contact seller</button>
+                                            @endauth
                                         </div>
                                         <div class="col-2 d-flex align-items-end flex-column justify-content-between" style="max-height: 100%">
                                             <div class="fs-5">7 Likes</div>
@@ -85,6 +62,36 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" id="editModal_{{ $p->id }}">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        {{ Form::open(['route' => ['product.edit', 'product' => $p], 'id' => 'editForm']) }}
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
+                                    {{ Form::text('name', $p->name, ['class' => 'form-control']) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ Form::label('description', 'Description', ['class' => 'form-label']) }}
+                                    {{ Form::text('description', $p->description, ['class' => 'form-control']) }}
+                                </div>
+                                <div class="mb-3">
+                                    {{ Form::label('size', 'Size', ['class' => 'form-label']) }}
+                                    {{ Form::text('size', $p->size, ['class' => 'form-control']) }}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+                            </div>
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>

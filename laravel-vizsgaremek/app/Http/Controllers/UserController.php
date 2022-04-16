@@ -25,7 +25,7 @@ class UserController extends Controller
             'title' => "$data->name's profile",
             'username' => $data->name,
             'userId' => $data->id,
-            'data' => $data,
+            'user' => $data,
             'pfp' => env('APP_URL').'/profile_pictures/pfp.png',
             'products' => $data->productsConnection,
         ]);
