@@ -40,9 +40,9 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 3,
             'name' => 'Jewelry box with mushroom paintings',
-            'description' => '',
+            'description' => null,
             'price' => 9.99,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 1,
@@ -51,7 +51,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 4,
             'name' => 'Large jewelry box',
-            'description' => '',
+            'description' => null,
             'price' => 14.99,
             'size' => 'S',
             'iced' => false,
@@ -86,7 +86,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 7,
             'name' => '"Purple Dream" - Painting',
-            'description' => '',
+            'description' => null,
             'price' => 68.82,
             'size' => '30cm x 40cm',
             'iced' => false,
@@ -97,7 +97,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 8,
             'name' => '"Antarctic Angel" - Painting',
-            'description' => '',
+            'description' => null,
             'price' => 79.99,
             'size' => '30cm x 30cm',
             'iced' => false,
@@ -108,7 +108,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 9,
             'name' => '"Pink Spiral" - Painting',
-            'description' => '',
+            'description' => null,
             'price' => 95.00,
             'size' => '40cm x 40cm',
             'iced' => false,
@@ -119,7 +119,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 10,
             'name' => '"Ornate donut" - Painting',
-            'description' => '',
+            'description' => null,
             'price' => 128.00,
             'size' => '50x50',
             'iced' => false,
@@ -130,7 +130,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 11,
             'name' => '"Autumn Leaves" - Painting',
-            'description' => '',
+            'description' => null,
             'price' => 189.99,
             'size' => '70cm x 50cm',
             'iced' => false,
@@ -141,9 +141,9 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 12,
             'name' => 'Red box for decoration',
-            'description' => '',
+            'description' => null,
             'price' => 14.99,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 2,
@@ -152,9 +152,9 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 13,
             'name' => 'Purple jewelry box',
-            'description' => '',
+            'description' => null,
             'price' => 18.99,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 2,
@@ -163,9 +163,9 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 14,
             'name' => 'Blue box for decoration',
-            'description' => '',
+            'description' => null,
             'price' => 14.99,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 2,
@@ -175,10 +175,10 @@ class ProductSeeder extends Seeder
         //Mama
         DB::table('products')->insert([
             'id' => 15,
-            'name' => '"Waterfall" - painting"',
-            'description' => '',
+            'name' => '"Waterfall" - painting',
+            'description' => null,
             'price' => 78.99,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 3,
@@ -186,10 +186,10 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'id' => 16,
-            'name' => '"Cold winter" - painting"',
-            'description' => '',
+            'name' => '"Cold winter" - painting',
+            'description' => null,
             'price' => 95.99,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 3,
@@ -197,10 +197,10 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'id' => 17,
-            'name' => '"Castle" - painting"',
-            'description' => '',
+            'name' => '"Castle" - painting',
+            'description' => null,
             'price' => 63.99,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 3,
@@ -208,10 +208,10 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'id' => 18,
-            'name' => '"Boat during sunrise" - painting"',
-            'description' => '',
+            'name' => '"Boat during sunrise" - painting',
+            'description' => null,
             'price' => 149.99,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 3,
@@ -219,10 +219,10 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'id' => 19,
-            'name' => '"Northern light" - painting"',
-            'description' => '',
+            'name' => '"Northern light" - painting',
+            'description' => null,
             'price' => 110.00,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 3,
@@ -230,10 +230,10 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'id' => 20,
-            'name' => '"Sunset on the beach" - painting"',
-            'description' => '',
+            'name' => '"Sunset on the beach" - painting',
+            'description' => null,
             'price' => 78.99,
-            'size' => '',
+            'size' => null,
             'iced' => false,
             'sold' => false,
             'userId' => 3,
@@ -244,7 +244,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 21,
             'name' => 'Earrings',
-            'description' => '',
+            'description' => null,
             'price' => 15.99,
             'size' => null,
             'iced' => false,
