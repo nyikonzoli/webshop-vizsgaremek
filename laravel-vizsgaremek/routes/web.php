@@ -29,6 +29,9 @@ Route::post('/login', [AuthController::class, 'authentication'])->name('auth.log
 //Profile
 Route::get('/profile/{id}', [UserController::class, 'index'])->name('profile.index');
 
+//Dashboard
+Route::get('/profile/{id}/dashboard', [UserController::class, 'dashboard'])->name('profile.dashboard');
+
 //Product
 Route::post('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
 

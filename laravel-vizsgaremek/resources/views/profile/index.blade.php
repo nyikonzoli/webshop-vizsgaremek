@@ -10,20 +10,16 @@
                 <div class="row">
                     <div class="col-sm-12 col-lg-4">
                         <img src="{{ $pfp }}" alt="" class="mx-auto my-3 d-block img-fluid" id="pfp">
-                        <h3 class="text-center">{{ $username }}</h3>
+                        <h3 class="text-center">{{ $user->name }}</h3>
                     </div>
-                    <div class="col-sm-12 col-lg-8 py-3">
-                        <h3 class="sm-text-center">About {{ $username }}</h3>
-                        {{--                <form>--}}
-                        {{--                    <textarea name="" id="" style="height: 100%;" class="form-control" disabled readonly>asdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasdaasdasdasda--}}
-                        {{--                    </textarea>--}}
-                        {{--                </form>--}}
-                        <p class="text-break">{{ $user->getDescription() }}</p>
-                        <div class="row my-3">
-                            <div class="col-12 col-lg-3"><p>27 products listed</p></div>
-                            <div class="col-12 col-lg-3"><p>12 products sold</p></div>
-                        </div>
-                        <p>718 likes<br>4,3 rating</p>
+                    <div class="col-sm-12 col-lg-8 py-3 d-flex flex-column align-items-start">
+                        <h3 class="sm-text-center">About {{ $user->name }}</h3>
+                        <p class="text-break mb-4">{{ $user->getDescription() }}</p>
+                        <p class="mb-4">{{ $products->count() }} products listed</p>
+                        <p>TODO rating</p>
+                        @can('view-dashboard', $user->id)
+                            <a class="btn btn-success mt-auto" href="{{ route('profile.dashboard', ['id' => $user->id]) }}" role="button">Dashboard</a>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -48,10 +44,10 @@
                                                 @can('edit-product', $p)
                                                     <button type="button" class="btn btn-success mt-auto" data-bs-toggle="modal" data-bs-target="#editModal_{{ $p->id }}">Edit product</button>
                                                 @else
-                                                    <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $userId }}, {{ $p->id }})">Contact seller</button>
+                                                    <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})">Contact seller</button>
                                                 @endcan
                                             @else
-                                                <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $userId }}, {{ $p->id }})" disabled>Contact seller</button>
+                                                <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})" disabled>Contact seller</button>
                                             @endauth
                                         </div>
                                         <div class="col-2 d-flex align-items-end flex-column justify-content-between" style="max-height: 100%">

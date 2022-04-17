@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowUserByNameRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -21,13 +22,20 @@ class UserController extends Controller
         $pfp = $manager->make(storage_path("app/$pfpPath"));
         $pfp->fit(300);
         $pfp->save(storage_path('app/profile_pictures/pfp.png'));
-        return view('profile', [
+        return view('profile.index', [
             'title' => "$data->name's profile",
-            'username' => $data->name,
-            'userId' => $data->id,
             'user' => $data,
             'pfp' => env('APP_URL').'/profile_pictures/pfp.png',
             'products' => $data->productsConnection,
+        ]);
+    }
+
+    public function dashboard($id) {
+        Gate::authorize('view-dashboard', $id);
+        $data = User::findOrFail($id);
+        return view('profile.dashboard', [
+            'title' => "$data->name's dashboard",
+            'user' => $data,
         ]);
     }
 
