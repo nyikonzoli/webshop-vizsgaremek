@@ -2,9 +2,14 @@
 
 @section('title', 'Registration')
 
+@section('header')
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+@endsection
+
 @section('content')
-    <div>
+    <div class="col-lg-5 col-md-8 col-sm-10 col-10 mx-auto" id="wrapper">
         <div>
+            <h3>Register</h3>
             {{ Form::open(['route' => 'register.store', 'files' => true]) }}
                 <div class="mb-3">
                     {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
@@ -28,16 +33,22 @@
                 </div>
                 <div class="mb-3">
                     {{ Form::label('profile_picture', 'Profile picture', ['class' => 'form-label']) }}
-                    {{ Form::file('profile_picture', ['class' => 'form-control']) }}
+                    <div id="input-wrapper">
+                        <p class="input-text">Drag your profile picture here or click in this area.</p>
+                        {{ Form::file('profile_picture', ['class' => 'form-control input']) }}
+                    </div>
                 </div>
-                @foreach($categories as $category)
-                    <div class="mb-3">
-                        {{ Form::label('categories[' . $category->id . ']', $category->name, ['class' => 'form-label']) }}
-                        {{ Form::checkbox('categories[' . $category->id . ']', $category->id) }}
-                    </div>   
-                @endforeach
+                {{ Form::label('categories-div', 'Prefered categories', ['class' => 'form-label']) }}
+                <div name="categories-div" id="categories-div">
+                    @foreach($categories as $category)
+                        <div class="category">
+                            {{ Form::label('categories[' . $category->id . ']', $category->name, ['class' => 'form-label']) }}
+                            {{ Form::checkbox('categories[' . $category->id . ']', $category->id) }}
+                        </div>   
+                    @endforeach
+                </div>
                 <div class="mb-3">
-                    {{ Form::submit('Register', ['class' => 'btn btn-primary']) }}
+                    {{ Form::submit('Register', ['class' => 'submit-button']) }}
                 </div>
             {{ Form::close() }}
         </div>

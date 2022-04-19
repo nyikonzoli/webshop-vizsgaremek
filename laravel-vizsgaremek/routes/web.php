@@ -26,6 +26,9 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register.s
 //Login
 Route::post('/login', [AuthController::class, 'authentication'])->name('auth.login');
 
+//Logout
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
+
 //Profile
 Route::get('/profile/{id}', [UserController::class, 'index'])->name('profile.index');
 

@@ -12,6 +12,7 @@
             <button class="menu-button" onclick="credentials();">Credentials</button>
             <button class="menu-button" onclick="profile();">Profile picture</button>
             <button class="menu-button" onclick="password();">Password</button>
+            <button class="menu-button-warning">Delete account</button>
         </div>
         <div class="settings col-lg-8">
             <div id="profile-picture" class="setting-div">

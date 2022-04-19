@@ -37,11 +37,11 @@
                         <li><a class="dropdown-item" href="{{ route('messages') }}">Messages</a></li>
                         <li><a class="dropdown-item" href="#">Items</a></li>
                         <li><a class="dropdown-item" href="{{ route('settings.index') }}">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="{{ route('auth.logout') }}">Logout</a></li>
                     </ul>
                 </div>
             @else
-                <button class="btn btn-outline-primary" type="submit">Register</button>
+                <a class="btn btn-outline-primary" type="submit" href="{{ route('register.show') }}">Register</a>
                 <button class="btn btn-outline-primary" type="submit" onclick="openModal('loginModal')">Login</button>
             @endauth
         </div>

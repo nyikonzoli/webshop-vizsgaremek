@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace AdminWPF
 {
@@ -18,10 +20,13 @@ namespace AdminWPF
             else return null;
         }
 
-        public async static Task<HttpResponseMessage> Put(string url, Dictionary<string, string> parameters)
+        public async static Task<HttpResponseMessage> Put(string url, object obj)
         {
-            FormUrlEncodedContent encodedContent = new FormUrlEncodedContent(parameters);
-            HttpResponseMessage response = await client.PutAsync(url, encodedContent);
+            string myContent = JsonConvert.SerializeObject(obj);
+            byte[] buffer = Encoding.UTF8.GetBytes(myContent);
+            ByteArrayContent byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = await client.PutAsync(url, byteContent);
             response.EnsureSuccessStatusCode();
             return response;
         }

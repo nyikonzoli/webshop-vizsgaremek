@@ -63,7 +63,6 @@
     height: 160px;
     outline: none;
     opacity: 0;
-
 }
 
 #input-wrapper{
@@ -100,9 +99,27 @@
     color: seagreen;
     border: none;
     margin: 4px;
+    border: 1px solid seagreen;
+    border-radius: 5px;
 }
 
 .menu-button:hover{
     background-color: seagreen;
+    color: white;
+}
+
+.menu-button-warning{
+    width: 100%;
+    height: 60px;
+    font-size: larger;
+    color:#f85149;
+    border: none;
+    margin: 4px;
+    border: 1px solid #f85149;
+    border-radius: 5px;
+}
+
+.menu-button-warning:hover{
+    background-color: #f85149;
     color: white;
 }

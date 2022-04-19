@@ -19,7 +19,9 @@ namespace AdminWPF.Models
         public async static Task<User> update(UserUpdateResource user, int id)
         {
             string url = Requests.client.BaseAddress + "api/users/" + id;
-            Task<HttpResponseMessage> putTask = Requests.Put(url, user.getParams());
+            DataWrapper<UserUpdateResource> dw = new DataWrapper<UserUpdateResource>();
+            dw.data = user;
+            Task<HttpResponseMessage> putTask = Requests.Put(url, dw);
             HttpResponseMessage response = await putTask;
             return (await response.Content.ReadAsAsync<DataWrapper<User>>()).data;
         }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::post('conversation', [ConversationController::class, 'store'])->middlewar
 //User routes
 Route::put('user', [UserController::class, 'update'])->middleware('auth:sanctum')->name('user.update');
 Route::post('user/password', [UserController::class, 'passwordUpdate'])->middleware('auth:sanctum')->name('user.password.update');
+
 //Admin routes
 Route::get('users/{id}', [UserController::class, 'show'])->name('user.show');
 Route::put('users/{id}', [UserController::class, 'updateAdmin'])->name('user.update-admin');
@@ -50,4 +52,5 @@ Route::get('users/{id}/conversations/buys', [UserController::class, 'show'])->na
 Route::get('users/{id}/conversations/sales', [UserController::class, 'show'])->name('user.show');
 Route::get('users/{user_id}/conversations/{conv_id}/messages', [UserController::class, 'show'])->name('user.show');
 
+Route::get('categories', [CategoryController::class, 'index'])->name('category.index');
 

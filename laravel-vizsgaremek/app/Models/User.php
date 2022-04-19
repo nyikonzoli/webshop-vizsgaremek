@@ -72,7 +72,7 @@ class User extends Authenticatable
         return $this->hasMany(Favourite::class, 'userId');
     }
 
-    public function productsConnection(){
+    public function products(){
         return $this->hasMany(Product::class, 'userId');
     }
 

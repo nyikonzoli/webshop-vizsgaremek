@@ -30,13 +30,23 @@ namespace AdminWPF
             Requests.client.BaseAddress = new Uri("http://localhost:8881/");
             Requests.client.DefaultRequestHeaders.Accept.Clear();
             Requests.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            imageLeft.Content = "<";
+            imageRight.Content = ">";
         }
 
         private List<User> users;
         private User currentUser;
+        private List<Category> categories;
+        private List<Product> products;
+        private Product currentProduct;
+        private int currentImageIndex;
 
         private async void searchUser_Click(object sender, RoutedEventArgs e)
         {
+            productPanel.Visibility = Visibility.Hidden;
+            userPanel.Visibility = Visibility.Hidden;
+            dataPanel.Visibility = Visibility.Hidden;
+            productList.Items.Clear();
             string searchText = userSearch.Text;
             if (searchText.Length > 0 && userIdRadio.IsChecked == true)
             {
@@ -48,8 +58,8 @@ namespace AdminWPF
             }
             else if(searchText.Length > 0 && userNameRadio.IsChecked == true)
             {
+                userList.Items.Clear();
                 Task<List<User>> userTask = User.getUserByName(searchText);
-                userPanel.Visibility = Visibility.Hidden;
                 users = await userTask;
                 foreach (var user in users)
                 {
@@ -65,8 +75,10 @@ namespace AdminWPF
             setUserProfile(user);
         }
 
-        private void setUserProfile(User user)
+        private async void setUserProfile(User user)
         {
+            Task<List<Product>> productTask = Product.getProductsByUserId(user.Id);
+            Task<List<Category>> categoryTask = Category.getAllCategories();
             currentUser = user;
             userImage.Source = new BitmapImage(new Uri(user.ProfilePictureURI));
             userId.Content = "#" + user.Id;
@@ -75,7 +87,36 @@ namespace AdminWPF
             userAddress.Text = user.Address;
             userDescription.Text = user.Description;
             userBirthdate.SelectedDate = user.Birthdate;
+            categories = await categoryTask;
+            productCategory.Items.Clear();
+            foreach (var category in categories)
+            {
+                productCategory.Items.Add(category.Name);
+            }
+            products = await productTask;
+            foreach (var product in products)
+            {
+                productList.Items.Add(product);
+            }
+            dataPanel.Visibility = Visibility.Visible;
             userPanel.Visibility = Visibility.Visible;
+        }
+
+        private void setProductData(Product product)
+        {
+            currentProduct = product;
+            productId.Content = "#" + product.Id;
+            productName.Text = product.Name;
+            productDescription.Text = product.Description;
+            productPrice.Text = product.Price.ToString() + "$";
+            productSizee.Text = product.Size;
+            productIced.Content = "Iced: " + product.Iced.ToString();
+            productSold.Content = "Sold: " + product.Sold.ToString();
+            productUserId.Content = "#" + product.UserId.ToString();
+            productCategory.SelectedItem = categories.Where(x => x.Id == product.CategoryId).First().Name;
+            productImage.Source = new BitmapImage(new Uri(product.Images[0].ImageURI));
+            currentImageIndex = 0;
+            productPanel.Visibility = Visibility.Visible;
         }
 
         private async void updateUser_Click(object sender, RoutedEventArgs e)
@@ -92,6 +133,63 @@ namespace AdminWPF
             User user = await userTask;
             setUserProfile(user);
             MessageBox.Show(user.Name + "'s profile has been updated successfully!");
+        }
+
+        private void updateProduct_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void productList_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Product product = (sender as ListView).SelectedItem as Product;
+            setProductData(product);
+        }
+
+        private void imageLeft_Click(object sender, RoutedEventArgs e)
+        {
+            if(currentImageIndex != 0)
+            {
+                productImage.Source = new BitmapImage(new Uri(currentProduct.Images[--currentImageIndex].ImageURI));
+            }
+        }
+
+        private void imageRight_Click(object sender, RoutedEventArgs e)
+        {
+            if(currentImageIndex != currentProduct.Images.Count - 1)
+            {
+                productImage.Source = new BitmapImage(new Uri(currentProduct.Images[++currentImageIndex].ImageURI));
+            }
+        }
+
+        private async void categoriesExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+            categoryDataPanel.Visibility = Visibility.Hidden;
+            categoryEditPanel.Visibility = Visibility.Hidden;
+            Task<List<Category>> categoriesTask = Category.getAllCategories();
+            categories = await categoriesTask;
+            categoriesCB.Items.Clear();
+            foreach (var category in categories)
+            {
+                categoriesCB.Items.Add(category.Name);
+            }
+            categoryEditPanel.Visibility = Visibility.Visible;
+        }
+
+        private void createCategoryExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void categoriesCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(categoriesCB.Items.Count > 0)
+            {
+                Category category = categories.Where(x => x.Name == categoriesCB.SelectedItem.ToString()).First();
+                categoryId.Content = "Id: #" + category.Id;
+                categoryName.Text = category.Name;
+                categoryDataPanel.Visibility = Visibility.Visible;
+            }
         }
     }
 }

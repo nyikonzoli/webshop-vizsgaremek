@@ -36,34 +36,117 @@
                             </ListView.View>
                         </ListView>
                     </StackPanel>
-                    <StackPanel x:Name="userPanel" Visibility="Hidden">
-                        <Image x:Name="userImage" Width="100" Height="100"></Image>
-                        <Label Name="userId"></Label>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Name:</Label>
-                            <TextBox x:Name="userName" Width="200"></TextBox>
+                    <StackPanel Name="dataPanel" Visibility="Hidden">
+                        <StackPanel x:Name="userPanel" Visibility="Hidden">
+                            <Image x:Name="userImage" Width="100" Height="100"></Image>
+                            <Label Name="userId"></Label>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Name:</Label>
+                                <TextBox x:Name="userName" Width="200"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Email:</Label>
+                                <TextBox x:Name="userEmail" Width="200"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Address:</Label>
+                                <TextBox x:Name="userAddress" Width="200"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Birthdate:</Label>
+                                <DatePicker Name="userBirthdate"></DatePicker>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Description:</Label>
+                                <TextBox x:Name="userDescription" Width="200"></TextBox>
+                            </StackPanel>
+                            <Button x:Name="updateUser" Click="updateUser_Click">Update</Button>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Email:</Label>
-                            <TextBox x:Name="userEmail" Width="200"></TextBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Address:</Label>
-                            <TextBox x:Name="userAddress" Width="200"></TextBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Birthdate:</Label>
-                            <DatePicker Name="userBirthdate"></DatePicker>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label>Description:</Label>
-                            <TextBox x:Name="userDescription" Width="200"></TextBox>
-                        </StackPanel>
-                        <Button x:Name="updateUser" Click="updateUser_Click">Update</Button>
+                        <Expander Header="Products">
+                            <StackPanel>
+                                <ListView Grid.ColumnSpan="2" Grid.Row="1" Name="productList"  AlternationCount="0" SelectionMode="Single" MouseLeftButtonUp="productList_MouseLeftButtonUp">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridView.Columns>
+                                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" />
+                                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" />
+                                                <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=Price}" />
+                                                <GridViewColumn Header="Sold" DisplayMemberBinding="{Binding Path=Sold}" />
+                                            </GridView.Columns>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <StackPanel x:Name="productPanel" Visibility="Hidden">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="imageLeft" Click="imageLeft_Click"></Button>
+                                        <Image x:Name="productImage" Width="100" Height="100"></Image>
+                                        <Button x:Name="imageRight" Click="imageRight_Click"></Button>
+                                    </StackPanel>
+
+                                    <Label Name="productId"></Label>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label>Name:</Label>
+                                        <TextBox x:Name="productName" Width="200"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label>Description:</Label>
+                                        <TextBox x:Name="productDescription" Width="200"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label>Price:</Label>
+                                        <TextBox x:Name="productPrice" Width="200"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label>Size:</Label>
+                                        <TextBox x:Name="productSizee" Width="200"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label x:Name="productIced">Iced:</Label>
+                                        <Label x:Name="productSold">Sold:</Label>
+                                        <Label x:Name="productUserId">User id:</Label>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label>Category:</Label>
+                                        <ComboBox x:Name="productCategory"></ComboBox>
+                                    </StackPanel>
+                                    <Button x:Name="updateProduct" Click="updateProduct_Click">Update</Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Products">abc</TabItem>
+            <TabItem Header="Categories">
+                <StackPanel>
+                    <Expander Header="Categories" Name="categoriesExpander" Expanded="categoriesExpander_Expanded">
+                        <StackPanel Orientation="Horizontal" Name="categoryEditPanel">
+                            <StackPanel Width="150">
+                                <Label>Category</Label>
+                                <ComboBox Name="categoriesCB" SelectionChanged="categoriesCB_SelectionChanged"></ComboBox>
+                            </StackPanel>
+                            <StackPanel x:Name="categoryDataPanel" Margin="48 0 0 0">
+                                <StackPanel>
+                                    <Label Name="categoryId"></Label>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label>Name</Label>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox x:Name="categoryName" Width="250"></TextBox>
+                                        <Button x:Name="updateCategory">Update</Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="Create category" Name="createCategoryExpander" Expanded="createCategoryExpander_Expanded">
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Name:</Label>
+                            <TextBox Width="250" Name="newCategoryName"></TextBox>
+                            <Button>Create Category</Button>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </TabItem>
         </TabControl>
 
     </StackPanel>
