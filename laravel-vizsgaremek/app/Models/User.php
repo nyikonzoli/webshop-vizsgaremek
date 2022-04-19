@@ -88,4 +88,13 @@ class User extends Authenticatable
             return $this->profilePictureURI;
         }
     }
+
+    public function getDescription() {
+        if (is_null($this->description)){
+            return "This user doesn't have description.";
+        }
+        else{
+            return $this->description;
+        }
+    }
 }
