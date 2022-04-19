@@ -37,17 +37,23 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'date',
             ],
-            'profile_picture' => [
+            'profilePictureURI' => [
+                'sometimes',
                 'nullable',
                 'image'
             ],
             'address' => [
-                'required',
+                'nullable',
                 'min: 10'
             ],
             'description' => [
-                'required',
+                'nullable',
                 'max:250'
+            ],
+            'categories' => [
+                'sometimes',
+                'nullable',
+                'array'
             ]
         ];
     }

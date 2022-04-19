@@ -34,11 +34,11 @@ Route::get('conversation/{id}', [ConversationController::class, 'show'])->middle
 Route::post('conversation', [ConversationController::class, 'store'])->middleware('auth:sanctum')->name('conversation.store');
 
 //User routes
-Route::put('user/profile-picture', [UserController::class, 'profilePictureUpdate'])->middleware('auth:sanctum')->name('user.profile-picture.update');
-
+Route::put('user', [UserController::class, 'update'])->middleware('auth:sanctum')->name('user.update');
+Route::post('user/password', [UserController::class, 'passwordUpdate'])->middleware('auth:sanctum')->name('user.password.update');
 //Admin routes
 Route::get('users/{id}', [UserController::class, 'show'])->name('user.show');
-Route::put('users/{id}', [UserController::class, 'update'])->name('user.update');
+Route::put('users/{id}', [UserController::class, 'updateAdmin'])->name('user.update-admin');
 Route::get('users', [UserController::class, 'showByName'])->name('user.show-by-name');
 Route::get('users/{id}/products', [ProductController::class, 'showByUserId'])->name('product.show-by-user-id');
 Route::get('users/{id}/transactions/buys', [UserController::class, 'show'])->name('user.show');

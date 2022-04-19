@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowUserByNameRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\PasswordUpdateRequest;
 use App\Models\User;
-use App\Http\Resources\UserResourceAdmin;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -51,7 +53,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return new UserResourceAdmin($user);
+        return new UserResource($user);
     }
 
     public function showByName(ShowUserByNameRequest $request){
@@ -59,7 +61,7 @@ class UserController extends Controller
         $users = User::where('name', 'like', '%' . $data['name'] . '%')->get();
         $resources = [];
         foreach ($users as $user) {
-            $resources[] = new UserResourceAdmin($user);
+            $resources[] = new UserResource($user);
         }
         return $resources;
     }
@@ -71,16 +73,40 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request)
     {
+        dd($request->getContent());
+        $data = $request->validated();
+        $user = auth()->user();
+        if(array_key_exists("profilePictureURI", $data) && $data["profilePictureURI"] != null){
+            $data['profilePictureURI'] = $data['profile_picture']->store('profile_pictures');
+        }
+        if(array_key_exists("categories", $data)){
+            $ids = [];
+            foreach($user->categories as $category){
+            $ids[] = $category->id;
+            }
+            $user->categories()->detach($ids);
+            foreach ($request->categories as $category) {
+                $user->categories()->attach($category);
+            }
+        }
+        $user->update($data);
+        return new UserResource($user);
+    }
+
+    public function passwordUpdate(PasswordUpdateRequest $request){
+        $data = $request->validated();
+        $user = auth()->user();
+        $user->password = Hash::make($data['password']);
+        $user->save();
+    }
+
+    public function updateAdmin(UpdateUserRequest $request, $id){
         $data = $request->validated();
         $user = User::findOrFail($id);
         $user->update($data);
-        return new UserResourceAdmin($user);
-    }
-
-    public function profilePictureUpdate(Request $request){
-
+        return new UserResource($user);
     }
 
     /**
