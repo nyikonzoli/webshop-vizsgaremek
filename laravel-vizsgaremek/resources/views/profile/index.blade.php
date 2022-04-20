@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('header')
+    <link rel="stylesheet" href="{{ asset("css/profile.css") }}">
+@endsection
+
 @section('title', $title)
 
 @section('content')
@@ -17,8 +21,9 @@
                         <p class="text-break mb-4">{{ $user->getDescription() }}</p>
                         <p class="mb-4">{{ $products->count() }} products listed</p>
                         <p>TODO rating</p>
-                        @can('view-dashboard', $user->id)
+                        @can('view-dashboard_settings', $user->id)
                             <a class="btn btn-success mt-auto" href="{{ route('profile.dashboard', ['id' => $user->id]) }}" role="button">Dashboard</a>
+                            <a class="btn btn-success mt-auto" href="{{ route('settings.index') }}" role="button">Settings</a>
                         @endcan
                     </div>
                 </div>
@@ -26,7 +31,7 @@
         </div>
         {{-- Termekek --}}
         @foreach($products as $p)
-            <div class="row" style="background: rgba(51,36,199,0.44)">
+            <div class="row">
                 <div class="col-9 my-4 mx-auto">
                     <div class="card">
                         <div class="row g-0">
@@ -50,9 +55,8 @@
                                                 <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})" disabled>Contact seller</button>
                                             @endauth
                                         </div>
-                                        <div class="col-2 d-flex align-items-end flex-column justify-content-between" style="max-height: 100%">
-                                            <div class="fs-5">7 Likes</div>
-                                            <div class="fs-5 mb-0">{{ $p->price }}$</div>
+                                        <div class="col-2 d-flex align-items-end flex-column justify-content-end">
+                                            <div class="fs-5">{{ $p->price }}$</div>
                                         </div>
                                     </div>
                                 </div>

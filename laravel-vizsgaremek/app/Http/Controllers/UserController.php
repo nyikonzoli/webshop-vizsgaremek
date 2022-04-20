@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     public function dashboard($id) {
-        Gate::authorize('view-dashboard', $id);
+        Gate::authorize('view-dashboard_settings', $id);
         $data = User::findOrFail($id);
         return view('profile.dashboard', [
             'title' => "$data->name's dashboard",
