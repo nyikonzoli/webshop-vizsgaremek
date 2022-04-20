@@ -1,0 +1,17 @@
+#header {
+    border: 2px solid seagreen;
+    border-radius: 20px;
+}
+
+p {
+    margin-bottom: 0pt;
+}
+
+#pfp {
+    border: 4px solid seagreen;
+    border-radius: 50%
+}
+
+.card {
+    border: 2px solid seagreen;
+}

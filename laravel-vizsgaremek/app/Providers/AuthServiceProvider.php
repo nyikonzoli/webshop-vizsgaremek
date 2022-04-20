@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
                 : Response::deny('Insufficent permissions.');
         });
 
-        Gate::define('view-dashboard', function (User $user, string $id) {
+        Gate::define('view-dashboard_settings', function (User $user, string $id) {
             return $user->id == $id
                 ? Response::allow()
                 : Response::deny('Insufficent permissions.');
