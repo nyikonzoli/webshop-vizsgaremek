@@ -128,12 +128,13 @@
             fd.append('birthdate', data["birthdate"]);
             fd.append('address', data["address"]);
             fd.append('description', data["description"]);
+            fd.append('_method', 'PUT');
             for(var pair of fd.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]);
             }
-            data["profilePictureURI"] = document.getElementById("image-upload").files[0];
-            console.log(data);
-            axios.put("{{ route('user.update') }}", fd, {
+            //data["profilePictureURI"] = document.getElementById("image-upload").files[0];
+            //console.log(data);
+            axios.post("{{ route('user.update') }}", fd, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

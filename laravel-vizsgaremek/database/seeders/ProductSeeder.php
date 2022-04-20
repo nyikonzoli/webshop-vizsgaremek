@@ -151,8 +151,8 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'id' => 13,
-            'name' => "This is my most recent box paint. As you can see it has a bit more restrained style then the others. It's much more simpler but yet, still amazing. I was also created with matte paint and pine wood.",
-            'description' => null,
+            'name' => "Purple jewelry box",
+            'description' => "This is my most recent box paint. As you can see it has a bit more restrained style then the others. It's much more simpler but yet, still amazing. I was also created with matte paint and pine wood.",
             'price' => 18.99,
             'size' => null,
             'iced' => false,
@@ -176,7 +176,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 15,
             'name' => '"Waterfall" - painting',
-            'description' => null,
+            'description' => 'As a child I saw a very similar waterfall like this. This image stuck in my mind and I decided to paint it many decades later. It was created with some regular paint and a high quality canvas. If you prefer, I could framet it for you for extra fees.',
             'price' => 78.99,
             'size' => null,
             'iced' => false,
@@ -187,7 +187,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 16,
             'name' => '"Cold winter" - painting',
-            'description' => null,
+            'description' => "This painting was inspired by the last year's winter. It was so cold and snowy that I had to make this masterpiece about it. It was created with some regular paint and a high quality canvas. If you prefer, I could framet it for you for extra fees.",
             'price' => 95.99,
             'size' => null,
             'iced' => false,
@@ -198,7 +198,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 17,
             'name' => '"Castle" - painting',
-            'description' => null,
+            'description' => "A few years ago I had the chance to visit a castle in Slovakia during my roadtrip in Europe. It was wonderful, so I painted it as a memory. It was created with some regular paint and a high quality canvas. If you prefer, I could framet it for you for extra fees.",
             'price' => 63.99,
             'size' => null,
             'iced' => false,
@@ -209,7 +209,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 18,
             'name' => '"Boat during sunrise" - painting',
-            'description' => null,
+            'description' => "This painting was also inspired by my roadtrip in Europe. We were travelling by boat in the sunset and I felt so alive that I inmedietly knew that I hade to paint this. It was created with some regular paint and a high quality canvas. If you prefer, I could framet it for you for extra fees.",
             'price' => 149.99,
             'size' => null,
             'iced' => false,
@@ -220,8 +220,8 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 19,
             'name' => '"Northern light" - painting',
-            'description' => null,
-            'price' => 110.00,
+            'description' => "This painting represents the norhern light. It was inspired by a book a read, called the 'Secret light'. I used a very special paint for it, that's why the price is so high. The canvas is also high qulity.",
+            'price' => 199.00,
             'size' => null,
             'iced' => false,
             'sold' => false,
@@ -231,7 +231,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 20,
             'name' => '"Sunset on the beach" - painting',
-            'description' => null,
+            'description' => 'Like most of my paintings listed here, this one was also inspired by my europien trip. We were going to Ciprus and the amazing view welcomed us at our Airbnb. It was created with some regular paint and a high quality canvas. If you prefer, I could framet it for you for extra fees.',
             'price' => 78.99,
             'size' => null,
             'iced' => false,
@@ -244,7 +244,7 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 21,
             'name' => 'Earrings',
-            'description' => null,
+            'description' => 'My friend created these earrings for his girlfriend, but they broke up before he could gave it to her, so he gave it to me instead to list it here for sale. It was carefully me out of colored resin, which he sended down. He also put some layers of protective oil on int.',
             'price' => 15.99,
             'size' => null,
             'iced' => false,
@@ -255,8 +255,8 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
             'id' => 22,
             'name' => 'Necklace',
-            'description' => 'színezett gyanta',
-            'price' => 32.99,
+            'description' => 'My friend created this stylish necklace using resin creativly. She made a mold for it, out of wood, then poored the 2 different colored resin in it. After it became solid, she sanded it down and used some conditiioning oils on it. The chain is a regular silver chain that I bought.',
+            'price' => 479.99,
             'size' => 'S',
             'iced' => false,
             'sold' => false,

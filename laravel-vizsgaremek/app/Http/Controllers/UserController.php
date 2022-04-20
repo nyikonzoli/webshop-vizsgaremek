@@ -83,11 +83,10 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request)
     {
-        dd($request->getContent());
         $data = $request->validated();
         $user = auth()->user();
         if(array_key_exists("profilePictureURI", $data) && $data["profilePictureURI"] != null){
-            $data['profilePictureURI'] = $data['profile_picture']->store('profile_pictures');
+            $data['profilePictureURI'] = $data['profilePictureURI']->store('profile_pictures');
         }
         if(array_key_exists("categories", $data)){
             $ids = [];

@@ -48,7 +48,7 @@ class UpdateUserRequest extends FormRequest
             ],
             'description' => [
                 'nullable',
-                'max:250'
+                'max:350'
             ],
             'categories' => [
                 'sometimes',

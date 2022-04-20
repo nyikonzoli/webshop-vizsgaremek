@@ -26,7 +26,7 @@ namespace AdminWPF
             byte[] buffer = Encoding.UTF8.GetBytes(myContent);
             ByteArrayContent byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = await client.PutAsync(url, byteContent);
+            HttpResponseMessage response = await client.PostAsync(url, byteContent);
             response.EnsureSuccessStatusCode();
             return response;
         }
