@@ -38,6 +38,11 @@ Route::post('conversation', [ConversationController::class, 'store'])->middlewar
 Route::put('user', [UserController::class, 'update'])->middleware('auth:sanctum')->name('user.update');
 Route::post('user/password', [UserController::class, 'passwordUpdate'])->middleware('auth:sanctum')->name('user.password.update');
 
+//Product routes
+Route::get('products', [ProductController::class, 'index'])->name('product.index');
+Route::get('products/{id}', [ProductController::class, 'indexOf'])->name('product.indexOf');
+Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
 //Admin routes
 Route::get('users/{id}', [UserController::class, 'show'])->name('user.show');
 Route::put('users/{id}', [UserController::class, 'updateAdmin'])->name('user.update-admin');
