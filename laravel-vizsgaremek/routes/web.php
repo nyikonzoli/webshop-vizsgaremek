@@ -31,12 +31,14 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth')->na
 
 //Profile
 Route::get('/profile/{id}', [UserController::class, 'index'])->name('profile.index');
+Route::get('/profile/{id}/upload', [UserController::class, 'upload'])->name('profile.upload');
 
 //Dashboard
 Route::get('/profile/{id}/dashboard', [UserController::class, 'dashboard'])->name('profile.dashboard');
 
 //Product
-Route::post('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+Route::post('/products/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+Route::post('/products/upload', [ProductController::class, 'store'])->name('product.upload');
 
 //Messages
 Route::get('/messages', [ConversationController::class, 'messages'])->middleware('auth')->name('messages');

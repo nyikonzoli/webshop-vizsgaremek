@@ -56,7 +56,7 @@
                                             @endauth
                                         </div>
                                         <div class="col-2 d-flex align-items-end flex-column justify-content-end">
-                                            <div class="fs-5">{{ $p->price }}$</div>
+                                            <div class="fs-5">${{ $p->price }} USD</div>
                                         </div>
                                     </div>
                                 </div>
