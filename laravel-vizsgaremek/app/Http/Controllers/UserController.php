@@ -91,7 +91,7 @@ class UserController extends Controller
         if(array_key_exists("categories", $data)){
             $ids = [];
             foreach($user->categories as $category){
-            $ids[] = $category->id;
+                $ids[] = $category->id;
             }
             $user->categories()->detach($ids);
             foreach ($request->categories as $category) {
@@ -110,8 +110,9 @@ class UserController extends Controller
     }
 
     public function updateAdmin(UpdateUserRequest $request, $id){
-        $data = $request->validated();
+        //return $request->all();
         $user = User::findOrFail($id);
+        $data = $request->validated();
         $user->update($data);
         return new UserResource($user);
     }

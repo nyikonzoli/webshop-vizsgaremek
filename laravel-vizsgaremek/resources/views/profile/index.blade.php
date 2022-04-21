@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('header')
-    <link rel="stylesheet" href="{{ asset("css/profile.css") }}">
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 @endsection
 
 @section('title', $title)
@@ -29,74 +29,84 @@
                 </div>
             </div>
         </div>
-        {{-- Termekek --}}
-        @foreach($products as $p)
-            <div class="row">
-                <div class="col-9 my-4 mx-auto">
-                    <div class="card">
-                        <div class="row g-0">
-                            <div class="col-lg-3">
-                                <img src="{{ asset($p->images->first()->imageURI) }}" alt="" class="img-fluid" style="object-fit: cover; width: 100%; height: 280px;">
-                            </div>
-                            <div class="col-lg-9">
-                                <div class="card-body" style="height: 100%;">
-                                    <div class="row" style="height: 100%;">
-                                        <div class="col-10 d-flex flex-column align-items-start" style="height: 100%">
-                                            <h4 class="card-title">{{ $p->name }}</h4>
-                                            <p class="card-text">{{ $p->getDescription() }}</p>
-                                            <p class="card-text">Size: {{ $p->getSize() }}</p>
-                                            @auth
-                                                @can('edit-product', $p)
-                                                    <button type="button" class="btn btn-success mt-auto" data-bs-toggle="modal" data-bs-target="#editModal_{{ $p->id }}">Edit product</button>
-                                                @else
-                                                    <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})">Contact seller</button>
-                                                @endcan
-                                            @else
-                                                <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})" disabled>Contact seller</button>
-                                            @endauth
-                                        </div>
-                                        <div class="col-2 d-flex align-items-end flex-column justify-content-end">
-                                            <div class="fs-5">{{ $p->price }}$</div>
+        <div id="section-select-buttons" class="col-9">
+            <button class="section-select section-select-active" onclick="products();" id="profile-products-button"><b>Products for sale</b></button>
+            <button class="section-select" onclick="reviews();" id="profile-reviews-button"><b>Reviews</b></button>
+        </div>
+        <div id="profile-reviews">
+
+        </div>
+        <div class="row" id="profile-products">
+            <div class="col">
+                {{-- Termekek --}}
+                @foreach($products as $p)
+                    <div class="row">
+                        <div class="col-9 mb-4 mt-3 mx-auto">
+                            <div class="card">
+                                <div class="row g-0">
+                                    <div class="col-lg-3">
+                                        <img src="{{ asset($p->images->first()->imageURI) }}" alt="" class="img-fluid" style="object-fit: cover; width: 100%; height: 280px;">
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="card-body" style="height: 100%;">
+                                            <div class="row" style="height: 100%;">
+                                                <div class="col-10 d-flex flex-column align-items-start" style="height: 100%">
+                                                    <h4 class="card-title">{{ $p->name }}</h4>
+                                                    <p class="card-text">{{ $p->getDescription() }}</p>
+                                                    <p class="card-text">Size: {{ $p->getSize() }}</p>
+                                                    @auth
+                                                        @can('edit-product', $p)
+                                                            <button type="button" class="btn btn-success mt-auto" data-bs-toggle="modal" data-bs-target="#editModal_{{ $p->id }}">Edit product</button>
+                                                        @else
+                                                            <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})">Contact seller</button>
+                                                        @endcan
+                                                    @else
+                                                        <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})" disabled>Contact seller</button>
+                                                    @endauth
+                                                </div>
+                                                <div class="col-2 d-flex align-items-end flex-column justify-content-end">
+                                                    <div class="fs-5">{{ $p->price }}$</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="modal fade" tabindex="-1" id="editModal_{{ $p->id }}">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit product</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal fade" tabindex="-1" id="editModal_{{ $p->id }}">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit product</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                {{ Form::open(['route' => ['product.edit', 'product' => $p], 'id' => 'editForm']) }}
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
+                                            {{ Form::text('name', $p->name, ['class' => 'form-control']) }}
+                                        </div>
+                                        <div class="mb-3">
+                                            {{ Form::label('description', 'Description', ['class' => 'form-label']) }}
+                                            {{ Form::text('description', $p->description, ['class' => 'form-control']) }}
+                                        </div>
+                                        <div class="mb-3">
+                                            {{ Form::label('size', 'Size', ['class' => 'form-label']) }}
+                                            {{ Form::text('size', $p->size, ['class' => 'form-control']) }}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
+                                    </div>
+                                {{ Form::close() }}
+                            </div>
                         </div>
-                        {{ Form::open(['route' => ['product.edit', 'product' => $p], 'id' => 'editForm']) }}
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
-                                    {{ Form::text('name', $p->name, ['class' => 'form-control']) }}
-                                </div>
-                                <div class="mb-3">
-                                    {{ Form::label('description', 'Description', ['class' => 'form-label']) }}
-                                    {{ Form::text('description', $p->description, ['class' => 'form-control']) }}
-                                </div>
-                                <div class="mb-3">
-                                    {{ Form::label('size', 'Size', ['class' => 'form-label']) }}
-                                    {{ Form::text('size', $p->size, ['class' => 'form-control']) }}
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                {{ Form::submit('Save', ['class' => 'btn btn-success']) }}
-                            </div>
-                        {{ Form::close() }}
                     </div>
-                </div>
+                @endforeach
             </div>
-        @endforeach
-
+        </div>
     </div>
 @endsection
 
@@ -110,6 +120,20 @@
             axios.post("{{ route('conversation.store') }}", data).then(function (response){
                 console.log(response);
             });
+        }
+        
+        function products(){
+            document.getElementById("profile-products").style.display = "block";
+            document.getElementById("profile-products-button").classList.add("section-select-active");
+            document.getElementById("profile-reviews").style.display = "none";
+            document.getElementById("profile-reviews-button").classList.remove("section-select-active");
+        }
+
+        function reviews(){
+            document.getElementById("profile-products").style.display = "none";
+            document.getElementById("profile-products-button").classList.remove("section-select-active");
+            document.getElementById("profile-reviews").style.display = "block";
+            document.getElementById("profile-reviews-button").classList.add("section-select-active");
         }
     </script>
 @endsection

@@ -4,19 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using AdminWPF.Resources;
 
 namespace AdminWPF.Models
 {
     class Product : Base
     {
-        public string Description { get; set; }
-        public double Price { get; set; }
-        public string Size { get; set; }
-        public bool Iced { get; set; }
-        public bool Sold { get; set; }
-        public int UserId { get; set; }
-        public int CategoryId { get; set; }
-        public List<Image> Images { get; set; }
+        public string description { get; set; }
+        public double price { get; set; }
+        public string size { get; set; }
+        public bool iced { get; set; }
+        public bool sold { get; set; }
+        public int userId { get; set; }
+        public int categoryId { get; set; }
+        public List<Image> images { get; set; }
+
+        public async static Task<Product> update(ProductUpdateResource product, int id)
+        {
+            string url = Requests.client.BaseAddress + "users/" + id;
+            Task<HttpResponseMessage> putTask = Requests.Put(url, product);
+            HttpResponseMessage response = await putTask;
+            return (await response.Content.ReadAsAsync<DataWrapper<Product>>()).data;
+        }
 
         public async static Task<List<Product>> getProductsByUserId(int id)
         {

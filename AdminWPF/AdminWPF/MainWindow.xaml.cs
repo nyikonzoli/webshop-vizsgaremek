@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using AdminWPF.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using AdminWPF.Resources;
 
 namespace AdminWPF
 {
@@ -27,7 +28,7 @@ namespace AdminWPF
         {
             InitializeComponent();
             Requests.client = new HttpClient();
-            Requests.client.BaseAddress = new Uri("http://localhost:8881/");
+            Requests.client.BaseAddress = new Uri("http://localhost:8881/api/admin/");
             Requests.client.DefaultRequestHeaders.Accept.Clear();
             Requests.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             imageLeft.Content = "<";
@@ -77,12 +78,12 @@ namespace AdminWPF
 
         private async void setUserProfile(User user)
         {
-            Task<List<Product>> productTask = Product.getProductsByUserId(user.Id);
+            Task<List<Product>> productTask = Product.getProductsByUserId(user.id);
             Task<List<Category>> categoryTask = Category.getAllCategories();
             currentUser = user;
             userImage.Source = new BitmapImage(new Uri(user.ProfilePictureURI));
-            userId.Content = "#" + user.Id;
-            userName.Text = user.Name;
+            userId.Content = "#" + user.id;
+            userName.Text = user.name;
             userEmail.Text = user.Email;
             userAddress.Text = user.Address;
             userDescription.Text = user.Description;
@@ -91,7 +92,7 @@ namespace AdminWPF
             productCategory.Items.Clear();
             foreach (var category in categories)
             {
-                productCategory.Items.Add(category.Name);
+                productCategory.Items.Add(category.name);
             }
             products = await productTask;
             foreach (var product in products)
@@ -105,16 +106,16 @@ namespace AdminWPF
         private void setProductData(Product product)
         {
             currentProduct = product;
-            productId.Content = "#" + product.Id;
-            productName.Text = product.Name;
-            productDescription.Text = product.Description;
-            productPrice.Text = product.Price.ToString() + "$";
-            productSizee.Text = product.Size;
-            productIced.Content = "Iced: " + product.Iced.ToString();
-            productSold.Content = "Sold: " + product.Sold.ToString();
-            productUserId.Content = "#" + product.UserId.ToString();
-            productCategory.SelectedItem = categories.Where(x => x.Id == product.CategoryId).First().Name;
-            productImage.Source = new BitmapImage(new Uri(product.Images[0].ImageURI));
+            productId.Content = "#" + product.id;
+            productName.Text = product.name;
+            productDescription.Text = product.description;
+            productPrice.Text = product.price.ToString() + "$";
+            productSizee.Text = product.size;
+            productIced.Content = "Iced: " + product.iced.ToString();
+            productSold.Content = "Sold: " + product.sold.ToString();
+            productUserId.Content = "#" + product.userId.ToString();
+            productCategory.SelectedItem = categories.Where(x => x.id == product.categoryId).First().name;
+            productImage.Source = new BitmapImage(new Uri(product.images[0].ImageURI));
             currentImageIndex = 0;
             productPanel.Visibility = Visibility.Visible;
         }
@@ -129,15 +130,23 @@ namespace AdminWPF
                 profilePictureURI: currentUser.ProfilePictureURI,
                 description: userDescription.Text
             );
-            Task<User> userTask = User.update(helper, currentUser.Id);
+            Task<User> userTask = User.update(helper, currentUser.id);
             User user = await userTask;
+            currentUser = user;
             setUserProfile(user);
-            MessageBox.Show(user.Name + "'s profile has been updated successfully!");
+            MessageBox.Show(user.name + "'s profile has been updated successfully!");
         }
 
-        private void updateProduct_Click(object sender, RoutedEventArgs e)
+        private async void updateProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            ProductUpdateResource helper = new ProductUpdateResource(
+                name:    
+            );
+            Task<Product> productTask = Product.update(currentProduct);
+            Product product = await productTask;
+            currentProduct = product;
+            setProductData(product);
+            MessageBox.Show(product.name + " has been updated");
         }
 
         private void productList_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -150,15 +159,15 @@ namespace AdminWPF
         {
             if(currentImageIndex != 0)
             {
-                productImage.Source = new BitmapImage(new Uri(currentProduct.Images[--currentImageIndex].ImageURI));
+                productImage.Source = new BitmapImage(new Uri(currentProduct.images[--currentImageIndex].ImageURI));
             }
         }
 
         private void imageRight_Click(object sender, RoutedEventArgs e)
         {
-            if(currentImageIndex != currentProduct.Images.Count - 1)
+            if(currentImageIndex != currentProduct.images.Count - 1)
             {
-                productImage.Source = new BitmapImage(new Uri(currentProduct.Images[++currentImageIndex].ImageURI));
+                productImage.Source = new BitmapImage(new Uri(currentProduct.images[++currentImageIndex].ImageURI));
             }
         }
 
@@ -171,7 +180,7 @@ namespace AdminWPF
             categoriesCB.Items.Clear();
             foreach (var category in categories)
             {
-                categoriesCB.Items.Add(category.Name);
+                categoriesCB.Items.Add(category.name);
             }
             categoryEditPanel.Visibility = Visibility.Visible;
         }
@@ -185,9 +194,9 @@ namespace AdminWPF
         {
             if(categoriesCB.Items.Count > 0)
             {
-                Category category = categories.Where(x => x.Name == categoriesCB.SelectedItem.ToString()).First();
-                categoryId.Content = "Id: #" + category.Id;
-                categoryName.Text = category.Name;
+                Category category = categories.Where(x => x.name == categoriesCB.SelectedItem.ToString()).First();
+                categoryId.Content = "Id: #" + category.id;
+                categoryName.Text = category.name;
                 categoryDataPanel.Visibility = Visibility.Visible;
             }
         }

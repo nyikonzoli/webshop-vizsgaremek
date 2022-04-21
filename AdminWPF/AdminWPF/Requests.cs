@@ -23,10 +23,10 @@ namespace AdminWPF
         public async static Task<HttpResponseMessage> Put(string url, object obj)
         {
             string myContent = JsonConvert.SerializeObject(obj);
-            byte[] buffer = Encoding.UTF8.GetBytes(myContent);
-            ByteArrayContent byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = await client.PostAsync(url, byteContent);
+            //byte[] buffer = Encoding.UTF8.GetBytes(myContent);
+            ByteArrayContent strcnt = new StringContent(myContent);
+            strcnt.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = await client.PutAsync(url, strcnt);
             response.EnsureSuccessStatusCode();
             return response;
         }

@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Net.Http;
+using AdminWPF.Resources;
 
 namespace AdminWPF.Models
 {
@@ -18,10 +19,8 @@ namespace AdminWPF.Models
 
         public async static Task<User> update(UserUpdateResource user, int id)
         {
-            string url = Requests.client.BaseAddress + "api/users/" + id;
-            DataWrapper<UserUpdateResource> dw = new DataWrapper<UserUpdateResource>();
-            dw.data = user;
-            Task<HttpResponseMessage> putTask = Requests.Put(url, dw);
+            string url = Requests.client.BaseAddress + "api/admin/users/" + id;
+            Task<HttpResponseMessage> putTask = Requests.Put(url, user);
             HttpResponseMessage response = await putTask;
             return (await response.Content.ReadAsAsync<DataWrapper<User>>()).data;
         }

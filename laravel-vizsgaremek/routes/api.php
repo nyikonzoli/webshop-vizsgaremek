@@ -44,18 +44,19 @@ Route::get('products/{id}', [ProductController::class, 'indexOf'])->name('produc
 Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 //Admin routes
-Route::get('users/{id}', [UserController::class, 'show'])->name('user.show');
-Route::put('users/{id}', [UserController::class, 'updateAdmin'])->name('user.update-admin');
-Route::get('users', [UserController::class, 'showByName'])->name('user.show-by-name');
-Route::get('users/{id}/products', [ProductController::class, 'showByUserId'])->name('product.show-by-user-id');
-Route::get('users/{id}/transactions/buys', [UserController::class, 'show'])->name('user.show');
-Route::get('users/{id}/transactions/sales', [UserController::class, 'show'])->name('user.show');
-Route::get('users/{id}/categories', [UserController::class, 'show'])->name('user.show');
-Route::get('users/{id}/favourites', [UserController::class, 'show'])->name('user.show');
-Route::get('users/{id}/reviews', [UserController::class, 'show'])->name('user.show');
-Route::get('users/{id}/conversations/buys', [UserController::class, 'show'])->name('user.show');
-Route::get('users/{id}/conversations/sales', [UserController::class, 'show'])->name('user.show');
-Route::get('users/{user_id}/conversations/{conv_id}/messages', [UserController::class, 'show'])->name('user.show');
+Route::get('admin/users/{id}', [UserController::class, 'show'])->name('user.show');
+Route::put('admin/users/{id}', [UserController::class, 'updateAdmin'])->name('admin.user.update');
+Route::get('admin/users', [UserController::class, 'showByName'])->name('user.show-by-name');
+Route::get('admin/users/{id}/products', [ProductController::class, 'showByUserId'])->name('product.show-by-user-id');
+Route::put('admin/users/{id}/products', [ProductController::class, 'update'])->name('product.show-by-user-id');
+//Route::get('users/{id}/transactions/buys', [UserController::class, 'show'])->name('user.show');
+//Route::get('users/{id}/transactions/sales', [UserController::class, 'show'])->name('user.show');
+//Route::get('users/{id}/categories', [UserController::class, 'show'])->name('user.show');
+//Route::get('users/{id}/favourites', [UserController::class, 'show'])->name('user.show');
+//Route::get('users/{id}/reviews', [UserController::class, 'show'])->name('user.show');
+//Route::get('users/{id}/conversations/buys', [UserController::class, 'show'])->name('user.show');
+//Route::get('users/{id}/conversations/sales', [UserController::class, 'show'])->name('user.show');
+//Route::get('users/{user_id}/conversations/{conv_id}/messages', [UserController::class, 'show'])->name('user.show');
 
-Route::get('categories', [CategoryController::class, 'index'])->name('category.index');
+Route::get('admin/categories', [CategoryController::class, 'index'])->name('category.index');
 

@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'birthdate',
         'profilePictureURI',
+        'address',
         'description'
     ];
 
@@ -85,7 +86,7 @@ class User extends Authenticatable
             return asset('profile_pictures/placeholder.jpg');
         }
         else{
-            return $this->profilePictureURI;
+            return asset($this->profilePictureURI);
         }
     }
 

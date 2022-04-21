@@ -82,4 +82,8 @@ class ProductController extends Controller
     {
         return Product::destroy($id);
     }
+
+    public function updateAdmin(){
+        
+    }
 }
