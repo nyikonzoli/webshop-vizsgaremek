@@ -29,6 +29,7 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
         <div id="section-select-buttons" class="col-9">
             <button class="section-select section-select-active" onclick="products();" id="profile-products-button"><b>Products for sale</b></button>
             <button class="section-select" onclick="reviews();" id="profile-reviews-button"><b>Reviews</b></button>
@@ -68,6 +69,36 @@
                                                     <div class="fs-5">{{ $p->price }}$</div>
                                                 </div>
                                             </div>
+=======
+        {{-- Termekek --}}
+        @foreach($products as $p)
+            <div class="row">
+                <div class="col-9 my-4 mx-auto">
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-lg-3">
+                                <img src="{{ asset($p->images->first()->imageURI) }}" alt="" class="img-fluid" style="object-fit: cover; width: 100%; height: 280px;">
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="card-body" style="height: 100%;">
+                                    <div class="row" style="height: 100%;">
+                                        <div class="col-10 d-flex flex-column align-items-start" style="height: 100%">
+                                            <h4 class="card-title">{{ $p->name }}</h4>
+                                            <p class="card-text">{{ $p->getDescription() }}</p>
+                                            <p class="card-text">Size: {{ $p->getSize() }}</p>
+                                            @auth
+                                                @can('edit-product', $p)
+                                                    <button type="button" class="btn btn-success mt-auto" data-bs-toggle="modal" data-bs-target="#editModal_{{ $p->id }}">Edit product</button>
+                                                @else
+                                                    <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})">Contact seller</button>
+                                                @endcan
+                                            @else
+                                                <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})" disabled>Contact seller</button>
+                                            @endauth
+                                        </div>
+                                        <div class="col-2 d-flex align-items-end flex-column justify-content-end">
+                                            <div class="fs-5">${{ $p->price }} USD</div>
+>>>>>>> 41e5df0a68477831cfab62f450cfc39268dd2b27
                                         </div>
                                     </div>
                                 </div>
