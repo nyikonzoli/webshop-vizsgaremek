@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowUserByNameRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class ShowUserByNameRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'required',
-                'min:1'
-            ],
+            "name" => [
+                "required",
+                "min:1"
+            ]
         ];
     }
 }

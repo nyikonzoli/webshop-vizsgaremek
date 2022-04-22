@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdminWPF.Models
 {
-    class Base
+    public class Base
     {
         public int id { get; set; }
         public string name { get; set; }

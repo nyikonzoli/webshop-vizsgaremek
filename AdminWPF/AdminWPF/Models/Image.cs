@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdminWPF.Models
 {
-    class Image
+    public class Image
     {
         public int Id { get; set; }
         public int ProductId { get; set; }

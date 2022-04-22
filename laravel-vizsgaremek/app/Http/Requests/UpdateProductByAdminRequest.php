@@ -25,7 +25,7 @@ class UpdateProductByAdminRequest extends FormRequest
     {
         return [
             "name" => [
-                "requierd",
+                "required",
                 "max:50",
             ],
             "description" => [
@@ -34,7 +34,7 @@ class UpdateProductByAdminRequest extends FormRequest
             ],
             "price" => [
                 "required",
-                "double",
+                "numeric",
             ],
             "categoryId" => [
                 "required",

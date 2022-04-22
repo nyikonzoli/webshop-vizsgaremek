@@ -31,23 +31,18 @@ namespace AdminWPF
             Requests.client.BaseAddress = new Uri("http://localhost:8881/api/admin/");
             Requests.client.DefaultRequestHeaders.Accept.Clear();
             Requests.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            imageLeft.Content = "<";
-            imageRight.Content = ">";
         }
 
         private List<User> users;
         private User currentUser;
         private List<Category> categories;
-        private List<Product> products;
-        private Product currentProduct;
-        private int currentImageIndex;
+        private Category currentCategory;
 
         private async void searchUser_Click(object sender, RoutedEventArgs e)
         {
-            productPanel.Visibility = Visibility.Hidden;
+            userProfileProductView.Visibility = Visibility.Hidden;
             userPanel.Visibility = Visibility.Hidden;
             dataPanel.Visibility = Visibility.Hidden;
-            productList.Items.Clear();
             string searchText = userSearch.Text;
             if (searchText.Length > 0 && userIdRadio.IsChecked == true)
             {
@@ -60,7 +55,7 @@ namespace AdminWPF
             else if(searchText.Length > 0 && userNameRadio.IsChecked == true)
             {
                 userList.Items.Clear();
-                Task<List<User>> userTask = User.getUserByName(searchText);
+                Task<List<User>> userTask = User.getUsersByName(searchText);
                 users = await userTask;
                 foreach (var user in users)
                 {
@@ -79,7 +74,8 @@ namespace AdminWPF
         private async void setUserProfile(User user)
         {
             Task<List<Product>> productTask = Product.getProductsByUserId(user.id);
-            Task<List<Category>> categoryTask = Category.getAllCategories();
+            Task<List<Review>> madeReviewsTask = Review.getMadeReviews(user.id);
+            Task<List<Review>> receivedReviewsTask = Review.getReceivedReviews(user.id);
             currentUser = user;
             userImage.Source = new BitmapImage(new Uri(user.ProfilePictureURI));
             userId.Content = "#" + user.id;
@@ -88,36 +84,15 @@ namespace AdminWPF
             userAddress.Text = user.Address;
             userDescription.Text = user.Description;
             userBirthdate.SelectedDate = user.Birthdate;
-            categories = await categoryTask;
-            productCategory.Items.Clear();
-            foreach (var category in categories)
-            {
-                productCategory.Items.Add(category.name);
-            }
-            products = await productTask;
-            foreach (var product in products)
-            {
-                productList.Items.Add(product);
-            }
+            List<Product> products = await productTask;
+            List<Review> madeReviews = await madeReviewsTask;
+            List<Review> receivedReviews = await receivedReviewsTask;
+            userProfileProductView.setProductsList(products);
+            madeReviewView.generateReview(madeReviews);
+            receivedReviewView.generateReview(receivedReviews);
             dataPanel.Visibility = Visibility.Visible;
             userPanel.Visibility = Visibility.Visible;
-        }
-
-        private void setProductData(Product product)
-        {
-            currentProduct = product;
-            productId.Content = "#" + product.id;
-            productName.Text = product.name;
-            productDescription.Text = product.description;
-            productPrice.Text = product.price.ToString() + "$";
-            productSizee.Text = product.size;
-            productIced.Content = "Iced: " + product.iced.ToString();
-            productSold.Content = "Sold: " + product.sold.ToString();
-            productUserId.Content = "#" + product.userId.ToString();
-            productCategory.SelectedItem = categories.Where(x => x.id == product.categoryId).First().name;
-            productImage.Source = new BitmapImage(new Uri(product.images[0].ImageURI));
-            currentImageIndex = 0;
-            productPanel.Visibility = Visibility.Visible;
+            userProfileProductView.Visibility = Visibility.Visible;
         }
 
         private async void updateUser_Click(object sender, RoutedEventArgs e)
@@ -137,44 +112,15 @@ namespace AdminWPF
             MessageBox.Show(user.name + "'s profile has been updated successfully!");
         }
 
-        private async void updateProduct_Click(object sender, RoutedEventArgs e)
-        {
-            ProductUpdateResource helper = new ProductUpdateResource(
-                name:    
-            );
-            Task<Product> productTask = Product.update(currentProduct);
-            Product product = await productTask;
-            currentProduct = product;
-            setProductData(product);
-            MessageBox.Show(product.name + " has been updated");
-        }
-
-        private void productList_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            Product product = (sender as ListView).SelectedItem as Product;
-            setProductData(product);
-        }
-
-        private void imageLeft_Click(object sender, RoutedEventArgs e)
-        {
-            if(currentImageIndex != 0)
-            {
-                productImage.Source = new BitmapImage(new Uri(currentProduct.images[--currentImageIndex].ImageURI));
-            }
-        }
-
-        private void imageRight_Click(object sender, RoutedEventArgs e)
-        {
-            if(currentImageIndex != currentProduct.images.Count - 1)
-            {
-                productImage.Source = new BitmapImage(new Uri(currentProduct.images[++currentImageIndex].ImageURI));
-            }
-        }
-
         private async void categoriesExpander_Expanded(object sender, RoutedEventArgs e)
         {
             categoryDataPanel.Visibility = Visibility.Hidden;
             categoryEditPanel.Visibility = Visibility.Hidden;
+            await updateCategoryRefreshComboBox();
+        }
+
+        private async Task<int> updateCategoryRefreshComboBox()
+        {
             Task<List<Category>> categoriesTask = Category.getAllCategories();
             categories = await categoriesTask;
             categoriesCB.Items.Clear();
@@ -183,6 +129,7 @@ namespace AdminWPF
                 categoriesCB.Items.Add(category.name);
             }
             categoryEditPanel.Visibility = Visibility.Visible;
+            return 0;
         }
 
         private void createCategoryExpander_Expanded(object sender, RoutedEventArgs e)
@@ -195,9 +142,92 @@ namespace AdminWPF
             if(categoriesCB.Items.Count > 0)
             {
                 Category category = categories.Where(x => x.name == categoriesCB.SelectedItem.ToString()).First();
+                currentCategory = category;
                 categoryId.Content = "Id: #" + category.id;
                 categoryName.Text = category.name;
                 categoryDataPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private async void searchProductByName_Click(object sender, RoutedEventArgs e)
+        {
+            if(productNameTB.Text.Length > 0)
+            {
+                ProductTabProductView.Visibility = Visibility.Hidden;
+                Task<List<Product>> productsTask = Product.getProductsByName(productNameTB.Text);
+                List<Product> productsByName = await productsTask;
+                ProductTabProductView.setProductsList(productsByName);
+                ProductTabProductView.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void deleteUserImage_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("Are you sure that you want to delete " + currentUser.name + "'s profile picture? (You will still have to update the profile completly delete the image!)", "Delete Profile Picture", MessageBoxButton.YesNo);
+            if(dr == MessageBoxResult.Yes)
+            {
+                userImage.Source = null;
+                currentUser.ProfilePictureURI = null;
+            }
+        }
+
+        private async void createCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(newCategoryName.Text.Length > 0)
+            {
+                CategoryResource helper = new CategoryResource();
+                helper.name = newCategoryName.Text;
+                Task<Category> categoryTask = Category.postCategory(helper);
+                Category category = await categoryTask;
+                MessageBox.Show(category.name + " category has been created!");
+                await updateCategoryRefreshComboBox();
+            }
+        }
+
+        private async void updateCategory_Click(object sender, RoutedEventArgs e)
+        {
+            if (categoryName.Text.Length > 0)
+            {
+                CategoryResource helper = new CategoryResource();
+                helper.name = categoryName.Text;
+                Task<Category> categoryTask = Category.updateCategory(helper, currentCategory.id);
+                currentCategory = await categoryTask;
+                MessageBox.Show(currentCategory.name + " category has been updated!");
+                await updateCategoryRefreshComboBox();
+                categoriesCB.SelectedItem = currentCategory.name;
+            }
+        }
+
+        private async void deletCategory_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("Are you sure that you want to delete the " + currentCategory.name + " category?", "Delete Category", MessageBoxButton.YesNo);
+            if (dr == MessageBoxResult.Yes)
+            {
+                Task<bool> deleteTask = Category.deleteCategory(currentCategory.id);
+                bool result = await deleteTask;
+                if (result == true)
+                {
+                    MessageBox.Show(currentCategory.name + " category has been deleted!");
+                    categoryDataPanel.Visibility = Visibility.Hidden;
+                    await updateCategoryRefreshComboBox();
+                }
+            }
+        }
+
+        private async void deleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("Are you sure that you want to delete " + currentUser.name, "Delete User", MessageBoxButton.YesNo);
+            if (dr == MessageBoxResult.Yes)
+            {
+                Task<bool> deleteTask = User.deleteUser(currentUser.id);
+                bool result = await deleteTask;
+                if (result == true)
+                {
+                    MessageBox.Show(currentUser.name + "'s profile has been deleted!");
+                    userProfileProductView.Visibility = Visibility.Hidden;
+                    userPanel.Visibility = Visibility.Hidden;
+                    dataPanel.Visibility = Visibility.Hidden;
+                }
             }
         }
     }

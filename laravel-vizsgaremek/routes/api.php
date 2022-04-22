@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,20 +44,32 @@ Route::get('/products', [ProductController::class, 'index'])->name('product.inde
 Route::get('/products/{id}', [ProductController::class, 'indexOf'])->name('product.indexOf');
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
-//Admin routes
-Route::get('admin/users/{id}', [UserController::class, 'show'])->name('user.show');
-Route::put('admin/users/{id}', [UserController::class, 'updateAdmin'])->name('admin.user.update');
-Route::get('admin/users', [UserController::class, 'showByName'])->name('user.show-by-name');
-Route::get('admin/users/{id}/products', [ProductController::class, 'showByUserId'])->name('product.show-by-user-id');
-Route::put('admin/users/{id}/products', [ProductController::class, 'update'])->name('product.show-by-user-id');
-//Route::get('users/{id}/transactions/buys', [UserController::class, 'show'])->name('user.show');
-//Route::get('users/{id}/transactions/sales', [UserController::class, 'show'])->name('user.show');
-//Route::get('users/{id}/categories', [UserController::class, 'show'])->name('user.show');
-//Route::get('users/{id}/favourites', [UserController::class, 'show'])->name('user.show');
-//Route::get('users/{id}/reviews', [UserController::class, 'show'])->name('user.show');
-//Route::get('users/{id}/conversations/buys', [UserController::class, 'show'])->name('user.show');
-//Route::get('users/{id}/conversations/sales', [UserController::class, 'show'])->name('user.show');
-//Route::get('users/{user_id}/conversations/{conv_id}/messages', [UserController::class, 'show'])->name('user.show');
 
-Route::get('admin/categories', [CategoryController::class, 'index'])->name('category.index');
+//////////////
+//Admin routes
+//////////////
+
+//User routes
+Route::get('admin/users/{id}', [UserController::class, 'show'])->name('admin.users.show');
+Route::put('admin/users/{id}', [UserController::class, 'updateAdmin'])->name('admin.users.update');
+Route::get('admin/users', [UserController::class, 'showByName'])->name('admin.users.show-by-name');
+Route::delete('admin/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+//Product routes
+Route::get('admin/users/{id}/products', [ProductController::class, 'showByUserId'])->name('admin.products.show-by-user-id');
+Route::put('admin/products/{id}', [ProductController::class, 'updateAdmin'])->name('admin.products.update');
+Route::get('admin/products', [ProductController::class, 'showByName'])->name('admin.products.show-by-name');
+Route::delete('admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+
+//Category routes
+Route::get('admin/categories', [CategoryController::class, 'index'])->name('admin.category.index');
+Route::put('admin/categories/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
+Route::post('admin/categories', [CategoryController::class, 'store'])->name('admin.category.store');
+Route::delete('admin/categories/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+
+//Review routes
+Route::get('admin/users/{userId}/reviews/made', [ReviewController::class, 'showMade'])->name('admin.reviews.show-made');
+Route::get('admin/users/{userId}/reviews/received', [ReviewController::class, 'showReceived'])->name('admin.reviews.show-received');
+Route::delete('admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('admin.reviews.destroy');;
+
 

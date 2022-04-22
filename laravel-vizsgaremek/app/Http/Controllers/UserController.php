@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
-use App\Http\Requests\ShowUserByNameRequest;
+use App\Http\Requests\ShowByNameRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Models\User;
@@ -49,17 +49,6 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -71,7 +60,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function showByName(ShowUserByNameRequest $request){
+    public function showByName(ShowByNameRequest $request){
         $data = $request->validated();
         $users = User::where('name', 'like', '%' . $data['name'] . '%')->get();
         $resources = [];
@@ -117,7 +106,6 @@ class UserController extends Controller
     }
 
     public function updateAdmin(UpdateUserRequest $request, $id){
-        //return $request->all();
         $user = User::findOrFail($id);
         $data = $request->validated();
         $user->update($data);
@@ -132,6 +120,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return response()->json(['message' => 'success'], 200);
     }
 }

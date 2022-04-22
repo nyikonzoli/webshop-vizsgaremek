@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="AdminWPF.ReviewCatd"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AdminWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderBrush="Black" BorderThickness="1">
+        <StackPanel>
+            <Label Name="reviewId"></Label>
+            <Label Name="fromTo"></Label>
+            <Label Name="reviewContent"></Label>
+            <Label Name="reviewRating"></Label>
+            <Button Width="100" Name="deleteReview" Click="deleteReview_Click">Delete Review</Button>
+        </StackPanel>
+    </Border>
+</UserControl>

@@ -50,3 +50,10 @@ C:\Users\Suli\Desktop\nyikon\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net
 C:\Users\Suli\Desktop\nyikon\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ref\AdminWPF.dll
 C:\Users\Suli\Desktop\nyikon\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\AdminWPF.pdb
 C:\Users\Suli\Desktop\nyikon\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\AdminWPF.genruntimeconfig.cache
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ProductView.g.cs
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ProductView.baml
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ReviewCatd.g.cs
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ReviewView.g.cs
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ReviewCatd.baml
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ReviewView.baml

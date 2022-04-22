@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ShowByNameRequest;
+use App\Http\Requests\UpdateProductByAdminRequest;
 use App\Models\Product;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -83,7 +86,21 @@ class ProductController extends Controller
         return Product::destroy($id);
     }
 
-    public function updateAdmin(){
-        
+    public function updateAdmin(UpdateProductByAdminRequest $request, $id){
+        $product = Product::findOrFail($id);
+        $data = $request->validated();
+        $product->update($data);
+        $notWantedImages = Image::where('productId', '=', $product->id)->whereNotIn('id', $request["imageIds"])->delete();
+        return new ProductResource($product);
+    }
+
+    public function showByName(ShowByNameRequest $request){
+        $data = $request->validated();
+        $products = Product::where('name', 'like', '%' . $data['name'] . '%')->get();
+        $resources = [];
+        foreach ($products as $product) {
+            $resources[] = new ProductResource($product);
+        }
+        return response()->json($resources);
     }
 }

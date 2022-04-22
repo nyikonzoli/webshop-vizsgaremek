@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="AdminWPF.ProductView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AdminWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <ListView Grid.ColumnSpan="2" Grid.Row="1" Name="productList"  AlternationCount="0" SelectionMode="Single" MouseLeftButtonUp="productList_MouseLeftButtonUp">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=id}" />
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=name}" />
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=price}" />
+                        <GridViewColumn Header="Sold" DisplayMemberBinding="{Binding Path=sold}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel x:Name="productPanel" Visibility="Hidden">
+            <StackPanel Orientation="Horizontal">
+                <Button Name="imageLeft" Click="imageLeft_Click"></Button>
+                <Image x:Name="productImage" Width="100" Height="100"></Image>
+                <Button x:Name="imageRight" Click="imageRight_Click"></Button>
+            </StackPanel>
+
+            <Label Name="productId"></Label>
+            <StackPanel Orientation="Horizontal">
+                <Label>Name:</Label>
+                <TextBox x:Name="productName" Width="200" Text="{Binding Path=ProductName}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Description:</Label>
+                <TextBox x:Name="productDescription" Width="200" Text="{Binding Path=Description}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Price ($):</Label>
+                <TextBox x:Name="productPrice" Width="200" Text="{Binding Path=Price}"></TextBox>
+                <Label x:Name="priceError" Visibility="Hidden">The price must have a decimal value!</Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Size:</Label>
+                <TextBox x:Name="productSizee" Width="200" Text="{Binding Path=Size}"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <Label x:Name="productIced">Iced:</Label>
+                <Label x:Name="productSold">Sold:</Label>
+                <Label x:Name="productUserId">User id:</Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Category:</Label>
+                <ComboBox x:Name="productCategory" SelectedItem="{Binding Path=CategoryId}"></ComboBox>
+            </StackPanel>
+            <Button x:Name="updateProduct" Click="updateProduct_Click">Update</Button>
+            <Button x:Name="deleteProduct" Click="deleteProduct_Click">Delete</Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

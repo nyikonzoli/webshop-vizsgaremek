@@ -9,110 +9,93 @@
     <StackPanel>
         <TabControl>
             <TabItem Header="Users">
+                <ScrollViewer Height="600" Width="800" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <GroupBox Header="Seach by">
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton x:Name="userIdRadio">Id</RadioButton>
+                                    <RadioButton Name="userNameRadio">Name</RadioButton>
+                                </StackPanel>
+                            </GroupBox>
+                            <TextBox Width="350" Height="26" Name="userSearch"></TextBox>
+                            <Button Height="26" Name="searchUser" Click="searchUser_Click">Seach</Button>
+                        </StackPanel>
+                        <StackPanel Visibility="Hidden" Height="0" Name="userListStack">
+                            <ListView Grid.ColumnSpan="2" Grid.Row="1" Name="userList"  AlternationCount="0" SelectionMode="Single" MouseLeftButtonUp="userList_MouseLeftButtonUp">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridView.Columns>
+                                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=id}" />
+                                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=name}" />
+                                            <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Path=Email}" />
+                                            <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Path=Address}" />
+                                            <GridViewColumn Header="Birthdate" DisplayMemberBinding="{Binding Path=Birthdate}" />
+                                        </GridView.Columns>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                        <StackPanel Name="dataPanel" Visibility="Hidden">
+                            <StackPanel x:Name="userPanel" Visibility="Hidden">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image x:Name="userImage" Width="100" Height="100"></Image>
+                                    <Button x:Name="deleteUserImage" Click="deleteUserImage_Click">Delete image</Button>
+                                </StackPanel>
+                                <Label Name="userId"></Label>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Name:</Label>
+                                    <TextBox x:Name="userName" Width="200"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Email:</Label>
+                                    <TextBox x:Name="userEmail" Width="200"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Address:</Label>
+                                    <TextBox x:Name="userAddress" Width="200"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Birthdate:</Label>
+                                    <DatePicker Name="userBirthdate"></DatePicker>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Description:</Label>
+                                    <TextBox x:Name="userDescription" Width="200"></TextBox>
+                                </StackPanel>
+                                <Button x:Name="updateUser" Click="updateUser_Click">Update</Button>
+                                <Button x:Name="deleteUser" Click="deleteUser_Click">Delete</Button>
+                            </StackPanel>
+                            <Expander Header="Products">
+                                <Grid>
+                                    <local:ProductView x:Name="userProfileProductView"/>
+                                </Grid>
+                            </Expander>
+                            <Expander Header="Reviews that the user made">
+                                <Grid>
+                                    <local:ReviewView x:Name="madeReviewView"/>
+                                </Grid>
+                            </Expander>
+                            <Expander Header="Reviews that the user received">
+                                <Grid>
+                                    <local:ReviewView x:Name="receivedReviewView"/>
+                                </Grid>
+                            </Expander>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Products">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <GroupBox Header="Seach by">
-                            <StackPanel Orientation="Horizontal">
-                                <RadioButton x:Name="userIdRadio">Id</RadioButton>
-                                <RadioButton Name="userNameRadio">Name</RadioButton>
-                            </StackPanel>
-                        </GroupBox>
-                        <TextBox Width="350" Height="26" Name="userSearch"></TextBox>
-                        <Button Height="26" Name="searchUser" Click="searchUser_Click">Seach</Button>
+                        <Label>Search by name:</Label>
+                        <TextBox Width="300px" Name="productNameTB"></TextBox>
+                        <Button x:Name="searchProductByName" Click="searchProductByName_Click">Search</Button>
                     </StackPanel>
-                    <StackPanel Visibility="Hidden" Height="0" Name="userListStack">
-                        <Label Name="userbythenameofLabel">User by the name of</Label>
-                        <ListView Grid.ColumnSpan="2" Grid.Row="1" Name="userList"  AlternationCount="0" SelectionMode="Single" MouseLeftButtonUp="userList_MouseLeftButtonUp">
-                            <ListView.View>
-                                <GridView>
-                                    <GridView.Columns>
-                                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" />
-                                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" />
-                                        <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Path=Email}" />
-                                        <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Path=Address}" />
-                                        <GridViewColumn Header="Birthdate" DisplayMemberBinding="{Binding Path=Birthdate}" />
-                                    </GridView.Columns>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </StackPanel>
-                    <StackPanel Name="dataPanel" Visibility="Hidden">
-                        <StackPanel x:Name="userPanel" Visibility="Hidden">
-                            <Image x:Name="userImage" Width="100" Height="100"></Image>
-                            <Label Name="userId"></Label>
-                            <StackPanel Orientation="Horizontal">
-                                <Label>Name:</Label>
-                                <TextBox x:Name="userName" Width="200"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label>Email:</Label>
-                                <TextBox x:Name="userEmail" Width="200"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label>Address:</Label>
-                                <TextBox x:Name="userAddress" Width="200"></TextBox>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label>Birthdate:</Label>
-                                <DatePicker Name="userBirthdate"></DatePicker>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label>Description:</Label>
-                                <TextBox x:Name="userDescription" Width="200"></TextBox>
-                            </StackPanel>
-                            <Button x:Name="updateUser" Click="updateUser_Click">Update</Button>
-                        </StackPanel>
-                        <Expander Header="Products">
-                            <StackPanel>
-                                <ListView Grid.ColumnSpan="2" Grid.Row="1" Name="productList"  AlternationCount="0" SelectionMode="Single" MouseLeftButtonUp="productList_MouseLeftButtonUp">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridView.Columns>
-                                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}" />
-                                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" />
-                                                <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=Price}" />
-                                                <GridViewColumn Header="Sold" DisplayMemberBinding="{Binding Path=Sold}" />
-                                            </GridView.Columns>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                                <StackPanel x:Name="productPanel" Visibility="Hidden">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="imageLeft" Click="imageLeft_Click"></Button>
-                                        <Image x:Name="productImage" Width="100" Height="100"></Image>
-                                        <Button x:Name="imageRight" Click="imageRight_Click"></Button>
-                                    </StackPanel>
-
-                                    <Label Name="productId"></Label>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label>Name:</Label>
-                                        <TextBox x:Name="productName" Width="200"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label>Description:</Label>
-                                        <TextBox x:Name="productDescription" Width="200"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label>Price:</Label>
-                                        <TextBox x:Name="productPrice" Width="200"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label>Size:</Label>
-                                        <TextBox x:Name="productSizee" Width="200"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label x:Name="productIced">Iced:</Label>
-                                        <Label x:Name="productSold">Sold:</Label>
-                                        <Label x:Name="productUserId">User id:</Label>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label>Category:</Label>
-                                        <ComboBox x:Name="productCategory"></ComboBox>
-                                    </StackPanel>
-                                    <Button x:Name="updateProduct" Click="updateProduct_Click">Update</Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </Expander>
+                    <StackPanel>
+                        <Grid>
+                            <local:ProductView x:Name="ProductTabProductView" Visibility="Hidden"/>
+                        </Grid>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
@@ -132,9 +115,10 @@
                                     <Label>Name</Label>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBox x:Name="categoryName" Width="250"></TextBox>
-                                        <Button x:Name="updateCategory">Update</Button>
+                                        <Button x:Name="updateCategory" Click="updateCategory_Click">Update</Button>
                                     </StackPanel>
                                 </StackPanel>
+                                <Button x:Name="deletCategory" Click="deletCategory_Click">Delete category</Button>
                             </StackPanel>
                         </StackPanel>
                     </Expander>
@@ -142,7 +126,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Label>Name:</Label>
                             <TextBox Width="250" Name="newCategoryName"></TextBox>
-                            <Button>Create Category</Button>
+                            <Button x:Name="createCategoryButton" Click="createCategoryButton_Click">Create Category</Button>
                         </StackPanel>
                     </Expander>
                 </StackPanel>

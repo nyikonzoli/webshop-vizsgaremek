@@ -12,9 +12,8 @@ namespace AdminWPF.Resources
         public string email { get; set; }
         public string birthdate { get; set; }
         public string address { get; set; }
-        //public string ProfilePictureURI { get; set; }
+        public string profilePictureURI { get; set; }
         public string description { get; set; }
-        //public string _method { get; set; }
 
         public UserUpdateResource(string name, string email, DateTime birthdate, string address, string profilePictureURI, string description)
         {
@@ -22,9 +21,8 @@ namespace AdminWPF.Resources
             this.email = email;
             this.birthdate = birthdate.Year.ToString() + "-" + birthdate.Month.ToString() + "-" + birthdate.Day.ToString() ;
             this.address = address;
-            //ProfilePictureURI = profilePictureURI;
+            this.profilePictureURI = profilePictureURI;
             this.description = description;
-            //_method = "PUT";
         }
     }
 }

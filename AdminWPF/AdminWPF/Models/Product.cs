@@ -8,7 +8,7 @@ using AdminWPF.Resources;
 
 namespace AdminWPF.Models
 {
-    class Product : Base
+    public class Product : Base
     {
         public string description { get; set; }
         public double price { get; set; }
@@ -19,19 +19,34 @@ namespace AdminWPF.Models
         public int categoryId { get; set; }
         public List<Image> images { get; set; }
 
+        public async static Task<bool> delete(int id)
+        {
+            string url = Requests.client.BaseAddress + "products/" + id;
+            Task<HttpResponseMessage> deleteTask = Requests.Delete(url);
+            HttpResponseMessage response = await deleteTask;
+            return true;
+        }
+ 
         public async static Task<Product> update(ProductUpdateResource product, int id)
         {
-            string url = Requests.client.BaseAddress + "users/" + id;
+            string url = Requests.client.BaseAddress + "products/" + id;
             Task<HttpResponseMessage> putTask = Requests.Put(url, product);
             HttpResponseMessage response = await putTask;
+            string test = await response.Content.ReadAsStringAsync();
             return (await response.Content.ReadAsAsync<DataWrapper<Product>>()).data;
         }
 
         public async static Task<List<Product>> getProductsByUserId(int id)
         {
-            string url = Requests.client.BaseAddress + "api/users/" + id + "/products";
-            Task<HttpResponseMessage> getTask = Requests.Get(url);
-            HttpResponseMessage response = await getTask;
+            string url = Requests.client.BaseAddress + "users/" + id + "/products";
+            HttpResponseMessage response = await Requests.getResponse(url);
+            string test = await response.Content.ReadAsStringAsync();
+            return await response.Content.ReadAsAsync<List<Product>>();
+        }
+        public async static Task<List<Product>> getProductsByName(string name)
+        {
+            string url = Requests.client.BaseAddress + "products?name=" + name;
+            HttpResponseMessage response = await Requests.getResponse(url);
             return await response.Content.ReadAsAsync<List<Product>>();
         }
     }
