@@ -24,8 +24,10 @@ namespace AdminWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(string token)
+        public MainWindow(string token, string email)
         {
+            BaseResource.adminEmail = email;
+            BaseResource.token = token;
             InitializeComponent();
         }
 

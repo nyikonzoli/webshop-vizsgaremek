@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using AdminWPF.Resources;
 
 namespace AdminWPF
 {
@@ -15,28 +16,28 @@ namespace AdminWPF
 
         public async static Task<HttpResponseMessage> Get(string url)
         {
-            HttpResponseMessage response = await client.GetAsync(url);
+            HttpResponseMessage response = await client.GetAsync(url + BaseResource.getParams());
             response.EnsureSuccessStatusCode();
             return response;
         }
 
         public async static Task<HttpResponseMessage> Put(string url, object obj)
         {
-            HttpResponseMessage response = await client.PutAsync(url, getContent(obj));
+            HttpResponseMessage response = await client.PutAsync(url + BaseResource.getParams(), getContent(obj));
             response.EnsureSuccessStatusCode();
             return response;
         }
 
         public async static Task<HttpResponseMessage> Post(string url, object obj)
         {
-            HttpResponseMessage response = await client.PostAsync(url, getContent(obj));
+            HttpResponseMessage response = await client.PostAsync(url + BaseResource.getParams(), getContent(obj));
             response.EnsureSuccessStatusCode();
             return response;
         }
 
         public async static Task<HttpResponseMessage> Delete(string url)
         {
-            HttpResponseMessage response = await client.DeleteAsync(url);
+            HttpResponseMessage response = await client.DeleteAsync(url + BaseResource.getParams());
             response.EnsureSuccessStatusCode();
             return response;
         }
@@ -51,6 +52,7 @@ namespace AdminWPF
 
         public async static Task<HttpResponseMessage> getResponse(string url)
         {
+            url = url.Contains("?") ? url + BaseResource.getParams().Replace('?', '&') : url + BaseResource.getParams();
             Task<HttpResponseMessage> getTask = Get(url);
             return await getTask;
         }

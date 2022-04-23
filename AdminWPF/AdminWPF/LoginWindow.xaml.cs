@@ -36,11 +36,12 @@ namespace AdminWPF
         {
             if(adminEmail.Text.Length > 0 && adminPassword.Password.Length > 0)
             {
-                Task<LoginResponse> loginTask = loginAdmin(adminEmail.Text, adminPassword.Password);
+                string email = adminEmail.Text;
+                Task<LoginResponse> loginTask = loginAdmin(email, adminPassword.Password);
                 LoginResponse response = await loginTask;
                 if (response.status == "success")
                 {
-                    MainWindow main = new MainWindow(response.token);
+                    MainWindow main = new MainWindow(response.token, email);
                     main.Show();
                     this.Close();
                 }

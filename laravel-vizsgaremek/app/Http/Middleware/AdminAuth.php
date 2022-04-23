@@ -17,8 +17,8 @@ class AdminAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if(array_key_exists('email', $request->all()) && array_key_exists('token', $request->all())){
-            $user = User::where('email', '=', $request["email"])->first();
+        if(array_key_exists('adminEmail', $request->all()) && array_key_exists('token', $request->all())){
+            $user = User::where('email', '=', $request["adminEmail"])->first();
             if(!is_null($user) && !is_null($user->admin) && $user->admin->token == $request["token"]){
                 return $next($request);
             }

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
+use App\Http\Requests\ShowByNameRequest;
+use App\Http\Requests\UpdateProductByAdminRequest;
 
 class ProductController extends Controller
 {
