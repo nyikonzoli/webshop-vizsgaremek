@@ -16,15 +16,14 @@
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 @endsection
-
-
-@section('content')
 
 @section('script')
     <script>
@@ -38,10 +37,13 @@
             for (let i = 0; i < data.length; ++i) {
                 out += `
                     <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td><button type="button" class="btn btn-success">Edit</button><button type="button" class="btn btn-danger">Delete</button></td>
+                        <td>${data[i].name}</td>
+                        <td>${data[i].price}</td>
+                        <td>${data[i].size}</td>
+                        <td>
+                            <button type="button" class="btn btn-success">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </td>
                     </tr>
                 `
             }
