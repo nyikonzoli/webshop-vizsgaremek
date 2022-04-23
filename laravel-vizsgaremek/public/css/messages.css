@@ -108,6 +108,7 @@ body {
     height: fit-content;
     border-radius: 10px;
     margin: 4px;
+    padding-bottom: 2px;
 }
 
 .own{

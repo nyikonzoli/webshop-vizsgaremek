@@ -77,6 +77,8 @@ namespace AdminWPF
             currentUser = user;
             userImage.Source = new BitmapImage(new Uri(user.ProfilePictureURI));
             userId.Content = "#" + user.id;
+            isAdminLable.Content = "Admin: " + (user.IsAdmin ? "Yes" : "No");
+            changeRole.Content = user.IsAdmin ? "Demote to regular user" : "Promote to admin";
             userName.Text = user.name;
             userEmail.Text = user.Email;
             userAddress.Text = user.Address;
@@ -214,7 +216,7 @@ namespace AdminWPF
 
         private async void deleteUser_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult dr = MessageBox.Show("Are you sure that you want to delete " + currentUser.name, "Delete User", MessageBoxButton.YesNo);
+            MessageBoxResult dr = MessageBox.Show("Are you sure that you want to delete " + currentUser.name + "?", "Delete User", MessageBoxButton.YesNo);
             if (dr == MessageBoxResult.Yes)
             {
                 Task<bool> deleteTask = User.deleteUser(currentUser.id);
@@ -227,6 +229,44 @@ namespace AdminWPF
                     dataPanel.Visibility = Visibility.Hidden;
                 }
             }
+        }
+
+        private async void changeRole_Click(object sender, RoutedEventArgs e)
+        {
+            changeRole.IsEnabled = false;
+            if (!currentUser.IsAdmin)
+            {
+                MessageBoxResult dr = MessageBox.Show("Are you sure that you want to promote " + currentUser.name + " to admin?", "Promote User", MessageBoxButton.YesNo);
+                if (dr == MessageBoxResult.Yes)
+                {
+                    Task<bool> promoteTask = User.promoteToAdmin(currentUser.id);
+                    bool result = await promoteTask;
+                    if (result == true)
+                    {
+                        MessageBox.Show(currentUser.name + "'s profile has been promoted!");
+                        currentUser.IsAdmin = true;
+                        isAdminLable.Content = "Admin: Yes";
+                        changeRole.Content = "Demote to regular user";
+                    }
+                }
+            }
+            else
+            {
+                MessageBoxResult dr = MessageBox.Show("Are you sure that you want to demote " + currentUser.name + " to a regular user?", "Demote User", MessageBoxButton.YesNo);
+                if (dr == MessageBoxResult.Yes)
+                {
+                    Task<bool> demoteTask = User.demoteToRegular(currentUser.id);
+                    bool result = await demoteTask;
+                    if (result == true)
+                    {
+                        MessageBox.Show(currentUser.name + "'s profile has been demoted!");
+                        currentUser.IsAdmin = true;
+                        isAdminLable.Content = "Admin: No";
+                        changeRole.Content = "Promote to admin";
+                    }
+                }
+            }
+            changeRole.IsEnabled = true;
         }
     }
 }

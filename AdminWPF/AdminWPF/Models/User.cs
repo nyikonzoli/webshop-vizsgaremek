@@ -17,6 +17,8 @@ namespace AdminWPF.Models
         public string ProfilePictureURI { get; set; }
         public string Description { get; set; }
 
+        public bool IsAdmin { get; set; }
+
         public async static Task<bool> deleteUser(int id)
         {
             string url = Requests.client.BaseAddress + "users/" + id;
@@ -45,6 +47,22 @@ namespace AdminWPF.Models
             string url = Requests.client.BaseAddress + "users?name=" + name;
             HttpResponseMessage response = await Requests.getResponse(url);
             return await response.Content.ReadAsAsync<List<User>>();
+        }
+
+        public async static Task<bool> promoteToAdmin(int id)
+        {
+            string url = Requests.client.BaseAddress + "users/" + id + "/promote";
+            Task<HttpResponseMessage> postTask = Requests.Post(url, null);
+            HttpResponseMessage response = await postTask;
+            return true;
+        }
+
+        public async static Task<bool> demoteToRegular(int id)
+        {
+            string url = Requests.client.BaseAddress + "users/" + id + "/demote";
+            Task<HttpResponseMessage> postTask = Requests.Post(url, null);
+            HttpResponseMessage response = await postTask;
+            return true;
         }
     }
 }

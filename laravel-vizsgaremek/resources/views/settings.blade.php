@@ -9,10 +9,10 @@
 @section('content')
     <div class="wrapper col-lg-6 mx-auto">
         <div class="menu col-lg-4">
-            <button class="menu-button" onclick="credentials();">Credentials</button>
             <button class="menu-button" onclick="profile();">Profile picture</button>
+            <button class="menu-button" onclick="credentials();">Credentials</button>
             <button class="menu-button" onclick="password();">Password</button>
-            <button class="menu-button-warning">Delete account</button>
+            <button class="menu-button-warning" onclick="deleteAccount();">Delete account</button>
         </div>
         <div class="settings col-lg-8">
             <div id="profile-picture" class="setting-div">
@@ -83,12 +83,23 @@
                     <button class="submit-button" onclick="updateCredentials();">Update</button>
                 </div>
             </div>
+            <div id="delete" class="setting-div">
+                <h3>Change you credentials</h3>
+                <p>In this section you are able to permanently delete you account. Warning! Once you have deleted your account, there will be no way to recover it!</p>
+                <button class="delete-account-button" onclick="deleteAccountRequest();">Delete account</button>
+            </div>
         </div>
     </div>
 @endsection
 
 @section('script')
     <script>
+        function deleteAccountRequest(){
+            axios.delete('{{ route("user.delete") }}').then(function (response){
+                window.location.href = "{{ route('register.show') }}";
+            });
+        }
+
         function updateCredentials(){
             data = getUserData();
             data["name"] = document.getElementById("name").value;
@@ -168,18 +179,28 @@
             document.getElementById('profile-picture').style.display = "block";
             document.getElementById('password').style.display = "none";
             document.getElementById('credentials').style.display = "none";
+            document.getElementById('delete').style.display = "none";
         }
 
         function password(){
             document.getElementById('profile-picture').style.display = "none";
             document.getElementById('password').style.display = "block";
             document.getElementById('credentials').style.display = "none";
+            document.getElementById('delete').style.display = "none";
         }
 
         function credentials(){
             document.getElementById('profile-picture').style.display = "none";
             document.getElementById('password').style.display = "none";
             document.getElementById('credentials').style.display = "block";
+            document.getElementById('delete').style.display = "none";
+        }
+
+        function deleteAccount(){
+            document.getElementById('profile-picture').style.display = "none";
+            document.getElementById('password').style.display = "none";
+            document.getElementById('credentials').style.display = "none";
+            document.getElementById('delete').style.display = "block";
         }
 
         window.onload = function() {

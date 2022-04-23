@@ -8,7 +8,9 @@ use App\Http\Requests\ShowByNameRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Models\User;
+use App\Models\Admin;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserAdminResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -70,6 +72,22 @@ class UserController extends Controller
         return $resources;
     }
 
+    public function showAdmin($id)
+    {
+        $user = User::findOrFail($id);
+        return new UserAdminResource($user);
+    }
+
+    public function showByNameAdmin(ShowByNameRequest $request){
+        $data = $request->validated();
+        $users = User::where('name', 'like', '%' . $data['name'] . '%')->get();
+        $resources = [];
+        foreach ($users as $user) {
+            $resources[] = new UserAdminResource($user);
+        }
+        return $resources;
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -109,7 +127,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $data = $request->validated();
         $user->update($data);
-        return new UserResource($user);
+        return new UserAdminResource($user);
     }
 
     /**
@@ -123,5 +141,26 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return response()->json(['message' => 'success'], 200);
+    }
+
+    public function promote($id){
+        $user = User::findOrFail($id);
+        Admin::create(["userId" => $user->id]);
+        return response()->json(["status" => "success"]);
+    }
+
+    public function demote($id){
+        $user = User::findOrFail($id);
+        $admin = $user->admin;
+        if(!is_null($admin)){
+            $admin->delete();
+        }
+        return response()->json(["status" => "success"]);
+    }
+
+    public function deleteAccount(Request $request){
+        $user = auth()->user();
+        $user->delete();
+        return response()->json(["status" => "success"]);
     }
 }

@@ -2,13 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConversationController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\AdminAuth;
 
@@ -40,6 +40,7 @@ Route::post('/conversation', [ConversationController::class, 'store'])->middlewa
 //User routes
 Route::put('/user', [UserController::class, 'update'])->middleware('auth:sanctum')->name('user.update');
 Route::post('/user/password', [UserController::class, 'passwordUpdate'])->middleware('auth:sanctum')->name('user.password.update');
+Route::delete('/user', [UserController::class, 'deleteAccount'])->middleware('auth:sanctum')->name('user.delete');
 
 //Product routes
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
@@ -55,10 +56,12 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('pr
 Route::post('admin/login', [AuthController::class, 'adminAuthentication'])->name('admin.login');
 Route::middleware([AdminAuth::class])->group(function (){
     //User routes
-    Route::get('admin/users/{id}', [UserController::class, 'show'])->name('admin.users.show');
+    Route::get('admin/users/{id}', [UserController::class, 'showAdmin'])->name('admin.users.show');
     Route::put('admin/users/{id}', [UserController::class, 'updateAdmin'])->name('admin.users.update');
-    Route::get('admin/users', [UserController::class, 'showByName'])->name('admin.users.show-by-name');
+    Route::get('admin/users', [UserController::class, 'showByNameAdmin'])->name('admin.users.show-by-name');
     Route::delete('admin/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::post('admin/users/{id}/promote', [UserController::class, 'promote'])->name('admin.users.promote');
+    Route::post('admin/users/{id}/demote', [UserController::class, 'demote'])->name('admin.users.demote');
 
     //Product routes
     Route::get('admin/users/{id}/products', [ProductController::class, 'showByUserId'])->name('admin.products.show-by-user-id');

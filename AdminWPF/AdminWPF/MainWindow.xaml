@@ -31,6 +31,7 @@
                                             <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Path=Email}" />
                                             <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Path=Address}" />
                                             <GridViewColumn Header="Birthdate" DisplayMemberBinding="{Binding Path=Birthdate}" />
+                                            <GridViewColumn Header="Is admin" DisplayMemberBinding="{Binding Path=IsAdmin}" />
                                         </GridView.Columns>
                                     </GridView>
                                 </ListView.View>
@@ -43,6 +44,10 @@
                                     <Button x:Name="deleteUserImage" Click="deleteUserImage_Click">Delete image</Button>
                                 </StackPanel>
                                 <Label Name="userId"></Label>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Name="isAdminLable"></Label>
+                                    <Button x:Name="changeRole" Click="changeRole_Click"></Button>
+                                </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label>Name:</Label>
                                     <TextBox x:Name="userName" Width="200"></TextBox>
