@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
-use App\Http\Requests\ShowByNameRequest;
-use App\Http\Requests\UpdateProductByAdminRequest;
 use App\Models\Product;
 use App\Models\Image;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
@@ -24,8 +24,7 @@ class ProductController extends Controller
     }
 
     public function indexOf($id) {
-        return Product::all()
-            ->where('userId', $id);
+        return User::findOrFail($id)->products;
     }
 
     /**
@@ -60,7 +59,26 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         $data = $request->validated();
-        return Product::create($data);
+
+        $product = Product::create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'price' => $data['price'],
+            'size' => $data['size'],
+            'iced' => false,
+            'sold' => false,
+            'userId' => Auth::id(),
+            'categoryId' => $data['category'],
+        ]);
+
+        foreach ($data['images'] as $i) {
+            Image::create([
+                'productId' => $product->id,
+                'imageURI' => $i->store('products'),
+            ]);
+        }
+
+        return redirect(route('profile.index', ['id' => $product->userId]));
     }
 
     /**

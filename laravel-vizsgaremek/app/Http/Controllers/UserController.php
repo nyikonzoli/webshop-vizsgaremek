@@ -19,11 +19,11 @@ class UserController extends Controller
 {
     public function index($id) {
         $data = User::findOrFail($id);
-//        $manager = new ImageManager(['driver' => 'imagick']);
-//        $pfpPath = Str::remove(env('APP_URL').'/', $data->getProfilePictureURI());
-//        $pfp = $manager->make(storage_path("app/$pfpPath"));
-//        $pfp->fit(300);
-//        $pfp->save(storage_path('app/profile_pictures/pfp.png'));
+        $manager = new ImageManager(['driver' => 'imagick']);
+        $pfpPath = Str::remove(env('APP_URL').'/', $data->getProfilePictureURI());
+        $pfp = $manager->make(storage_path("app/$pfpPath"));
+        $pfp->fit(300);
+        $pfp->save(storage_path('app/profile_pictures/pfp.png'));
         return view('profile.index', [
             'title' => "$data->name's profile",
             'user' => $data,

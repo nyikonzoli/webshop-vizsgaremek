@@ -7,22 +7,42 @@
         <div class="row">
             <div class="col">
                 <h1>Termék feltöltése</h1>
-                {{ Form::open(['route' => "product.upload", 'files' => true]) }}
+                {{ Form::open(['route' => "product.upload", 'novalidate', 'files', 'class' => 'needs-validation', 'enctype' => 'multipart/form-data']) }}
                 <div class="mb-3">
                     {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
                     {{ Form::text('name', null, ['class' => 'form-control', 'required' => true]) }}
+                    <div class="invalid-feedback">
+                        Please provide a name.
+                    </div>
                 </div>
                 <div class="mb-3">
-                    {{ Form::label('pictures', 'Pictures', ['class' => 'form-label']) }}
-                    {{ Form::file('pictures', ['class' => 'form-control', 'required' => true, 'multiple' => true]) }}
+                    {{ Form::label('images[]', 'Pictures', ['class' => 'form-label']) }}
+                    {{ Form::file('images[]', ['class' => 'form-control', 'required' => true, 'multiple' => true]) }}
+                    <div class="invalid-feedback">
+                        Please upload at least one picture.
+                    </div>
                 </div>
                 <div class="mb-3">
                     {{ Form::label('description', 'Description', ['class' => 'form-label']) }}
                     {{ Form::textarea('description', null, ['class' => 'form-control']) }}
                 </div>
                 <div class="mb-3">
+                    {{ Form::label('size', 'Size', ['class' => 'form-label']) }}
+                    {{ Form::text('size', null, ['class' => 'form-control']) }}
+                </div>
+                <div class="mb-3">
                     {{ Form::label('category', 'Category', ['class' => 'form-label']) }}
                     {{ Form::select('category', [], null, ['placeholder' => 'Select a category', 'class' => 'form-select', 'required' => true])}}
+                    <div class="invalid-feedback">
+                        Please select a category.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    {{ Form::label('price', 'Price', ['class' => 'form-label']) }}
+                    {{ Form::text('price', null, ['class' => 'form-control', 'required' => true]) }}
+                    <div class="invalid-feedback">
+                        Please provide a price in USD.
+                    </div>
                 </div>
                 <div class="mb-3">
                     {{ Form::submit('Upload', ['class' => 'btn btn-success']) }}
@@ -48,5 +68,19 @@
             }
             document.querySelector("#category").innerHTML += out
         })
+
+        var forms = document.querySelectorAll('.needs-validation')
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
     </script>
 @endsection
