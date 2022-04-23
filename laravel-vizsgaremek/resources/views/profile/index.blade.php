@@ -54,7 +54,9 @@
                                                 <div class="col-10 d-flex flex-column align-items-start" style="height: 100%">
                                                     <h4 class="card-title">{{ $p->name }}</h4>
                                                     <p class="card-text">{{ $p->getDescription() }}</p>
-                                                    <p class="card-text">Size: {{ $p->getSize() }}</p>
+                                                    @if(!is_null($p->size))
+                                                        <p class="card-text">Size: {{ $p->size }}</p>
+                                                    @endif
                                                     @auth
                                                         @can('edit-product', $p)
                                                             <button type="button" class="btn btn-success mt-auto" data-bs-toggle="modal" data-bs-target="#editModal_{{ $p->id }}">Edit product</button>

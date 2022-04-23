@@ -12,6 +12,11 @@ class Product extends Model
         'name',
         'description',
         'size',
+        'price',
+        'iced',
+        'sold',
+        'userId',
+        'categoryId',
     ];
 
     public function category() {
@@ -35,14 +40,6 @@ class Product extends Model
             return 'This item has no description attached to it.';
         } else {
             return $this->description;
-        }
-    }
-
-    public function getSize() {
-        if (empty($this->size)) {
-            return '-';
-        } else {
-            return $this->size;
         }
     }
 }
