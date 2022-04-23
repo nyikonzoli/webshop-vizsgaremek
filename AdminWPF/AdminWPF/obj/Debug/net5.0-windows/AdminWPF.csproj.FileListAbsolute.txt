@@ -57,3 +57,5 @@ C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\A
 C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ReviewView.g.cs
 C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ReviewCatd.baml
 C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\ReviewView.baml
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\LoginWindow.g.cs
+C:\Users\nyiko\Desktop\Zoli\Technikum\Vizsgaremek\webshop-vizsgaremek\AdminWPF\AdminWPF\obj\Debug\net5.0-windows\LoginWindow.baml

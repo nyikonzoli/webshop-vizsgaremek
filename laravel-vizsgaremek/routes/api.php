@@ -9,6 +9,8 @@ use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\AuthController;
+use App\Http\Middleware\AdminAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,27 +51,32 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('pr
 //Admin routes
 //////////////
 
-//User routes
-Route::get('admin/users/{id}', [UserController::class, 'show'])->name('admin.users.show');
-Route::put('admin/users/{id}', [UserController::class, 'updateAdmin'])->name('admin.users.update');
-Route::get('admin/users', [UserController::class, 'showByName'])->name('admin.users.show-by-name');
-Route::delete('admin/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+//Auth
+Route::post('admin/login', [AuthController::class, 'adminAuthentication'])->name('admin.login');
+Route::middleware([AdminAuth::class])->group(function (){
+    //User routes
+    Route::get('admin/users/{id}', [UserController::class, 'show'])->name('admin.users.show');
+    Route::put('admin/users/{id}', [UserController::class, 'updateAdmin'])->name('admin.users.update');
+    Route::get('admin/users', [UserController::class, 'showByName'])->name('admin.users.show-by-name');
+    Route::delete('admin/users/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
-//Product routes
-Route::get('admin/users/{id}/products', [ProductController::class, 'showByUserId'])->name('admin.products.show-by-user-id');
-Route::put('admin/products/{id}', [ProductController::class, 'updateAdmin'])->name('admin.products.update');
-Route::get('admin/products', [ProductController::class, 'showByName'])->name('admin.products.show-by-name');
-Route::delete('admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+    //Product routes
+    Route::get('admin/users/{id}/products', [ProductController::class, 'showByUserId'])->name('admin.products.show-by-user-id');
+    Route::put('admin/products/{id}', [ProductController::class, 'updateAdmin'])->name('admin.products.update');
+    Route::get('admin/products', [ProductController::class, 'showByName'])->name('admin.products.show-by-name');
+    Route::delete('admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
 
-//Category routes
-Route::get('admin/categories', [CategoryController::class, 'index'])->name('admin.category.index');
-Route::put('admin/categories/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
-Route::post('admin/categories', [CategoryController::class, 'store'])->name('admin.category.store');
-Route::delete('admin/categories/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+    //Category routes
+    Route::get('admin/categories', [CategoryController::class, 'index'])->name('admin.category.index');
+    Route::put('admin/categories/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
+    Route::post('admin/categories', [CategoryController::class, 'store'])->name('admin.category.store');
+    Route::delete('admin/categories/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
 
-//Review routes
-Route::get('admin/users/{userId}/reviews/made', [ReviewController::class, 'showMade'])->name('admin.reviews.show-made');
-Route::get('admin/users/{userId}/reviews/received', [ReviewController::class, 'showReceived'])->name('admin.reviews.show-received');
-Route::delete('admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('admin.reviews.destroy');;
+    //Review routes
+    Route::get('admin/users/{userId}/reviews/made', [ReviewController::class, 'showMade'])->name('admin.reviews.show-made');
+    Route::get('admin/users/{userId}/reviews/received', [ReviewController::class, 'showReceived'])->name('admin.reviews.show-received');
+    Route::delete('admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('admin.reviews.destroy');;
+});
+
 
 

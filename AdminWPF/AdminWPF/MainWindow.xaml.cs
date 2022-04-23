@@ -24,13 +24,9 @@ namespace AdminWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(string token)
         {
             InitializeComponent();
-            Requests.client = new HttpClient();
-            Requests.client.BaseAddress = new Uri("http://localhost:8881/api/admin/");
-            Requests.client.DefaultRequestHeaders.Accept.Clear();
-            Requests.client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         private List<User> users;
