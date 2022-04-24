@@ -17,13 +17,21 @@
                         <h3 class="text-center">{{ $user->name }}</h3>
                     </div>
                     <div class="col-sm-12 col-lg-8 py-3 d-flex flex-column align-items-start">
-                        <h3 class="sm-text-center">About {{ $user->name }}</h3>
-                        <p class="text-break mb-4">{{ $user->getDescription() }}</p>
-                        <p class="mb-4">{{ $products->count() }} products listed</p>
-                        <p>TODO rating</p>
-                        @can('view-dashboard_settings', $user->id)
-                            <a class="btn btn-success mt-auto" href="{{ route('profile.dashboard', ['id' => $user->id]) }}" role="button">Dashboard</a>
-                            <a class="btn btn-success mt-auto" href="{{ route('settings.index') }}" role="button">Settings</a>
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="sm-text-center">About {{ $user->name }}</h3>
+                                <p class="text-break mb-4">{{ $user->getDescription() }}</p>
+                                <p class="mb-4">{{ $products->count() }} products listed</p>
+                                <p>TODO rating</p>
+                            </div>
+                        </div>
+                        @can('user-views', $user->id)
+                        <div class="row my-auto">
+                            <div class="col">
+                                <a class="btn btn-success" href="{{ route('profile.dashboard', ['id' => $user->id]) }}" role="button">Dashboard</a>
+                                <a class="btn btn-success ms-3" href="{{ route('settings.index') }}" role="button">Settings</a>
+                            </div>
+                        </div>
                         @endcan
                     </div>
                 </div>

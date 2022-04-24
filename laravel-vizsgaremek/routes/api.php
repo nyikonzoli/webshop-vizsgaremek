@@ -45,7 +45,7 @@ Route::delete('/user', [UserController::class, 'deleteAccount'])->middleware('au
 //Product routes
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 Route::get('/products/{id}', [ProductController::class, 'indexOf'])->name('product.indexOf');
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+Route::delete('/products', [ProductController::class, 'destroy'])->middleware('auth:sanctum')->name('product.destroy');
 
 //Category routes
 Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
