@@ -47,6 +47,9 @@ Route::get('/products', [ProductController::class, 'index'])->name('product.inde
 Route::get('/products/{id}', [ProductController::class, 'indexOf'])->name('product.indexOf');
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
+//Category routes
+Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
+
 
 //////////////
 //Admin routes

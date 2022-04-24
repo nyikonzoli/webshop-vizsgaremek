@@ -50,7 +50,7 @@ class User extends Authenticatable
     public $timestamps = false;
 
     public function reviewsSellerConnection(){
-        return $this->hasMany(Review::class, 'selledId');
+        return $this->hasMany(Review::class, 'sellerId');
     }
 
     public function reviewsBuyerConnection(){
