@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
+@section('title', $title)
+
 @section('header')
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 @endsection
 
-@section('title', $title)
-
 @section('content')
     <div class="container-fluid py-3 col-lg-10 mx-auto">
-        {{-- Profil header --}}
+        {{-- Profile header --}}
         <div class="row">
             <div class="col-9 mx-auto" id="header">
                 <div class="row">
@@ -17,13 +17,21 @@
                         <h3 class="text-center">{{ $user->name }}</h3>
                     </div>
                     <div class="col-sm-12 col-lg-8 py-3 d-flex flex-column align-items-start">
-                        <h3 class="sm-text-center">About {{ $user->name }}</h3>
-                        <p class="text-break mb-4">{{ $user->getDescription() }}</p>
-                        <p class="mb-4">{{ $products->count() }} products listed</p>
-                        <p>TODO rating</p>
-                        @can('view-dashboard_settings', $user->id)
-                            <a class="btn btn-success mt-auto" href="{{ route('profile.dashboard', ['id' => $user->id]) }}" role="button">Dashboard</a>
-                            <a class="btn btn-success mt-auto" href="{{ route('settings.index') }}" role="button">Settings</a>
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="sm-text-center">About {{ $user->name }}</h3>
+                                <p class="text-break mb-4">{{ $user->getDescription() }}</p>
+                                <p class="mb-4">{{ $products->count() }} products listed</p>
+                                <p>TODO rating</p>
+                            </div>
+                        </div>
+                        @can('user-views', $user->id)
+                        <div class="row my-auto">
+                            <div class="col">
+                                <a class="btn btn-success" href="{{ route('profile.dashboard', ['id' => $user->id]) }}" role="button">Dashboard</a>
+                                <a class="btn btn-success ms-3" href="{{ route('settings.index') }}" role="button">Settings</a>
+                            </div>
+                        </div>
                         @endcan
                     </div>
                 </div>
@@ -34,15 +42,39 @@
             <button class="section-select section-select-active" onclick="products();" id="profile-products-button"><b>Products for sale</b></button>
             <button class="section-select" onclick="reviews();" id="profile-reviews-button"><b>Reviews</b></button>
         </div>
-        <div id="profile-reviews">
-
+        {{-- Reviews --}}
+        <div class="row" id="profile-reviews">
+            <div class="col">
+                @foreach($user->reviewsSellerConnection as $r)
+                    <div class="row">
+                        <div class="col-9 mt-4 mx-auto testreview" style="margin: 5px; border: 2px solid seagreen; border-radius: 20px;">
+                            <div class="row">
+                                <div class="col-12 my-2 d-flex justify-content-between">
+                                    <h4>{{ $r->buyerConnection->name }}</h4>
+                                    <div class="d-flex align-items-center">
+                                        {{ $r->rating }}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill align-self-center ms-1" viewBox="0 0 16 16">
+                                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                @if(!is_null($r->content))
+                                <div class="col-12 mb-2">
+                                    {{ $r->content }}
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
+        {{-- Products --}}
         <div class="row" id="profile-products">
             <div class="col">
-                {{-- Termekek --}}
                 @foreach($products as $p)
                     <div class="row">
-                        <div class="col-9 my-4 mx-auto">
+                        <div class="col-9 mt-4 mx-auto">
                             <div class="card">
                                 <div class="row g-0">
                                     <div class="col-lg-3">
@@ -123,6 +155,11 @@
 
 @section('script')
     <script>
+
+        window.onload = function() {
+            document.getElementById("profile-reviews").style.display = "none";
+        }
+
         function contactSeller(userId, productId){
             data = {
                 sellerId: userId,
