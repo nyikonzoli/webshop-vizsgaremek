@@ -18,6 +18,7 @@ namespace AdminWPF.Models
         public int userId { get; set; }
         public int categoryId { get; set; }
         public List<Image> images { get; set; }
+        public bool isReported { get; set; }
 
         public async static Task<bool> delete(int id)
         {

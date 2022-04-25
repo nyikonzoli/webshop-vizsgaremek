@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Report;
 
 class ProductResource extends JsonResource
 {
@@ -15,6 +16,9 @@ class ProductResource extends JsonResource
     public function toArray($request)
     {
         $images = $this->images;
+        $isReported = false;
+        $report = Report::where('type', '=', 'product')->where('objectId', '=', $this->id)->first();
+        if(!is_null($report)) $isReported = true;
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -26,6 +30,7 @@ class ProductResource extends JsonResource
             'userId' => $this->userId,
             'categoryId' => $this->categoryId,
             'images' => $images,
+            'isReported' => $isReported,
         ];
     }
 }

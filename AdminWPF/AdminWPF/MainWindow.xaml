@@ -86,6 +86,16 @@
                                     <local:ReviewView x:Name="receivedReviewView"/>
                                 </Grid>
                             </Expander>
+                            <Expander Header="Incoming reports">
+                                <StackPanel>
+
+                                </StackPanel>
+                            </Expander>
+                            <Expander Header="Outgoing reports">
+                                <StackPanel>
+
+                                </StackPanel>
+                            </Expander>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

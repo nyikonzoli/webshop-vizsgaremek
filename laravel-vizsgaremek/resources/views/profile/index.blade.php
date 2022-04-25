@@ -67,9 +67,17 @@
                                                         <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})" disabled>Contact seller</button>
                                                     @endauth
                                                 </div>
-                                                <div class="col-2 d-flex align-items-end flex-column justify-content-end">
-                                                    <div class="fs-5">${{ $p->price }} USD</div>
-                                                </div>
+                                                @auth
+                                                    <div class="col-2 d-flex align-items-end flex-column justify-content-between">
+                                                        <button class="product-report" title="Report" onclick="report('{{ $p->id }}');"><i class="fa fa-flag-o"></i><i class="fa fa-flag"></i></button>
+                                                        <div class="fs-5">${{ $p->price }} USD</div>
+                                                    </div>
+                                                @else
+                                                    <div class="col-2 d-flex align-items-end flex-column justify-content-end">
+                                                        <div class="fs-5">${{ $p->price }} USD</div>
+                                                    </div>
+                                                @endauth
+
                                             </div>
                                         </div>
                                     </div>
@@ -137,6 +145,16 @@
             document.getElementById("profile-products-button").classList.remove("section-select-active");
             document.getElementById("profile-reviews").style.display = "block";
             document.getElementById("profile-reviews-button").classList.add("section-select-active");
+        }
+
+        function report(id){
+            if (confirm("Are you sure that you want to report this product?") == true) {
+                url = "{{ route('report.product', ['id' => '*']) }}";
+                url = url.replace("*", id);
+                axios.post(url).then(function (then){
+                    alert('The product has been reported!')
+                });
+            }
         }
     </script>
 @endsection

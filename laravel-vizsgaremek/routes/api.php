@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\AdminAuth;
@@ -47,6 +48,11 @@ Route::get('/products', [ProductController::class, 'index'])->name('product.inde
 Route::get('/products/{id}', [ProductController::class, 'indexOf'])->name('product.indexOf');
 Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
+//Report routes
+Route::post('products/{id}/report', [ReportController::class, 'productReport'])->middleware('auth:sanctum')->name('report.product');
+Route::post('conversation/{id}/report', [ReportController::class, 'conversationReport'])->middleware('auth:sanctum')->name('report.conversation');
+Route::post('reviews/{id}/report', [ReportController::class, 'revewReport'])->middleware('auth:sanctum')->name('report.review');
+
 
 //////////////
 //Admin routes
@@ -80,6 +86,9 @@ Route::middleware([AdminAuth::class])->group(function (){
     Route::get('admin/users/{userId}/reviews/received', [ReviewController::class, 'showReceived'])->name('admin.reviews.show-received');
     Route::delete('admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('admin.reviews.destroy');;
 });
+
+Route::get('admin/users/{userId}/reports/incoming', [ReportController::class, 'incoming'])->name('admin.users.reports.incoming');
+Route::get('admin/users/{userId}/reports/outgoing', [ReportController::class, 'outgoing'])->name('admin.users.reports.outgoing');
 
 
 

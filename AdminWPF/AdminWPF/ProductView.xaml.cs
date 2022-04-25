@@ -88,7 +88,7 @@ namespace AdminWPF
         public void setProductsList(List<Product> products)
         {
             productList.Items.Clear();
-            productPanel.Visibility = Visibility.Hidden;
+            productPanel.Visibility = Visibility.Collapsed;
             foreach (var product in products)
             {
                 productList.Items.Add(product);
@@ -101,6 +101,7 @@ namespace AdminWPF
             currentProduct = product;
             productResource.dataFromProduct(product);
             productId.Content = "#" + product.id;
+            reportLabel.Visibility = product.isReported ? Visibility.Visible : Visibility.Collapsed;
             productName.Text = product.name;
             productDescription.Text = product.description;
             productPrice.Text = product.price.ToString();
@@ -159,7 +160,7 @@ namespace AdminWPF
 
         private void productList_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            productPanel.Visibility = Visibility.Hidden;
+            productPanel.Visibility = Visibility.Collapsed;
             Product product = (sender as ListView).SelectedItem as Product;
             setProductData(product);
         }

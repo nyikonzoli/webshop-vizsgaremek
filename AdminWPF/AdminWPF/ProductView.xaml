@@ -15,6 +15,7 @@
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=name}" />
                         <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=price}" />
                         <GridViewColumn Header="Sold" DisplayMemberBinding="{Binding Path=sold}" />
+                        <GridViewColumn Header="Reported" DisplayMemberBinding="{Binding Path=isReported}" />
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
@@ -25,8 +26,8 @@
                 <Image x:Name="productImage" Width="100" Height="100"></Image>
                 <Button x:Name="imageRight" Click="imageRight_Click"></Button>
             </StackPanel>
-
             <Label Name="productId"></Label>
+            <Label Name="reportLabel" Foreground="Red">This product has been reported!</Label>
             <StackPanel Orientation="Horizontal">
                 <Label>Name:</Label>
                 <TextBox x:Name="productName" Width="200" Text="{Binding Path=ProductName}"></TextBox>

@@ -18,6 +18,10 @@
             <div id="conversations"></div>
         </div>
         <div class="messages-container">
+            <div class="messages-header" id="messages-header">
+                <h6 id="your-conversation-with" style="width: fit-content"></h6>
+                <button class="product-report" title="Report" onclick="report();"><i class="fa fa-flag-o"></i><i class="fa fa-flag"></i></button>
+            </div>
             <div id="messages"></div>
             <div>
                 <div class="mb-3 send">
@@ -82,13 +86,16 @@
                 clone.querySelector("div>div>p").innerHTML = conversation["productName"];
                 clone.querySelector("div>img#product-image").src = conversation["productPictureURI"];
                 clone.querySelector("div").id = conversation["id"];
-                clone.querySelector('div').onclick = function() { openChat(conversation["id"]) };
+                name = conversation["partnerName"];
+                clone.querySelector('div').onclick = function() { openChat(conversation["id"], name); };
                 div.appendChild(clone);
             });
         }
 
-        async function openChat(id){
+        async function openChat(id, name){
             currentConversationId = id;
+            document.getElementById('messages-header').style.display = 'flex';
+            document.getElementById('your-conversation-with').innerHTML = 'Your conversation with ' + name;
             url = '{{ route('conversation.show', ['id' => 'id']) }}';
             url = url.replace('id', id);
             messages = await fetch(url).then(response => response.json());
@@ -123,12 +130,23 @@
 
         async function loadChatOnLoad(){
             await showConversations("buys");
-            id = document.getElementById("conversations").querySelectorAll("div")[0].id;
-            openChat(id);
+            document.getElementById("conversations").querySelectorAll("div")[0].click()
+
         }
+
+        function report(){
+            if (confirm("Are you sure that you want to report this conversation?") == true) {
+                url = "{{ route('report.conversation', ['id' => '*']) }}";
+                url = url.replace("*", currentConversationId);
+                axios.post(url).then(function (then){
+                    alert('The conversation has been reported!')
+                });
+            }
+        } 
 
         window.onload = function() {
             loadChatOnLoad();
+            document.getElementById('messages-header').style.display = 'none';
         }
     </script>
 @endsection

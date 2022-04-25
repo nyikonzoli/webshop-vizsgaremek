@@ -141,3 +141,36 @@ body {
 .send-button{
     margin-left: 16px;
 }
+
+.product-report{
+    background-color: white;
+    border: none;
+    color: seagreen;
+    font-size: 24px;
+    padding: 0px;
+    margin-top: -8px
+}
+
+.product-report .fa-flag-o{
+    display: inline;
+}
+
+.product-report:hover .fa-flag-o{
+    display: none;
+}
+
+.product-report .fa-flag{
+    display: none;
+}
+
+.product-report:hover .fa-flag{
+    display: inline;
+}
+
+.messages-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px;
+}
