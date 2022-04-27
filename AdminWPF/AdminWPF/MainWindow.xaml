@@ -86,16 +86,6 @@
                                     <local:ReviewView x:Name="receivedReviewView"/>
                                 </Grid>
                             </Expander>
-                            <Expander Header="Incoming reports">
-                                <StackPanel>
-
-                                </StackPanel>
-                            </Expander>
-                            <Expander Header="Outgoing reports">
-                                <StackPanel>
-
-                                </StackPanel>
-                            </Expander>
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>
@@ -146,8 +136,51 @@
                     </Expander>
                 </StackPanel>
             </TabItem>
+            <TabItem Header="Reports">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <GroupBox Header="Include">
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Name="reportProduct" Margin="0 0 10 0" IsChecked="True">Product</CheckBox>
+                                <CheckBox Name="reportConversation" Margin="0 0 10 0" IsChecked="True">Conversation</CheckBox>
+                                <CheckBox Name="reportReview" Margin="0 0 10 0" IsChecked="True">Review</CheckBox>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Seach by">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton x:Name="reportIdRadio">Id</RadioButton>
+                                <RadioButton Name="reportNameRadio">Name</RadioButton>
+                                <RadioButton Name="reportAllRadio" IsChecked="True">All</RadioButton>
+                            </StackPanel>
+                        </GroupBox>
+                        <TextBox Width="350" Height="26" Name="reportSearch"></TextBox>
+                        <Button Height="26" Name="searchReport" Click="searchReport_Click">Seach</Button>
+                    </StackPanel>
+                    <ListView Grid.ColumnSpan="2" Grid.Row="1" Name="reportList"  AlternationCount="0" SelectionMode="Single">
+                        <ListView.View>
+                            <GridView>
+                                <GridView.Columns>
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=id}" />
+                                    <GridViewColumn Header="Sender Id" DisplayMemberBinding="{Binding Path=semderId}" />
+                                    <GridViewColumn Header="Sender Name" DisplayMemberBinding="{Binding Path=senderName}" />
+                                    <GridViewColumn Header="Receiver Id" DisplayMemberBinding="{Binding Path=receiverId}" />
+                                    <GridViewColumn Header="Recevier Name" DisplayMemberBinding="{Binding Path=receiverName}" />
+                                    <GridViewColumn Header="Object Id" DisplayMemberBinding="{Binding Path=objectId}" />
+                                    <GridViewColumn Header="Object Name" DisplayMemberBinding="{Binding Path=objectName}" />
+                                    <GridViewColumn Header="Delete">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button>Delete</Button>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </TabItem>
         </TabControl>
-
     </StackPanel>
     
 </Window>

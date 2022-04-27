@@ -24,21 +24,21 @@ Route::get('/register', [RegisterController::class, 'show'])->name('register.sho
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 //Login
-Route::post('/login', [AuthController::class, 'authentication'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'authentication'])->middleware('auth')->name('auth.login');
 
 //Logout
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
 
 //Profile
 Route::get('/profile/{id}', [UserController::class, 'index'])->name('profile.index');
-Route::get('/profile/{id}/upload', [UserController::class, 'upload'])->name('profile.upload');
+Route::get('/profile/{id}/upload', [UserController::class, 'upload'])->middleware('auth')->name('profile.upload');
 
 //Dashboard
-Route::get('/profile/{id}/dashboard', [UserController::class, 'dashboard'])->name('profile.dashboard');
+Route::get('/profile/{id}/dashboard', [UserController::class, 'dashboard'])->middleware('auth')->name('profile.dashboard');
 
 //Product
-Route::post('/products/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
-Route::post('/products/upload', [ProductController::class, 'store'])->name('product.upload');
+Route::post('/products/{product}/edit', [ProductController::class, 'edit'])->middleware('auth')->name('product.edit');
+Route::post('/products/upload', [ProductController::class, 'store'])->middleware('auth')->name('product.upload');
 
 //Messages
 Route::get('/messages', [ConversationController::class, 'messages'])->middleware('auth')->name('messages');

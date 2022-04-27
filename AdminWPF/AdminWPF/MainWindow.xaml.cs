@@ -268,5 +268,25 @@ namespace AdminWPF
             }
             changeRole.IsEnabled = true;
         }
+
+        private async void searchReport_Click(object sender, RoutedEventArgs e)
+        {
+            string parameters = "?types=";
+            if ((bool)reportConversation.IsChecked) parameters += "conversation;";
+            if ((bool)reportProduct.IsChecked) parameters += "product;";
+            if ((bool)reportReview.IsChecked) parameters += "review";
+            parameters += "&getBy=";
+            if ((bool)reportNameRadio.IsChecked) parameters += "name";
+            else if ((bool)reportIdRadio.IsChecked) parameters += "id";
+            else if ((bool)reportAllRadio.IsChecked) parameters += "all";
+            if (reportSearch.Text.Length > 0) parameters += "&keyword=" + reportSearch.Text;
+            else parameters += "&keyword=null";
+            Task<List<Report>> reportTask = Report.getReports(parameters);
+            List<Report> reports = await reportTask;
+            foreach (var report in reports)
+            {
+                reportList.Items.Add(report);
+            }
+        }
     }
 }

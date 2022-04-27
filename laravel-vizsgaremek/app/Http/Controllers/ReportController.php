@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Report;
+use App\Models\User;
 use App\Models\Product;
 use App\Models\Conversation;
 use App\Models\Review;
+use App\Http\Requests\GetReportRequest;
+use App\Http\Resources\ReportResource;
 
 class ReportController extends Controller
 {
@@ -40,11 +43,39 @@ class ReportController extends Controller
         ]);
     }
 
-    public function incoming(){
-
-    }
-
-    public function outgoing(){
-        
+    public function getReports(GetReportRequest $request){
+        $filters = $request->validated();
+        $reports = [];
+        if($filters["getBy"] == "all"){
+            $reports = Report::all();  
+        }
+        else if($filters["getBy"] == "name"){
+            $allReports = Report::all();
+            $reportIds = [];
+            foreach ($allReports as $report) {
+                $receiver = $report->getReceiver();
+                if(str_contains($receiver->name, $filters["keyword"]) || str_contains(User::find($report->userId)->name, $filters["keyword"])){
+                    $reportIds[] = $report->id;
+                }
+            }
+            $reports = Report::whereIn('id', $reportIds)->get();
+        }
+        else if($filters["getBy"] == "id"){
+            $allReports = Report::all();
+            $reportIds = [];
+            foreach ($allReports as $report) {
+                $receiver = $report->getReceiver();
+                if(str_contains($receiver->id, $filters["keyword"]) || str_contains($report->userId, $filters["keyword"])){
+                    $reportIds[] = $report->id;
+                }
+            }
+            $reports = Report::whereIn('id', $reportIds)->get();
+        }
+        $reports = $reports->whereIn('type', explode(";", $filters["types"]));
+        $resources = [];
+        foreach ($reports as $report) {
+            $resources[] = new ReportResource($report);
+        }
+        return $resources;
     }
 }
