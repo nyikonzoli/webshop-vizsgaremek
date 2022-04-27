@@ -81,10 +81,10 @@
             conversations = await getConversations(route);
             conversations.forEach(conversation => {
                 clone = template.content.cloneNode(true);
-                clone.querySelector("div>img#user-image").src = conversation["partnerProfilepictureURI"];
+                clone.querySelector("div>images#user-image").src = conversation["partnerProfilepictureURI"];
                 clone.querySelector("div>div>h5").innerHTML = conversation["partnerName"];
                 clone.querySelector("div>div>p").innerHTML = conversation["productName"];
-                clone.querySelector("div>img#product-image").src = conversation["productPictureURI"];
+                clone.querySelector("div>images#product-image").src = conversation["productPictureURI"];
                 clone.querySelector("div").id = conversation["id"];
                 name = conversation["partnerName"];
                 clone.querySelector('div').onclick = function() { openChat(conversation["id"], name); };

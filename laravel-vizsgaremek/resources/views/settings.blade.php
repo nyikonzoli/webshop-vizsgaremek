@@ -151,7 +151,7 @@
                 }
             }).then(function (response){
                 console.log(response);
-                document.getElementById('profile-img').src = response["data"]["data"]["profilePictureURI"];
+                document.getElementById('profile-images').src = response["data"]["data"]["profilePictureURI"];
                 document.getElementById('nav-profile').src = response["data"]["data"]["profilePictureURI"];
             }).catch(err=>console.log(err.response.data));
         }
@@ -160,7 +160,7 @@
             data = getUserData();
             data["profilePictureURI"] = null;
             axios.put("{{ route('user.update') }}", data).then(function (response){
-                document.getElementById('profile-img').src = response["data"]["data"]["profilePictureURI"];
+                document.getElementById('profile-images').src = response["data"]["data"]["profilePictureURI"];
                 document.getElementById('nav-profile').src = response["data"]["data"]["profilePictureURI"];
             });
         }

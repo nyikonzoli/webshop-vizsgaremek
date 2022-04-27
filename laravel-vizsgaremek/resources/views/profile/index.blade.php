@@ -78,7 +78,14 @@
                             <div class="card">
                                 <div class="row g-0">
                                     <div class="col-lg-3">
-                                        <img src="{{ asset($p->images->first()->imageURI) }}" alt="" class="img-fluid" style="object-fit: cover; width: 100%; height: 280px;">
+                                        <a href="{{ asset($p->images->first()->imageURI) }}" data-lightbox="imageset{{ $p->id }}">
+                                            <img src="{{ asset($p->images->first()->imageURI) }}" alt=""  class="img-fluid" style="object-fit: cover; width: 100%; height: 280px;">
+                                        </a>
+                                        @for($i = 1; $i < $p->images->count(); ++$i)
+                                        <a href="{{ asset($p->images[$i]->imageURI) }}" data-lightbox="imageset{{ $p->id }}">
+                                            <img src="{{ asset($p->images[$i]->imageURI) }}" alt="" class="img-fluid" style="object-fit: cover; width: 100%; height: 280px; display: none">
+                                        </a>
+                                        @endfor
                                     </div>
                                     <div class="col-lg-9">
                                         <div class="card-body" style="height: 100%;">
