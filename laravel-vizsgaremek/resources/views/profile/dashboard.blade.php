@@ -41,10 +41,11 @@
                 out += `
                     <tr>
                         <td>${data[i].name}</td>
-                        <td>${data[i].price}</td>
+                        <td>$${data[i].price} USD</td>
                         <td>${data[i].size}</td>
                         <td>
                             <button type="button" class="btn btn-success">Edit</button>
+                            <button type="button" class="btn btn-info freezeButton" onclick="freezeToggleProduct(${data[i].id})">Freeze toggle</button>
                             <button type="button" class="btn btn-danger" onclick="deleteProduct(${data[i].id})">Delete</button>
                         </td>
                     </tr>
@@ -53,11 +54,31 @@
 
             out += `</tbody></table>`
 
-            document.querySelector("#productsTable").innerHTML = out
+            document.getElementById('productsTable').innerHTML = out
+
+            for (let i = 0; i < data.length; ++i) {
+                if (data[i].iced) {
+                    document.querySelectorAll('.freezeButton')[i].innerText = 'Unfreeze'
+                } else {
+                    document.querySelectorAll('.freezeButton')[i].innerText = 'Freeze'
+                }
+            }
         })
 
         function deleteProduct(id) {
             axios.delete("{{route('product.destroy')}}", {
+                params: {
+                    id: id
+                }
+            })
+            .then(function (response){
+                console.log(response)
+                window.location.replace("{{route('profile.dashboard', ['id' => \Illuminate\Support\Facades\Auth::user()->id])}}")
+            })
+        }
+
+        function freezeToggleProduct(id) {
+            axios.patch("{{route('product.freezetoggle', ['id' => id])}}", {
                 params: {
                     id: id
                 }

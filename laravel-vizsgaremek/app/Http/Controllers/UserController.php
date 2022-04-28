@@ -23,14 +23,21 @@ class UserController extends Controller
         $data = User::findOrFail($id);
         $manager = new ImageManager(['driver' => 'imagick']);
         $pfpPath = Str::remove(env('APP_URL').'/', $data->getProfilePictureURI());
-        $pfp = $manager->make(storage_path("app/$pfpPath"));
-        $pfp->fit(300);
-        $pfp->save(storage_path('app/profile_pictures/pfp.png'));
+        $manager->make(storage_path("app/$pfpPath"))->fit(300)->save(storage_path('app/profile_pictures/pfp.png'));
+        $images = [];
+//        foreach ($data->products as $p) {
+//            $images[$p->id] = [];
+//            foreach ($p->images as $i) {
+//                $iPath = Str::remove(env('APP_URL').'/', $i->imageURI);
+//                $images[$p->id][$i->id] = $manager->make(storage_path("app/$iPath"))->encode('jpg', 40)->response('jpg');
+//            }
+//        }
         return view('profile.index', [
             'title' => "$data->name's profile",
             'user' => $data,
             'pfp' => env('APP_URL').'/profile_pictures/pfp.png',
             'products' => $data->products,
+            'images' => $images
         ]);
     }
 

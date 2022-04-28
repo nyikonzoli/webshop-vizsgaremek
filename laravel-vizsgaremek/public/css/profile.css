@@ -63,3 +63,12 @@ p {
 .product-report:hover .fa-flag{
     display: inline;
 }
+
+.product-image {
+    overflow: hidden;
+    transition: 0.3s all ease-in-out;
+}
+
+.product-image:hover {
+    transform: scale(1.1);
+}

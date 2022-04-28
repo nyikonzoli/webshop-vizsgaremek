@@ -13,7 +13,7 @@
             <div class="col-9 mx-auto" id="header">
                 <div class="row">
                     <div class="col-sm-12 col-lg-4">
-                        <img src="{{ $pfp }}" alt="" class="mx-auto my-3 d-block img-fluid" id="pfp">
+                        <img src="{{ asset($pfp) }}" alt="" class="mx-auto my-3 d-block img-fluid" id="pfp">
                         <h3 class="text-center">{{ $user->name }}</h3>
                     </div>
                     <div class="col-sm-12 col-lg-8 py-3 d-flex flex-column align-items-start">
@@ -77,9 +77,9 @@
                         <div class="col-9 mt-4 mx-auto">
                             <div class="card">
                                 <div class="row g-0">
-                                    <div class="col-lg-3">
-                                        <a href="{{ asset($p->images->first()->imageURI) }}" data-lightbox="imageset{{ $p->id }}">
-                                            <img src="{{ asset($p->images->first()->imageURI) }}" alt=""  class="img-fluid" style="object-fit: cover; width: 100%; height: 280px;">
+                                    <div class="col-lg-3" style="overflow: hidden">
+                                        <a href="{{ asset($p->images->first()->imageURI) }}" data-lightbox="imageset{{ $p->id }}" >
+                                            <img src="{{ asset($p->images->first()->imageURI) }}" alt="" class="img-fluid product-image" style="object-fit: cover; width: 100%; height: 280px;">
                                         </a>
                                         @for($i = 1; $i < $p->images->count(); ++$i)
                                         <a href="{{ asset($p->images[$i]->imageURI) }}" data-lightbox="imageset{{ $p->id }}">
@@ -90,21 +90,43 @@
                                     <div class="col-lg-9">
                                         <div class="card-body" style="height: 100%;">
                                             <div class="row" style="height: 100%;">
-                                                <div class="col-10 d-flex flex-column align-items-start" style="height: 100%">
-                                                    <h4 class="card-title">{{ $p->name }}</h4>
-                                                    <p class="card-text">{{ $p->getDescription() }}</p>
-                                                    @if(!is_null($p->size))
-                                                        <p class="card-text">Size: {{ $p->size }}</p>
-                                                    @endif
-                                                    @auth
-                                                        @can('edit-product', $p)
-                                                            <button type="button" class="btn btn-success mt-auto" data-bs-toggle="modal" data-bs-target="#editModal_{{ $p->id }}">Edit product</button>
-                                                        @else
-                                                            <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})">Contact seller</button>
-                                                        @endcan
-                                                    @else
-                                                        <button type="button" class="btn btn-success mt-auto" onclick="contactSeller({{ $user->id }}, {{ $p->id }})" disabled>Contact seller</button>
-                                                    @endauth
+                                                <div class="col-10 d-flex flex-column justify-content-between" style="height: 100%">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h4 class="card-title">{{ $p->name }}</h4>
+                                                            <p class="card-text">{{ $p->getDescription() }}</p>
+                                                            @if(!is_null($p->size))
+                                                                <p class="card-text">Size: {{ $p->size }}</p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-5">
+                                                        <div class="col d-flex align-items-center">
+                                                            @auth
+                                                                @can('edit-product', $p)
+                                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal_{{ $p->id }}">Edit product</button>
+                                                                @else
+                                                                    @if($p->iced)
+                                                                        <button type="button" class="btn btn-success" onclick="contactSeller({{ $user->id }}, {{ $p->id }})" disabled>Contact seller</button>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-snow ms-3 me-1 text-info" viewBox="0 0 16 16">
+                                                                            <path d="M8 16a.5.5 0 0 1-.5-.5v-1.293l-.646.647a.5.5 0 0 1-.707-.708L7.5 12.793V8.866l-3.4 1.963-.496 1.85a.5.5 0 1 1-.966-.26l.237-.882-1.12.646a.5.5 0 0 1-.5-.866l1.12-.646-.884-.237a.5.5 0 1 1 .26-.966l1.848.495L7 8 3.6 6.037l-1.85.495a.5.5 0 0 1-.258-.966l.883-.237-1.12-.646a.5.5 0 1 1 .5-.866l1.12.646-.237-.883a.5.5 0 1 1 .966-.258l.495 1.849L7.5 7.134V3.207L6.147 1.854a.5.5 0 1 1 .707-.708l.646.647V.5a.5.5 0 1 1 1 0v1.293l.647-.647a.5.5 0 1 1 .707.708L8.5 3.207v3.927l3.4-1.963.496-1.85a.5.5 0 1 1 .966.26l-.236.882 1.12-.646a.5.5 0 0 1 .5.866l-1.12.646.883.237a.5.5 0 1 1-.26.966l-1.848-.495L9 8l3.4 1.963 1.849-.495a.5.5 0 0 1 .259.966l-.883.237 1.12.646a.5.5 0 0 1-.5.866l-1.12-.646.236.883a.5.5 0 1 1-.966.258l-.495-1.849-3.4-1.963v3.927l1.353 1.353a.5.5 0 0 1-.707.708l-.647-.647V15.5a.5.5 0 0 1-.5.5z"/>
+                                                                        </svg>
+                                                                        <p>Product frozen</p>
+                                                                    @else
+                                                                        <button type="button" class="btn btn-success" onclick="contactSeller({{ $user->id }}, {{ $p->id }})">Contact seller</button>
+                                                                    @endif
+                                                                @endcan
+                                                            @else
+                                                                <button type="button" class="btn btn-success" onclick="contactSeller({{ $user->id }}, {{ $p->id }})" disabled>Contact seller</button>
+                                                                @if($p->iced)
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-snow ms-3 me-1 text-info" viewBox="0 0 16 16">
+                                                                        <path d="M8 16a.5.5 0 0 1-.5-.5v-1.293l-.646.647a.5.5 0 0 1-.707-.708L7.5 12.793V8.866l-3.4 1.963-.496 1.85a.5.5 0 1 1-.966-.26l.237-.882-1.12.646a.5.5 0 0 1-.5-.866l1.12-.646-.884-.237a.5.5 0 1 1 .26-.966l1.848.495L7 8 3.6 6.037l-1.85.495a.5.5 0 0 1-.258-.966l.883-.237-1.12-.646a.5.5 0 1 1 .5-.866l1.12.646-.237-.883a.5.5 0 1 1 .966-.258l.495 1.849L7.5 7.134V3.207L6.147 1.854a.5.5 0 1 1 .707-.708l.646.647V.5a.5.5 0 1 1 1 0v1.293l.647-.647a.5.5 0 1 1 .707.708L8.5 3.207v3.927l3.4-1.963.496-1.85a.5.5 0 1 1 .966.26l-.236.882 1.12-.646a.5.5 0 0 1 .5.866l-1.12.646.883.237a.5.5 0 1 1-.26.966l-1.848-.495L9 8l3.4 1.963 1.849-.495a.5.5 0 0 1 .259.966l-.883.237 1.12.646a.5.5 0 0 1-.5.866l-1.12-.646.236.883a.5.5 0 1 1-.966.258l-.495-1.849-3.4-1.963v3.927l1.353 1.353a.5.5 0 0 1-.707.708l-.647-.647V15.5a.5.5 0 0 1-.5.5z"/>
+                                                                    </svg>
+                                                                    <p>Product frozen</p>
+                                                                @endif
+                                                            @endauth
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 @auth
                                                     <div class="col-2 d-flex align-items-end flex-column justify-content-between">

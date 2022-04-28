@@ -50,6 +50,7 @@ Route::delete('/user', [UserController::class, 'deleteAccount'])->middleware('au
 //Product routes
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 Route::get('/products/{id}', [ProductController::class, 'indexOf'])->name('product.indexOf');
+Route::patch('/products/{$id}', [ProductController::class, 'freezeToggle'])->middleware('auth:sanctum')->name('product.freezetoggle');
 Route::delete('/products', [ProductController::class, 'destroy'])->middleware('auth:sanctum')->name('product.destroy');
 
 //Category routes
@@ -58,7 +59,7 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('category.
 //Report routes
 Route::post('products/{id}/report', [ReportController::class, 'productReport'])->middleware('auth:sanctum')->name('report.product');
 Route::post('conversation/{id}/report', [ReportController::class, 'conversationReport'])->middleware('auth:sanctum')->name('report.conversation');
-Route::post('reviews/{id}/report', [ReportController::class, 'revewReport'])->middleware('auth:sanctum')->name('report.review');
+Route::post('reviews/{id}/report', [ReportController::class, 'reviewReport'])->middleware('auth:sanctum')->name('report.review');
 
 
 //////////////
