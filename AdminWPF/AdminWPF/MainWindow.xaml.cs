@@ -269,6 +269,7 @@ namespace AdminWPF
             changeRole.IsEnabled = true;
         }
 
+        private string prevoiusReportRequest;
         private async void searchReport_Click(object sender, RoutedEventArgs e)
         {
             string parameters = "?types=";
@@ -281,8 +282,25 @@ namespace AdminWPF
             else if ((bool)reportAllRadio.IsChecked) parameters += "all";
             if (reportSearch.Text.Length > 0) parameters += "&keyword=" + reportSearch.Text;
             else parameters += "&keyword=null";
+            prevoiusReportRequest = parameters;
             Task<List<Report>> reportTask = Report.getReports(parameters);
             List<Report> reports = await reportTask;
+            reportList.Items.Clear();
+            foreach (var report in reports)
+            {
+                reportList.Items.Add(report);
+            }
+        }
+
+        private async void deleteReport_Click(object sender, RoutedEventArgs e)
+        {
+            Report reportdata = (sender as Button).DataContext as Report;
+            Task<bool> deleteTask = Report.deleteReport(reportdata.id);
+            bool result = await deleteTask;
+            Task<List<Report>> reportTask = Report.getReports(prevoiusReportRequest);
+            MessageBox.Show("The report has been deleted!");
+            List<Report> reports = await reportTask;
+            reportList.Items.Clear();
             foreach (var report in reports)
             {
                 reportList.Items.Add(report);

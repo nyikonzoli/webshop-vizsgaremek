@@ -78,4 +78,8 @@ class ReportController extends Controller
         }
         return $resources;
     }
+
+    public function destroy($id){
+        return Report::findOrFail($id)->delete();
+    }
 }

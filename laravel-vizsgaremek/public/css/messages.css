@@ -1,6 +1,7 @@
 body {
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
   }
 
 #stuff{
@@ -92,7 +93,8 @@ body {
 
 #messages{
     overflow-y: scroll;
-
+    min-height: 70vh;
+    
 }
 
 .message-wrapper{
@@ -173,4 +175,11 @@ body {
     justify-content: space-between;
     width: 100%;
     padding: 16px;
+}
+
+#messages-wrapper{
+    display: flex;
+    max-height: calc(100vh - 150px);
+    flex-direction: column;
+    justify-content: flex-end;
 }

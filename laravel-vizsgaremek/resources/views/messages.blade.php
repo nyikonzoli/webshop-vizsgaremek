@@ -22,13 +22,14 @@
                 <h6 id="your-conversation-with" style="width: fit-content"></h6>
                 <button class="product-report" title="Report" onclick="report();"><i class="fa fa-flag-o"></i><i class="fa fa-flag"></i></button>
             </div>
-            <div id="messages"></div>
-            <div>
-                <div class="mb-3 send">
-                    <input type="text" id="messageInput" class="form-control" placeholder="Type your message...">
-                    <button class="btn btn-primary send-button" id="sendMessage" onclick="sendMessage()">Send</button>
+            <div id="messages-wrapper">
+                <div id="messages"></div>
+                <div>
+                    <div class="mb-3 send">
+                        <input type="text" id="messageInput" class="form-control" placeholder="Type your message...">
+                        <button class="btn btn-primary send-button" id="sendMessage" onclick="sendMessage()">Send</button>
+                    </div>
                 </div>
-               
             </div>
         </div>
     </div>
@@ -81,10 +82,10 @@
             conversations = await getConversations(route);
             conversations.forEach(conversation => {
                 clone = template.content.cloneNode(true);
-                clone.querySelector("div>images#user-image").src = conversation["partnerProfilepictureURI"];
+                clone.querySelector("div>img#user-image").src = conversation["partnerProfilepictureURI"];
                 clone.querySelector("div>div>h5").innerHTML = conversation["partnerName"];
                 clone.querySelector("div>div>p").innerHTML = conversation["productName"];
-                clone.querySelector("div>images#product-image").src = conversation["productPictureURI"];
+                clone.querySelector("div>img#product-image").src = conversation["productPictureURI"];
                 clone.querySelector("div").id = conversation["id"];
                 name = conversation["partnerName"];
                 clone.querySelector('div').onclick = function() { openChat(conversation["id"], name); };
@@ -126,6 +127,7 @@
             if(data["userId"] == {{ \Illuminate\Support\Facades\Auth::user()->id }}) clone.querySelector('div').classList.add("own");
             else clone.querySelector('div').classList.add("partner");
             div.appendChild(clone);
+            div.scroll({ top: div.scrollHeight, behavior: 'smooth' });
         }
 
         async function loadChatOnLoad(){

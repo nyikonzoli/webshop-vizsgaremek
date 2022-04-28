@@ -24,5 +24,13 @@ namespace AdminWPF.Models
             HttpResponseMessage response = await Requests.getResponse(url);
             return await response.Content.ReadAsAsync<List<Report>>();
         }
+
+        public static async Task<bool> deleteReport(int id)
+        {
+            string url = Requests.client.BaseAddress + "reports/" + id;
+            Task<HttpResponseMessage> deleteTask = Requests.Delete(url);
+            HttpResponseMessage message = await deleteTask;
+            return true;
+        }
     }
 }
