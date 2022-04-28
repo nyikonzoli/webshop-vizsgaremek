@@ -94,8 +94,8 @@ Route::middleware([AdminAuth::class])->group(function (){
     Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('admin.reviews.destroy');
 
     //Report routes
-    Route::get('/admin/reports', [ReportController::class, 'getReports'])->name('admin.users.reports.show');
-
+    Route::get('/admin/reports', [ReportController::class, 'getReports'])->name('admin.reports.show');
+    Route::delete('/admin/reports/{id}', [ReportController::class, 'destroy'])->name('admin.reports.destroy');
 });
 
 

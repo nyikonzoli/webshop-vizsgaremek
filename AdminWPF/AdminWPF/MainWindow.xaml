@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="650" Width="1000">
     <StackPanel>
         <TabControl>
             <TabItem Header="Users">
@@ -170,7 +170,7 @@
                                     <GridViewColumn Header="Delete">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button>Delete</Button>
+                                                <Button Name="deleteReport" Click="deleteReport_Click">Delete</Button>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

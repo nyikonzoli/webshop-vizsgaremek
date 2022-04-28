@@ -16,27 +16,24 @@ class MessageSeeder extends Seeder
     public function run()
     {
         //Conversation 1
-        DB::table('messages')->insert([
-            'id' => 1,
-            'conversationId' => 1,
-            'content' => 'Hi',
-            'date' => Carbon::parse('2222-01-01'),
-            'userId' => 1,
-        ]);
-        DB::table('messages')->insert([
-            'id' => 2,
-            'conversationId' => 1,
-            'content' => 'Hey',
-            'date' => Carbon::parse('2222-01-01'),
-            'userId' => 2,
-        ]);
-        DB::table('messages')->insert([
-            'id' => 3,
-            'conversationId' => 1,
-            'content' => 'Sup?',
-            'date' => Carbon::parse('2222-01-01'),
-            'userId' => 2,
-        ]);
+        for ($i=20; $i < 70; $i++) { 
+            DB::table('messages')->insert([
+                'id' => $i * 2,
+                'conversationId' => 1,
+                'content' => 'Kedves Bence! Nagyon szépen köszönjük a drogpreventációs prezentációban való részvételért való az asszisztálására való érdeklődését és az adománybenyújtásával kapcsolatos tevékenységének az asszisztálásához való közreműködését,',
+                'date' => Carbon::parse('2222-01-01'),
+                'userId' => 1,
+            ]);
+            DB::table('messages')->insert([
+                'id' => $i * 2 + 1,
+                'conversationId' => 1,
+                'content' => 'Kedves Bence! Nagyon szépen köszönjük a drogpreventációs prezentációban való részvételért való az asszisztálására való érdeklődését és az adománybenyújtásával kapcsolatos tevékenységének az asszisztálásához való közreműködését,',
+                'date' => Carbon::parse('2222-01-01'),
+                'userId' => 2,
+            ]);
+        }
+
+
 
         //Conversation 2
         DB::table('messages')->insert([

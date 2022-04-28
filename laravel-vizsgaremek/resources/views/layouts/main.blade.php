@@ -11,7 +11,7 @@
     <!-- JS -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{ asset('js/lightbox-plus-jquery.js') }}"></script>
-
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <title>@yield('title')</title>
     @yield('header')
 </head>
