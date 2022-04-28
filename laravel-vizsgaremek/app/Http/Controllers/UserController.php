@@ -51,7 +51,7 @@ class UserController extends Controller
     }
 
     public function upload($id) {
-        Gate::authorize('user-views', $id);
+        Gate::authorize('user-privileges', $id);
         return view('profile.upload',[
             'title' => "Upload product",
         ]);
