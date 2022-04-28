@@ -50,7 +50,7 @@ Route::delete('/user', [UserController::class, 'deleteAccount'])->middleware('au
 //Product routes
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 Route::get('/products/{id}', [ProductController::class, 'indexOf'])->name('product.indexOf');
-Route::patch('/products/{$id}', [ProductController::class, 'freezeToggle'])->middleware('auth:sanctum')->name('product.freezetoggle');
+Route::patch('/products', [ProductController::class, 'freezeToggle'])->middleware('auth:sanctum')->name('product.freezetoggle');
 Route::delete('/products', [ProductController::class, 'destroy'])->middleware('auth:sanctum')->name('product.destroy');
 
 //Category routes

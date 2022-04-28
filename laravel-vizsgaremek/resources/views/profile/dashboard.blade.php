@@ -78,10 +78,8 @@
         }
 
         function freezeToggleProduct(id) {
-            axios.patch("{{route('product.freezetoggle', ['id' => id])}}", {
-                params: {
-                    id: id
-                }
+            axios.patch("{{route('product.freezetoggle')}}", {
+                id: id
             })
             .then(function (response){
                 console.log(response)
