@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
                 : Response::deny('Insufficent permissions.');
         });
 
-        Gate::define('user-views', function (User $user, string $id) {
+        Gate::define('user-privileges', function (User $user, string $id) {
             return $user->id == $id
                 ? Response::allow()
                 : Response::deny('Insufficent permissions.');

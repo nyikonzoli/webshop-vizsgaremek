@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,9 @@ use App\Http\Controllers\SettingsController;
 |
 */
 
+//Home
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
+
 //Register
 Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
@@ -34,7 +38,10 @@ Route::get('/profile/{id}', [UserController::class, 'index'])->name('profile.ind
 Route::get('/profile/{id}/upload', [UserController::class, 'upload'])->middleware('auth')->name('profile.upload');
 
 //Dashboard
-Route::get('/profile/{id}/dashboard', [UserController::class, 'dashboard'])->middleware('auth')->name('profile.dashboard');
+Route::get('/profile/{id}/dashboard', [UserController::class, 'dashboard'])->name('profile.dashboard');
+
+//Settings
+Route::get('/settings', [SettingsController::class, 'index'])->middleware('auth')->name('settings.index');
 
 //Product
 Route::post('/products/{product}/edit', [ProductController::class, 'edit'])->middleware('auth')->name('product.edit');
@@ -43,5 +50,3 @@ Route::post('/products/upload', [ProductController::class, 'store'])->middleware
 //Messages
 Route::get('/messages', [ConversationController::class, 'messages'])->middleware('auth')->name('messages');
 
-//Settings
-Route::get('/settings', [SettingsController::class, 'index'])->middleware('auth')->name('settings.index');

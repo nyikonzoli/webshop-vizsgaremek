@@ -102,13 +102,13 @@ class ProductController extends Controller
      * @return int
      */
     public function destroy(Request $request) {
-        Gate::authorize('user-views', \auth()->id());
+        Gate::authorize('user-privileges', \auth()->id());
         return Product::destroy($request->query('id'));
     }
 
-    public function freezeToggle(Request $request, $id) {
-        $data = Product::findOrFail($id);
-        $data->update(['iced', !$data->iced]);
+    public function freezeToggle(Request $request) {
+        $data = Product::findOrFail($request['id']);
+        return $data->update(['iced' => !$data->iced]);
     }
 
     public function updateAdmin(UpdateProductByAdminRequest $request, $id){
