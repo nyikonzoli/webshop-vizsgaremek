@@ -36,14 +36,14 @@
                         <span class="navbar-text">
                             {{ \Illuminate\Support\Facades\Auth::user()->name }}
                         </span>
-                    <img src=" {{ \Illuminate\Support\Facades\Auth::user()->getProfilePictureURI() }}" alt="" width="45px" height="45px" style="border-radius:50%; margin-left: 8px">
+                    <img id="nav-profile"  src=" {{ \Illuminate\Support\Facades\Auth::user()->getProfilePictureURI() }}" alt="" width="45px" height="45px" style="border-radius:50%; margin-left: 8px">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="profileOptions">
                         <li><a class="dropdown-item" href="{{ route('profile.index', ['id' => \Illuminate\Support\Facades\Auth::user()->id]) }}">Profile</a></li>
                         <li><a class="dropdown-item" href="{{ route('messages') }}">Messages</a></li>
                         <li><a class="dropdown-item" href="#">Items</a></li>
                         <li><a class="dropdown-item" href="{{ route('settings.index') }}">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="{{ route('auth.logout') }}">Logout</a></li>
                     </ul>
                 </div>
             @else

@@ -202,7 +202,7 @@
                 productId: productId,
             }
             axios.post("{{ route('conversation.store') }}", data).then(function (response){
-                console.log(response);
+                window.location.href = "{{ route('messages') }}";
             });
         }
         
