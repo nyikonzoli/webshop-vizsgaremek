@@ -47,7 +47,7 @@
                     </ul>
                 </div>
             @else
-                <button class="btn btn-outline-success me-2" type="submit">Register</button>
+                <a class="btn btn-outline-success me-2" type="submit" href="{{ route('register.show') }}">Register</a>
                 <button class="btn btn-outline-success" type="submit" onclick="openModal('loginModal')">Login</button>
             @endauth
             </div>
