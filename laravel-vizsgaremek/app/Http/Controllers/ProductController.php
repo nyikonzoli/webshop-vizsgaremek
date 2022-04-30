@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\ShowByNameRequest;
 use App\Http\Requests\UpdateProductByAdminRequest;
+use Prophecy\Doubler\Generator\Node\ArgumentNode;
 
 class ProductController extends Controller
 {
@@ -109,6 +110,11 @@ class ProductController extends Controller
     public function freezeToggle(Request $request) {
         $data = Product::findOrFail($request['id']);
         return $data->update(['iced' => !$data->iced]);
+    }
+
+    public function buy(Request $request) {
+        $data = Product::findOrFail($request['id']);
+        return $data->update(['sold' => true]);
     }
 
     public function updateAdmin(UpdateProductByAdminRequest $request, $id){

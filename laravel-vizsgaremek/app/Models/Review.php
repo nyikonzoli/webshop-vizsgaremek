@@ -9,6 +9,13 @@ class Review extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = [
+        'sellerId',
+        'buyerId',
+        'content',
+        'rating',
+    ];
+
     public function sellerConnection(){
         return $this->belongsTo(User::class, 'sellerId');
     }

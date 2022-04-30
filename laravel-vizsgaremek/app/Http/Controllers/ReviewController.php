@@ -26,6 +26,25 @@ class ReviewController extends Controller
         return $resources;
     }
 
+    public function store(Request $request) {
+        return Review::create([
+            'sellerId' => $request['sellerId'],
+            'buyerId' => $request['buyerId'],
+            'content' => null,
+            'rating' => null,
+        ]);
+    }
+
+    public function update(Request $request, $id) {
+        $data = $request->validate([
+            'rating' => 'required|numeric|min:1|max:5',
+            'content' => 'nullable|string',
+        ]);
+        $review = Review::findOrFail($id);
+        $review->update($data);
+        return redirect()->back();
+    }
+
     public function destroy($id){
         $review = Review::findOrFail($id);
         return $review->delete();

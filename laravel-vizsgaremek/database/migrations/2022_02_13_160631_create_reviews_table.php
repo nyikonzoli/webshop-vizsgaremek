@@ -18,7 +18,7 @@ class CreateReviewsTable extends Migration
             $table->foreignId('sellerId');
             $table->foreignId('buyerId');
             $table->string('content')->nullable();
-            $table->integer('rating');
+            $table->integer('rating')->nullable();
         });
     }
 
