@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-5 col-md-8 col-sm-10 col-10 mx-auto" id="wrapper">
-                <h3>Termék feltöltése</h3>
+                <h3>Upload product</h3>
                 {{ Form::open(['route' => "product.upload", 'novalidate', 'files', 'class' => 'needs-validation', 'enctype' => 'multipart/form-data']) }}
                 <div class="mb-3">
                     {{ Form::label('name', 'Name', ['class' => 'form-label']) }}

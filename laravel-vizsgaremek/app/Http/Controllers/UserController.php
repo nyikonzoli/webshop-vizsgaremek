@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Requests\ShowByNameRequest;
@@ -32,12 +33,17 @@ class UserController extends Controller
 //                $images[$p->id][$i->id] = $manager->make(storage_path("app/$iPath"))->encode('jpg', 40)->response('jpg');
 //            }
 //        }
+        $categories = [];
+        foreach (Category::all() as $c) {
+            $categories[$c->id] = $c->name;
+        }
         return view('profile.index', [
             'title' => "$data->name's profile",
             'user' => $data,
             'pfp' => env('APP_URL').'/profile_pictures/pfp.png',
             'products' => $data->products,
-            'images' => $images
+            'images' => $images,
+            'categories' => $categories
         ]);
     }
 

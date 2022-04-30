@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\ShowByNameRequest;
 use App\Http\Requests\UpdateProductByAdminRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
 use Prophecy\Doubler\Generator\Node\ArgumentNode;
 
 class ProductController extends Controller
@@ -39,6 +42,19 @@ class ProductController extends Controller
      */
     public function edit(ProductStoreRequest $request, Product $product) {
         $data = $request->validated();
+
+        foreach ($product->images as $i) {
+            Image::destroy($i->id);
+            Storage::delete(Str::remove(env('APP_URL').'/', $i->imageURI));
+        }
+
+        foreach ($data['images'] as $i) {
+            Image::create([
+                'productId' => $product->id,
+                'imageURI' => $i->store('products'),
+            ]);
+        }
+
         $product->update($data);
         return redirect()->back();
     }

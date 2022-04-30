@@ -19,7 +19,7 @@
                 <h3 class="title">Change your profile picture</h3>
                 <div>
                     <div class="image">
-                        <img src="{{ $user->getProfilePictureURI() }}" alt="" whidth="200px" height="200px" id="profile-img">
+                        <img src="{{ $user->getProfilePictureURI() }}" alt="" width="200px" height="200px" id="profile-img">
                         <button class="delete-image" onclick="deleteProfilePicture();">Delete</button>
                     </div>
                     <div id="form-wrapper">
