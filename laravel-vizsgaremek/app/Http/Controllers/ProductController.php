@@ -30,7 +30,7 @@ class ProductController extends Controller
     }
 
     public function indexOf($id) {
-        return User::findOrFail($id)->products;
+        return User::findOrFail($id)->products->where('sold', false);
     }
 
     /**
