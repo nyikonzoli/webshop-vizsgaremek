@@ -17,3 +17,5 @@ Ezek után a weboldal a `http://localhost:8881` címen keresztül érhető el. T
 ![image](https://user-images.githubusercontent.com/90195229/166157541-95015249-d0b3-429a-94f8-836239830778.png)
 
 Ezen fiókok mindegyikéhez `password` a jelszó.
+
+Az adatbázis a `http://localhost:8881` címről érhető el, ahova a felhasználónév `root`, a jelszó meg `root_password`.
