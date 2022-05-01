@@ -18,4 +18,4 @@ Ezek után a weboldal a `http://localhost:8881` címen keresztül érhető el. T
 
 Ezen fiókok mindegyikéhez `password` a jelszó.
 
-Az adatbázis a `http://localhost:8881` címről érhető el, ahova a felhasználónév `root`, a jelszó meg `root_password`.
+Az adatbázis a `http://localhost:8882` címről érhető el, ahova a felhasználónév `root`, a jelszó meg `root_password`.
