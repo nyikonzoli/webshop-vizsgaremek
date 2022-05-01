@@ -13,5 +13,7 @@ Innentől minden parancsot a Docker container-ben kell lefuttatni. Az egyszerűb
 - A `php artisan storage:link` parancs kiadásával hozza létre a linkeket.
 
 Ezek után a weboldal a `http://localhost:8881` címen keresztül érhető el. Teszteléshez az alábbi e-mail címmel rendelkező fiókok érhetők el:
+
 ![image](https://user-images.githubusercontent.com/90195229/166157541-95015249-d0b3-429a-94f8-836239830778.png)
+
 Ezen fiókok mindegyikéhez `password` a jelszó.
