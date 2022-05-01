@@ -1,6 +1,6 @@
 # ArtShop (vizsgaremek) feltelepítési útmutató
 Az oldal beműködtetéséhez Docker-re van szükség. Az oldalhoz szükséges fájlok a 'laravel-vizsgaremek' mappában találhatóak.
-- Másolja át a `.env.example` tartalmát a `.env` fájlba.
+- Másolja át a `.env.example` tartalmát a `.env` fájlba, aminek a 'laravel-vizsgaremek' mappában kell lennie.
     - Külön bizonyosodjon meg arról hogy a `.env` fájlban az `APP_URL`-nek a `http://localhost:8881` érték van megadva.
 - Buildelje le az image-eket és indítsa el a Docker containert.
     - Ezt legegyszerübben a `docker-compose up --build` parancs lefuttatásával teheti meg.
