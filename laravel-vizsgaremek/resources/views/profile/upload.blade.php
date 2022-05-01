@@ -42,10 +42,13 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    {{ Form::label('price', 'Price', ['class' => 'form-label']) }}
-                    {{ Form::text('price', null, ['class' => 'form-control', 'required' => true]) }}
-                    <div class="invalid-feedback">
-                        Please provide a price in USD.
+                    {{ Form::label('price', 'Price (in USD)', ['class' => 'form-label ']) }}
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        {{ Form::text('price', null, ['class' => 'form-control', 'required' => true, 'aria-describedby' => "usd"]) }}
+                        <div class="invalid-feedback">
+                            Please provide a price in USD.
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3">

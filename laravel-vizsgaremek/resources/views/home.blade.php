@@ -93,19 +93,46 @@
                                     <h5 class="modal-title">Edit product</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                {{ Form::open(['route' => ['product.edit', 'product' => $p], 'id' => 'editForm']) }}
+                                {{ Form::open(['route' => ['product.edit', 'product' => $p], 'novalidate', 'files', 'id' => 'editForm', 'class' => 'needs-validation', 'enctype' => 'multipart/form-data']) }}
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
-                                        {{ Form::text('name', $p->name, ['class' => 'form-control']) }}
+                                        {{ Form::text('name', $p->name, ['class' => 'form-control', 'required' => true]) }}
+                                        <div class="invalid-feedback">
+                                            Please provide a name.
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        {{ Form::label('images[]', 'Pictures (please select all the images you would like to upload)', ['class' => 'form-label']) }}
+                                        {{ Form::file('images[]', ['class' => 'form-control', 'required' => true, 'multiple' => true]) }}
+                                        <div class="invalid-feedback">
+                                            Please upload at least one picture.
+                                        </div>
                                     </div>
                                     <div class="mb-3">
                                         {{ Form::label('description', 'Description', ['class' => 'form-label']) }}
-                                        {{ Form::text('description', $p->description, ['class' => 'form-control']) }}
+                                        {{ Form::textarea('description', $p->description, ['class' => 'form-control']) }}
                                     </div>
                                     <div class="mb-3">
                                         {{ Form::label('size', 'Size', ['class' => 'form-label']) }}
                                         {{ Form::text('size', $p->size, ['class' => 'form-control']) }}
+                                    </div>
+                                    <div class="mb-3">
+                                        {{ Form::label('category', 'Category', ['class' => 'form-label']) }}
+                                        {{ Form::select('category', $categories, $p->categoryId, ['class' => 'form-select', 'required' => true])}}
+                                        <div class="invalid-feedback">
+                                            Please select a category.
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        {{ Form::label('price', 'Price (in USD)', ['class' => 'form-label ']) }}
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            {{ Form::text('price', null, ['class' => 'form-control', 'required' => true, 'aria-describedby' => "usd"]) }}
+                                            <div class="invalid-feedback">
+                                                Please provide a price in USD.
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -156,5 +183,29 @@
 
             document.getElementById(`product_${productId}`).style.display = 'none'
         }
+
+        function report(id){
+            if (confirm("Are you sure that you want to report this product?") == true) {
+                url = "{{ route('report.product', ['id' => '*']) }}";
+                url = url.replace("*", id);
+                axios.post(url).then(function (then){
+                    alert('The product has been reported!')
+                });
+            }
+        }
+
+        var forms = document.querySelectorAll('.needs-validation')
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
     </script>
 @endsection
